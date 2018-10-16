@@ -16,4 +16,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KingPim.Data\KingPim.Data.csproj" />
+    <ProjectReference Include="..\KingPim.ExtensionMethods\KingPim.ExtensionMethods.csproj" />
+    <ProjectReference Include="..\KingPim.Infrastructure\KingPim.Infrastructure.csproj" />
+    <ProjectReference Include="..\KingPim.Models\KingPim.Models.csproj" />
+    <ProjectReference Include="..\KingPim.Repositories\KingPim.Repositories.csproj" />
+  </ItemGroup>
+
 </Project>
