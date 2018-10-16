@@ -25,6 +25,9 @@ namespace KingPim.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles(); // Enables default file mapping on the web root.
+            app.UseStaticFiles(); // Marks files on the web root as servable.
+
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
