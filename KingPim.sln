@@ -5,6 +5,16 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPim.Web", "KingPim.Web\KingPim.Web.csproj", "{95A7B00E-C258-4DD8-847C-00659028251B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPim.Data", "KingPim.Data\KingPim.Data.csproj", "{E0C064C8-759C-44F9-B5BB-90CDAC8D104E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPim.Models", "KingPim.Models\KingPim.Models.csproj", "{17D264F6-159A-47E5-97CB-E0D1F04565A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPim.Repositories", "KingPim.Repositories\KingPim.Repositories.csproj", "{43DA2F12-4991-45EC-9D9B-FFA159650320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPim.ExtensionMethods", "KingPim.ExtensionMethods\KingPim.ExtensionMethods.csproj", "{D84F1B38-6796-4884-96AD-1B16504B02F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPim.Infrastructure", "KingPim.Infrastructure\KingPim.Infrastructure.csproj", "{10C9A67B-E25B-41D2-A6E2-4BC807B65B51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +25,26 @@ Global
 		{95A7B00E-C258-4DD8-847C-00659028251B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95A7B00E-C258-4DD8-847C-00659028251B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95A7B00E-C258-4DD8-847C-00659028251B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0C064C8-759C-44F9-B5BB-90CDAC8D104E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C064C8-759C-44F9-B5BB-90CDAC8D104E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0C064C8-759C-44F9-B5BB-90CDAC8D104E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0C064C8-759C-44F9-B5BB-90CDAC8D104E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17D264F6-159A-47E5-97CB-E0D1F04565A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17D264F6-159A-47E5-97CB-E0D1F04565A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17D264F6-159A-47E5-97CB-E0D1F04565A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17D264F6-159A-47E5-97CB-E0D1F04565A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43DA2F12-4991-45EC-9D9B-FFA159650320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43DA2F12-4991-45EC-9D9B-FFA159650320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43DA2F12-4991-45EC-9D9B-FFA159650320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43DA2F12-4991-45EC-9D9B-FFA159650320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D84F1B38-6796-4884-96AD-1B16504B02F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D84F1B38-6796-4884-96AD-1B16504B02F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D84F1B38-6796-4884-96AD-1B16504B02F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D84F1B38-6796-4884-96AD-1B16504B02F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C9A67B-E25B-41D2-A6E2-4BC807B65B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C9A67B-E25B-41D2-A6E2-4BC807B65B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C9A67B-E25B-41D2-A6E2-4BC807B65B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C9A67B-E25B-41D2-A6E2-4BC807B65B51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
