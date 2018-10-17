@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\" />
+    <ProjectReference Include="..\KingPim.Models\KingPim.Models.csproj" />
   </ItemGroup>
 
 </Project>
