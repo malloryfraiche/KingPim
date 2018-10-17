@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace KingPim.Web
@@ -15,6 +16,11 @@ namespace KingPim.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,9 +34,14 @@ namespace KingPim.Web
             app.UseDefaultFiles(); // Enables default file mapping on the web root.
             app.UseStaticFiles(); // Marks files on the web root as servable.
 
-            app.Run(async (context) =>
+            app.UseMvcWithDefaultRoute();
+            app.UseSession();
+
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Start}/{action=Index}/{id?}");
             });
         }
     }
