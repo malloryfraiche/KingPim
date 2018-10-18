@@ -1,6 +1,7 @@
 ﻿using KingPim.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace KingPim.Data
@@ -162,12 +163,19 @@ namespace KingPim.Data
         public static List<ProductAttributeValue> GetProductAttributeValues()
         {
             var productAttributeValueList = new List<ProductAttributeValue>();
+
+            var categoryList = GetTestData();
+            var cat = categoryList.FirstOrDefault(x => x.Id == 1);
+            var subCat = cat.Subcategories.FirstOrDefault(x => x.Id == 1);
+            var product = subCat.Products.FirstOrDefault(x => x.Id == 2);
+
             var prodAttributeValOne = new ProductAttributeValue
             {
                 Id = 1,
                 Value = "Röd",
                 ProductAttributeId = 1,
-                ProductId = 2
+                ProductId = 2,
+                Product = product
             };
             var prodAttributeValTwo = new ProductAttributeValue
             {

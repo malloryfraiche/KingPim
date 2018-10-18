@@ -9,21 +9,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KingPim.Web.Controllers
 {
-    //[ApiController]
+    [Route("api/[controller]/[action]")]
     public class TestController : Controller
     {
-        [Route("api/[controller]/[action]")]
+        
         public IActionResult GetJsonCatTestData()
         {
             var catData = TestData.GetTestData();
             return Json(catData);
         }
 
-        [Route("api/[controller]/[action]")]
         public IActionResult GetJsonProductAttrValTestData()
         {
             var productAttrValData = TestData.GetProductAttributeValues();
             return Json(productAttrValData);
         }
+
+        //public IActionResult GetProduct(int id)
+        //{
+        //    var vm = new ProductViewModel
+        //    {
+        //        Categories = TestData.GetTestData(),
+        //        Pav = TestData.GetProductAttributeValues()
+        //    };
+
+        //    return Json(vm);
+        //}
+
+
     }
+
+    //public class ProductViewModel
+    //{
+    //    public List<Category> Categories { get; set; }
+    //    public List<ProductAttributeValue> Pav { get; set; }
+    //}
 }

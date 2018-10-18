@@ -11,10 +11,10 @@ namespace KingPim.Data.DataAccess
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Subcategory> Subcategory { get; set; }
-        public DbSet<Product> Product { get; set; }
-        public DbSet<AttributeGroup> AttributeGroup { get; set; }
-        public DbSet<ProductAttribute> ProductAttribute { get; set; }
-        public DbSet<ProductAttributeValue> ProductAttributeValue { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<AttributeGroup> AttributeGroups { get; set; }
+        public DbSet<ProductAttribute> ProductAttributes { get; set; }
+        public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
     }
 }
