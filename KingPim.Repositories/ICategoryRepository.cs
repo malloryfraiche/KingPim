@@ -10,7 +10,6 @@ namespace KingPim.Repositories
         IEnumerable<Category> Categories { get; }
 
 
-
         IEnumerable<Category> GetAllCategories();
 
         void SaveCategory(Category category);

@@ -18,12 +18,12 @@ namespace KingPim.Repositories
 
         // TODO: .Include subcategories, products, etc....
         public IEnumerable<Category> Categories => ctx.Categories;
+        
+        
         //public IEnumerable<Subcategory> Subcategories => ctx.Subcategories;
         //public IEnumerable<Product> Products => ctx.Products;
 
         
-
-
         // Get all Categories.
         public IEnumerable<Category> GetAllCategories()
         {

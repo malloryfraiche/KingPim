@@ -3,6 +3,8 @@
 
         <Navbar />
 
+        <!--<SidebarMenu />-->
+
         <TreeMenu />
 
         <router-view />
@@ -14,6 +16,7 @@
 <script>
     //import Skills from './components/Skills.vue'
     import Navbar from './components/Navbar.vue'
+    import SidebarMenu from './components/SidebarMenu.vue'
     import TreeMenu from './components/TreeMenu.vue'
 
     export default {
@@ -21,6 +24,7 @@
         components: {
             //Skills,
             Navbar,
+            SidebarMenu,
             TreeMenu
         }
     }

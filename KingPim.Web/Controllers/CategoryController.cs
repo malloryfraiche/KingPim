@@ -19,14 +19,15 @@ namespace KingPim.Web.Controllers
             _categoryRepo = categoryRepo;
         }
 
-
+        
         [HttpGet]
         public IActionResult GetCategories()
         {
+
             var categories = _categoryRepo.GetAllCategories();
 
             return Json(categories);
-        } 
+        }
 
     }
 }
