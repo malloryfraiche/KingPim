@@ -1,35 +1,34 @@
 <template>
-  <div id="app">
+    <div id="app">
 
-      <nav>
-          <router-link to="/">Home</router-link>
-          <router-link to="/about">About</router-link>
-      </nav>
+        <Navbar />
 
-      <router-view />
+        <TreeMenu />
 
-  </div>
+        <router-view />
+
+    </div>
 </template>
 
 
-
-
 <script>
-import Skills from './components/Skills.vue'
+    //import Skills from './components/Skills.vue'
+    import Navbar from './components/Navbar.vue'
+    import TreeMenu from './components/TreeMenu.vue'
 
-export default {
-  name: 'app',
-  components: {
-    Skills
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            //Skills,
+            Navbar,
+            TreeMenu
+        }
+    }
 </script>
 
 
-
-
 <style>
-body{
-    background-color: #eeeeee;
-}
+    body {
+        background-color: #eeeeee;
+    }
 </style>

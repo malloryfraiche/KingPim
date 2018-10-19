@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="about">
-        <h1>This it the about page</h1>
-        <p>lite information here..</p>
+        <h1>This it the about this PIM system.</h1>
+        <p>The information here..</p>
     </div>
 </template>
 
