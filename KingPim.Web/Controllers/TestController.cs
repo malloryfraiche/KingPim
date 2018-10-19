@@ -13,17 +13,6 @@ namespace KingPim.Web.Controllers
     public class TestController : Controller
     {
         
-        public IActionResult GetJsonCatTestData()
-        {
-            var catData = TestData.GetTestData();
-            return Json(catData);
-        }
-
-        public IActionResult GetJsonProductAttrValTestData()
-        {
-            var productAttrValData = TestData.GetProductAttributeValues();
-            return Json(productAttrValData);
-        }
 
         //public IActionResult GetProduct(int id)
         //{
