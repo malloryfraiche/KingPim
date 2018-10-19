@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KingPim.Data.DataAccess;
+using KingPim.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,8 +29,10 @@ namespace KingPim.Web
 
             // Configuration for DB connection.
             var conn = _configuration.GetConnectionString("KingPim");
-            // Register a service for the DB.
+
+            // Register all services here:
             services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conn));
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             services.AddMvc();
             services.AddMemoryCache();
