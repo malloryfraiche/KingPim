@@ -1,38 +1,32 @@
 <template>
     <div id="app">
 
-        <Navbar />
-
-        <!--<SidebarMenu />-->
-
-        <TreeMenu />
-
+        <Navbar title="KingPim" />
         <router-view />
+
 
     </div>
 </template>
 
 
 <script>
-    //import Skills from './components/Skills.vue'
     import Navbar from './components/Navbar.vue'
-    import SidebarMenu from './components/SidebarMenu.vue'
-    import TreeMenu from './components/TreeMenu.vue'
 
     export default {
         name: 'app',
         components: {
-            //Skills,
-            Navbar,
-            SidebarMenu,
-            TreeMenu
+            Navbar
         }
     }
 </script>
 
 
 <style>
-    body {
-        background-color: #eeeeee;
+    #app {
+        background-color: #f5f5f5;
+        /*display: table;*/
+        width: 100%;
+        height: 100vh;
+        padding: 70px 25px;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="holder">
+        <div>
 
             <form @submit.prevent="addSkill">
                 <input type="text" placeholder="Enter a skill that you have..." v-model="skill" v-validate="'min:5'" name="skill" />
