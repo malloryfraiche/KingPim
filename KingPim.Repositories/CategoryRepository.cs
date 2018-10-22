@@ -16,10 +16,9 @@ namespace KingPim.Repositories
             ctx = context;
         }
 
-        // TODO: .Include subcategories, products, etc....??
         public IEnumerable<Category> Categories => ctx.Categories;
 
-        // Get all Categories.
+
         public IEnumerable<Category> GetAllCategories()
         {
             return Categories;
