@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KingPim.Data.DataAccess;
+using KingPim.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace KingPim.Web
 {
@@ -24,12 +26,19 @@ namespace KingPim.Web
        
         public void ConfigureServices(IServiceCollection services)
         {
+            // So the Json() in the controller will return correctly..
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Configuration for DB connection.
             var conn = _configuration.GetConnectionString("KingPim");
-            // Register a service for the DB.
+
+            // Register all services here:
             services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conn));
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             services.AddMvc();
             services.AddMemoryCache();
@@ -56,7 +65,7 @@ namespace KingPim.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Start}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             Seed.FillIfEmpty(ctx);
