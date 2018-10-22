@@ -4,12 +4,26 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>@ViewBag.Title</title>
+    <link href="~/css/style.min.css" rel="stylesheet" />
 </head>
 <body>
+
     <partial name="_NavbarPartialView" />
 
-    <div>
-        @RenderBody()
+    <div class="container-fluid" style="margin-top:60px;">
+        <div class="row">
+
+            <partial name="_SidebarPartialView" />
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    @RenderBody()
+                </div>
+            </main>
+
+        </div>
     </div>
+
+    <script src="~/js/site.min.js"></script>
 </body>
 </html>
