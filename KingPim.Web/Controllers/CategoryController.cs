@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KingPim.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    //[Route("api/[controller]/[action]")]
     public class CategoryController : Controller
     {
         private ICategoryRepository _categoryRepo;
@@ -18,14 +18,14 @@ namespace KingPim.Web.Controllers
         {
             _categoryRepo = categoryRepo;
         }
-
         
+
         [HttpGet]
-        public IActionResult GetCategories()
+        public IActionResult Index()
         {
             var categories = _categoryRepo.GetAllCategories();
 
-            return Json(categories);
+            return View(categories);
         }
 
     }

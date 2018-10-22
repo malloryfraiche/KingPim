@@ -65,7 +65,7 @@ namespace KingPim.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Start}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             Seed.FillIfEmpty(ctx);
