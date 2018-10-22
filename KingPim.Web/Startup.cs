@@ -39,6 +39,7 @@ namespace KingPim.Web
             // Register all services here:
             services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conn));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ISubcategoryRepository, SubcategoryRepository>();
 
             services.AddMvc();
             services.AddMemoryCache();
