@@ -1,6 +1,9 @@
 ﻿<template>
     <div>
-        Items here will be like the "Home" page..
+        <div class="header">
+            <h2>Home</h2>
+            <i>Where the 'Home' header can go.</i>
+        </div>
     </div>
 </template>
 
@@ -9,5 +12,5 @@
 </script>
 
 <style scoped>
-
+    
 </style>

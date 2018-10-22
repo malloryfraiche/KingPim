@@ -23,7 +23,6 @@ namespace KingPim.Web.Controllers
         [HttpGet]
         public IActionResult GetCategories()
         {
-
             var categories = _categoryRepo.GetAllCategories();
 
             return Json(categories);
