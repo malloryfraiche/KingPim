@@ -16,22 +16,15 @@ namespace KingPim.Repositories
             ctx = context;
         }
 
-        // TODO: .Include subcategories, products, etc....
+        // TODO: .Include subcategories, products, etc....??
         public IEnumerable<Category> Categories => ctx.Categories;
-        
-        
-        //public IEnumerable<Subcategory> Subcategories => ctx.Subcategories;
-        //public IEnumerable<Product> Products => ctx.Products;
 
-        
         // Get all Categories.
         public IEnumerable<Category> GetAllCategories()
         {
             return Categories;
         }
-
-
-
+        
         // To Create or Update a Category in DB.
         public void SaveCategory(Category category)
         {
