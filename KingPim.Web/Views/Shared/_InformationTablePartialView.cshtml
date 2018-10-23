@@ -1,6 +1,6 @@
 ﻿<div>
     <h1>@ViewBag.Title</h1>
-    <button class="btn btn-success" href="#" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
+    <button class="btn btn-success" id="addNewBtn" type="button" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
 </div>
 <br />
 <br />
@@ -8,7 +8,7 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>@ViewBag.Title</th>
+            <th>@ViewBag.TitlePlural</th>
             <th><i style="float:right;"><small>Added</small></i></th>
             <th><i style="float:right;"><small>Latest update</small></i></th>
             <th><i style="float:right;"><small>Version</small></i></th>
@@ -47,3 +47,27 @@
         }
     </tbody>
 </table>
+
+<br />
+<div id="addNewCategoryVC" style="display:none;">
+    @await Component.InvokeAsync("AddNewCategoryVC")
+</div>
+
+
+
+
+<script src="~/js/site.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('#addNewBtn').on('click', function () {
+            $('#addNewCategoryVC').show();
+        });
+
+        //// Can use this if can figure out a way to easily 'clear' or 'reset' the form...
+        //$('#cancelBtn').on('click', function () {
+        //    $('#addNewCategoryVC').hide();
+        //});
+
+    });
+</script>

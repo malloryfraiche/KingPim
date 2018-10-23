@@ -25,15 +25,15 @@ namespace KingPim.Repositories
         }
         
         // To Create or Update a Category in DB.
-        public void SaveCategory(Category category)
+        public void SaveCategory(Category cat)
         {
-            if (category.Id == 0)   // Create
+            if (cat.Id == 0)   // Create
             {
-                ctx.Categories.Add(category);
+                ctx.Categories.Add(cat);
             }
             //else    // Update
             //{
-            //    var dbCategory = ctx.Categories.FirstOrDefault(x => x.Id == category.Id);
+            //    var dbCategory = ctx.Categories.FirstOrDefault(x => x.Id == cat.Id);
             //    if (dbCategory != null)
             //    {
 
