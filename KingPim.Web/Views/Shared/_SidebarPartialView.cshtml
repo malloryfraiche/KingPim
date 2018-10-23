@@ -1,7 +1,7 @@
 ﻿<nav class="main-menu shadow">
     <ul>
         <li>
-            <a href="#">
+            <a asp-controller="Home" asp-action="Index">
                 <i class="fa fa-home"></i>
                 <span class="nav-text">
                     Dashboard
@@ -10,7 +10,7 @@
 
         </li>
         <li class="has-subnav">
-            <a href="#">
+            <a asp-controller="Category" asp-action="Index">
                 <i class="fa fa-folder-open"></i>
                 <span class="nav-text">
                     Categories
@@ -19,8 +19,8 @@
 
         </li>
         <li class="has-subnav">
-            <a href="#">
-                <i class="fa fa-list"></i>
+            <a asp-controller="Subcategory" asp-action="Index">
+                <i class="fa fa-folder-open"></i>
                 <span class="nav-text">
                     Subcategories
                 </span>
