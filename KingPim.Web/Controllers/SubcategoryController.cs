@@ -20,6 +20,7 @@ namespace KingPim.Web.Controllers
         {
             var subcategories = _subcategoryRepo.GetAllSubcategories();
             ViewBag.Title = "Subcategory";
+            ViewBag.TitlePlural = "Subcategories";
 
             return View(subcategories);
         }

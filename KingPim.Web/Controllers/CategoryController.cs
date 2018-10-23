@@ -23,8 +23,17 @@ namespace KingPim.Web.Controllers
         {
             var categories = _categoryRepo.GetAllCategories();
             ViewBag.Title = "Category";
+            ViewBag.TitlePlural = "Categories";
 
             return View(categories);
+        }
+
+        [HttpPost]
+        public IActionResult AddNewCategory(Category category)
+        {
+            _categoryRepo.SaveCategory(category);
+
+            return View("Index", category);
         }
 
     }

@@ -1,4 +1,5 @@
 [
+  // All the JS files used under 'inputFiles', bundled to the one 'outputFileName'.
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
@@ -7,4 +8,13 @@
       "node_modules/bootstrap/dist/js/bootstrap.min.js"
     ]
   }
+
+  //// Add all css files here to bundle at the end..
+
+  //{
+  //  "outputFileName": "",
+  //  "inputFiles": [
+  //    ""
+  //  ]
+  //}
 ]
