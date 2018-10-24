@@ -19,7 +19,7 @@ namespace KingPim.Web.Components
 
         public IViewComponentResult Invoke()
         {
-            var test = new Category();
+            var test = new AddCategoryViewModel();
 
             return View(test);
         }

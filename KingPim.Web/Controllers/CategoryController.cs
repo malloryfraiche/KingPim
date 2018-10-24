@@ -28,13 +28,13 @@ namespace KingPim.Web.Controllers
 
             return View(categories);
         }
-
+        
         [HttpPost]
         public IActionResult AddCategory(AddCategoryViewModel vm)
         {
             _categoryRepo.AddCategory(vm);
 
-            return View("Index", vm);
+            return RedirectToAction(nameof(Index));
         }
 
     }

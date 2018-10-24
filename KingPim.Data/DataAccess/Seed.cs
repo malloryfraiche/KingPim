@@ -163,9 +163,9 @@ namespace KingPim.Data.DataAccess
             if (!ctx.ProductAttributeValues.Any())
             {
                 // the 'Nike Shirt' product..
-                var productConnection1 = ctx.Products.FirstOrDefault(x => x.Id == 8);
+                var productConnection1 = ctx.Products.FirstOrDefault(x => x.Id == 4);
                 // the 'Color' productAttribute...
-                var productAttConnection1 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 6);
+                var productAttConnection1 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 3);
                 var prodAttrVal1 = new ProductAttributeValue
                 {
                     Value = "Red",
@@ -176,9 +176,9 @@ namespace KingPim.Data.DataAccess
 
 
                 // the 'Ecco Shoes' product..
-                var productConnection2 = ctx.Products.FirstOrDefault(x => x.Id == 7);
+                var productConnection2 = ctx.Products.FirstOrDefault(x => x.Id == 3);
                 // the 'Color' productAttribute..
-                var productAttConnection2 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 6);
+                var productAttConnection2 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 3);
                 var prodAttrVal2 = new ProductAttributeValue
                 {
                     Value = "Blue",
@@ -189,9 +189,9 @@ namespace KingPim.Data.DataAccess
 
 
                 // the 'Titlest ProV1 Balls' product..
-                var productConnection3 = ctx.Products.FirstOrDefault(x => x.Id == 5);
+                var productConnection3 = ctx.Products.FirstOrDefault(x => x.Id == 1);
                 // the 'Battery' productAttribute..
-                var productAttConnection3 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 5);
+                var productAttConnection3 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 2);
                 var prodAttrVal3 = new ProductAttributeValue
                 {
                     Value = "No",
@@ -202,9 +202,9 @@ namespace KingPim.Data.DataAccess
 
 
                 // the 'Ping Golf Bag' product..
-                var productConnection4 = ctx.Products.FirstOrDefault(x => x.Id == 6);
+                var productConnection4 = ctx.Products.FirstOrDefault(x => x.Id == 2);
                 // the 'Sale' productAttribute..
-                var productAttConnection4 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 4);
+                var productAttConnection4 = ctx.ProductAttributes.FirstOrDefault(x => x.Id == 1);
                 var prodAttrVal4 = new ProductAttributeValue
                 {
                     Value = "Yes",

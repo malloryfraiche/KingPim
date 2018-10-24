@@ -28,22 +28,22 @@ namespace KingPim.Repositories
 
         public void AddCategory(AddCategoryViewModel vm)
         {
-            var ctxCategory = ctx.Categories.FirstOrDefault();
-            if (ctxCategory.Id == 0)
+            if (vm.Id == 0)
             {
-                ctxCategory.Id = vm.Id;
-                ctxCategory.Name = vm.Name;
-                ctxCategory.AddedDate = vm.AddedDate;
-                ctxCategory.Published = vm.Published;
-                ctxCategory.Version = vm.Version;
+                var newCat = new Category
+                {
+                    Name = vm.Name,
+                    Subcategories = null,
+                    AddedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    Published = false,
+                    Version = 1
+                };
+                ctx.Categories.Add(newCat);
             }
             ctx.SaveChanges();
         }
-
-
-
-
-
+        
         //// To Create or Update a Category in DB.
         //public void SaveCategory(Category cat)
         //{
