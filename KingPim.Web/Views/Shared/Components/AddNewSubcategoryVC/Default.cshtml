@@ -21,11 +21,10 @@
             <div class="col-sm-10">
                 <select asp-for="CategoryId" class="form-control">
                     <option selected>Välj</option>
-                    <option>Test</option>
-                    @*@foreach (var )
+                    @foreach (var cat in Model.Category)
                     {
-                        <option value="@">@</option>
-                    }*@
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
                 </select>
             </div>
         </div>

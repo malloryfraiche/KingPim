@@ -27,7 +27,7 @@ namespace KingPim.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSubategory(AddSubcategoryViewModel vm)
+        public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
             _subcategoryRepo.AddSubcategory(vm);
 

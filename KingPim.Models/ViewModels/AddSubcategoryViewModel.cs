@@ -9,6 +9,7 @@ namespace KingPim.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public int CategoryId { get; set; }
+        public IEnumerable<Category> Category { get; set; }
 
         //public DateTime AddedDate { get; set; }
         //public DateTime UpdatedDate { get; set; }
