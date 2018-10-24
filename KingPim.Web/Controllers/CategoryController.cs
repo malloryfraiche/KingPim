@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KingPim.Models;
+using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +30,11 @@ namespace KingPim.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewCategory(Category category)
+        public IActionResult AddCategory(AddCategoryViewModel vm)
         {
-            _categoryRepo.SaveCategory(category);
+            _categoryRepo.AddCategory(vm);
 
-            return View("Index", category);
+            return View("Index", vm);
         }
 
     }

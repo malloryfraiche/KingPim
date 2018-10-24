@@ -1,4 +1,5 @@
 ﻿using KingPim.Models;
+using KingPim.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,8 @@ namespace KingPim.Repositories
 
         IEnumerable<Category> GetAllCategories();
 
-        void SaveCategory(Category category);
+        void AddCategory(AddCategoryViewModel vm);
+
+        //void SaveCategory(Category category);
     }
 }
