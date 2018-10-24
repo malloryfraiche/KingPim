@@ -1,5 +1,6 @@
 ﻿using KingPim.Data.DataAccess;
 using KingPim.Models;
+using KingPim.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,25 +25,44 @@ namespace KingPim.Repositories
             return Categories;
         }
         
-        // To Create or Update a Category in DB.
-        public void SaveCategory(Category cat)
+
+        public void AddCategory(AddCategoryViewModel vm)
         {
-            if (cat.Id == 0)   // Create
+            if (vm.Id == 0)
             {
-                ctx.Categories.Add(cat);
+                var newCat = new Category
+                {
+                    Name = vm.Name,
+                    Subcategories = null,
+                    AddedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    Published = false,
+                    Version = 1
+                };
+                ctx.Categories.Add(newCat);
             }
-            //else    // Update
-            //{
-            //    var dbCategory = ctx.Categories.FirstOrDefault(x => x.Id == cat.Id);
-            //    if (dbCategory != null)
-            //    {
-
-            //    }
-
-            //}
-
             ctx.SaveChanges();
         }
+        
+        //// To Create or Update a Category in DB.
+        //public void SaveCategory(Category cat)
+        //{
+        //    if (cat.Id == 0)   // Create
+        //    {
+        //        ctx.Categories.Add(cat);
+        //    }
+        //    //else    // Update
+        //    //{
+        //    //    var dbCategory = ctx.Categories.FirstOrDefault(x => x.Id == cat.Id);
+        //    //    if (dbCategory != null)
+        //    //    {
+
+        //    //    }
+
+        //    //}
+
+        //    ctx.SaveChanges();
+        //}
 
     }
 }

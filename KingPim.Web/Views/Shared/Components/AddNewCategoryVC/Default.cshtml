@@ -1,66 +1,23 @@
 ﻿@* AddNewCategoryVC *@
 
-@model Category
+@model AddCategoryViewModel
 
 <div class="form-group px-5">
     <h4><i>Add new category</i></h4>
 </div>
 <br />
 
-<form asp-controller="Category" asp-action="AddNewCategory" class="form-horizontal" id="addNewCatForm">
-
+<form asp-controller="Category" asp-action="AddCategory" class="form-horizontal" id="addNewCatForm">
     <div class="form-group">
         <label asp-for="Name" class="control-label px-5"><strong>Name:</strong></label>
         <div class="px-5">
             <input asp-for="Name" class="form-control" />
         </div>
     </div>
-
-
-    <div class="row">
-        <div class="form-group col">
-            <label class="control-label px-5"><strong>Add a subcategory:</strong></label>
-            <div class="input-group px-5">
-                <input type="text" id="enteredSubcat" class="form-control" />
-                <div class="input-group-append">
-                    <span onclick="addSubcategoryList()" class="btn btn-primary">Add</span>
-                </div>
-            </div>
-        </div>
-        <div class="form-group col">
-            <label class="control-label px-5"><strong>Added subcategories:</strong></label>
-            <div class="px-5">
-                <textarea type="text" id="attrtext" asp-for="Subcategories" class="form-control"></textarea>
-            </div>
-        </div>
-    </div>
-
-
-
     <div class="form-group">
         <div class="px-5">
             <button class="btn btn-sm btn-success" type="submit">Add @ViewBag.Title</button>
-            <a class="btn btn-sm btn-secondary" asp-controller="Category" asp-action="Index">Cancel</a>
+            <a class="btn btn-sm btn-secondary" id="cancelBtn">Cancel</a>
         </div>
     </div>
-
 </form>
-
-
-<script src="~/js/site.min.js"></script>
-<script>
-
-    function addSubcategoryList() {
-        var inputValue = $("#enteredSubcat").val();
-        document.getElementById("enteredSubcat").value = "";
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-            };
-        }
-        var newSubcat = inputValue + ' ';
-        $('#attrtext').append(newSubcat);
-    }
-    
-</script>

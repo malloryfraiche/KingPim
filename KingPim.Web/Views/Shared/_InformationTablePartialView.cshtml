@@ -64,10 +64,12 @@
             $('#addNewCategoryVC').show();
         });
 
-        //// Can use this if can figure out a way to easily 'clear' or 'reset' the form...
-        //$('#cancelBtn').on('click', function () {
-        //    $('#addNewCategoryVC').hide();
-        //});
+        // Can use this if can figure out a way to easily 'clear' or 'reset' the form...
+        $('#cancelBtn').on('click', function () {
+            $('#addNewCatForm').find('input').val('');
+            $('#addNewCategoryVC').hide();
+
+        });
 
     });
 </script>

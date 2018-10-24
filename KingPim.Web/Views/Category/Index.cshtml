@@ -4,7 +4,4 @@
     ViewData["Title"] = "Category";
 }
 
-<partial name="_InformationTablePartialView" />
-
-@* TODO: have a AddNew view-component here for the add new form *@
-@*@await  Component.InvokeAsync("AddNewVC")*@
+<partial name="_InformationTablePartialView", model="Model" />
