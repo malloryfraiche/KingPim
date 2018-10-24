@@ -10,5 +10,7 @@ namespace KingPim.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public virtual List<ProductAttribute> ProductAttributes { get; set; }
+
+        //SubcatId + Subcat Subcat
     }
 }

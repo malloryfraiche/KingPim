@@ -1,5 +1,4 @@
-﻿using KingPim.Models;
-using KingPim.Models.ViewModels;
+﻿using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace KingPim.Web.Components
 {
-    public class AddNewCategoryVC : ViewComponent
+    public class AddNewSubcategoryVC : ViewComponent
     {
         public IViewComponentResult Invoke()
         {
-            var catVm = new AddCategoryViewModel();
+            var subcatVm = new AddSubcategoryViewModel();
 
-            return View(catVm);
+            return View(subcatVm);
         }
     }
 }

@@ -14,5 +14,8 @@ namespace KingPim.Models
         public double Price { get; set; }
         public virtual Subcategory Subcategory { get; set; }
         public int SubcategoryId { get; set; }
+
+
+        // list of AttributeGroups
     }
 }
