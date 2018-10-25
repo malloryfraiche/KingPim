@@ -77,3 +77,9 @@ nav ul, nav li {
     color: #fff;
     background-color: #5fa2db;
 }
+
+
+/* custom style for the edit and delete modals */
+.modal-alignment {
+    margin-top: 25%;
+}

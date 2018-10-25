@@ -13,7 +13,7 @@ namespace KingPim.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public virtual Subcategory Subcategory { get; set; }
-        public int SubcategoryId { get; set; }
+        public int? SubcategoryId { get; set; }
 
 
         // list of AttributeGroups
