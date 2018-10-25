@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ExtentionMethods\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 
