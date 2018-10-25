@@ -59,7 +59,16 @@
                 <td>
                     <div style="float:right;">
                         <a class="text-muted" data-toggle="modal" data-target="#editModal" title="Edit"><span data-feather="edit-2"></span></a>&nbsp;&nbsp;
-                        <a class="text-muted" data-toggle="modal" data-target="#deleteModal" title="Delete" name="deleteItem" id="deleteItem" value="@c.Id"><span data-feather="trash-2"></span></a>&nbsp;&nbsp;
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#deleteModal"
+                           title="Delete"
+                           name="deleteItem"
+                           id="deleteItem"
+                           data-id="@c.Id"
+                           data-name="@c.Name">
+                            <span data-feather="trash-2"></span>
+                        </a>&nbsp;&nbsp;
                     </div>
 
                     <!----- The edit modal ----->
@@ -96,25 +105,20 @@
                     <!----- The delete modal ----->
                     <!----- TODO: HAVE A MODAL PARTIAL VIEW ------->
                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-alignment" role="document">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="mx-auto">Are you sure you want to delete?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                <div class="modal-header" style="text-align:center;">
+                                    <h5 class="mx-auto"></h5>
                                 </div>
                                 <div class="modal-body">
-                                    @*<p style="text-align:center">Press delete to confirm...</p>*@
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                    <form asp-controller="Category" asp-action="DeleteCategory">
-                                        <input type="hidden" name="deleteItem" value="@c.Id" />
-                                        <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    <div style="text-align:center;">
+                                        <form asp-controller="Category" asp-action="DeleteCategory" method="post">
+                                            <input type="hidden" name="deleteItem" value="@c.Id" />
+                                            <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                @*<div class="modal-footer">*@
-
-                                @*</div>*@
                             </div>
                         </div>
                     </div>
@@ -159,10 +163,15 @@
         });
 
 
-
-        $('#deleteItem').on('click', function () {
-            var selectedRow = $(this).val();
-            $('input[name="deleteItem"]').val(selectedRow);
+        // To control the data that is shown in the delete modal.
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var idRecipient = button.data('id');
+            var nameRecipient = button.data('name');
+            var modal = $(this);
+            modal.find('.modal-body input').val(idRecipient);
+            modal.find('.modal-content h5').text('Are you sure you want to delete category ' + nameRecipient + '?');
+            console.log(idRecipient);
         });
 
 
