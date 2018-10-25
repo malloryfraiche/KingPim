@@ -32,8 +32,23 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public IActionResult AddCategory(AddCategoryViewModel vm)
         {
-
             _categoryRepo.AddCategory(vm);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCategory(int categoryId)
+        {
+            var deletedCat = _categoryRepo.DeleteCategory(categoryId);
+            if (deletedCat != null)
+            {
+                // error - category was found and not deleted for some reason.
+            }
+            else
+            {
+                // error - category was not found in DB.
+            }
 
             return RedirectToAction(nameof(Index));
         }

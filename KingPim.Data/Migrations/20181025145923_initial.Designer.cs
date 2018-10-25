@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KingPim.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181024102752_initial")]
+    [Migration("20181025145923_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,7 +77,7 @@ namespace KingPim.Data.Migrations
 
                     b.Property<bool>("Published");
 
-                    b.Property<int>("SubcategoryId");
+                    b.Property<int?>("SubcategoryId");
 
                     b.Property<DateTime>("UpdatedDate");
 
@@ -96,7 +96,7 @@ namespace KingPim.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AttributeGroupId");
+                    b.Property<int?>("AttributeGroupId");
 
                     b.Property<string>("Description");
 
@@ -117,9 +117,9 @@ namespace KingPim.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductAttributeId");
+                    b.Property<int?>("ProductAttributeId");
 
-                    b.Property<int>("ProductId");
+                    b.Property<int?>("ProductId");
 
                     b.Property<string>("Value");
 
@@ -140,7 +140,7 @@ namespace KingPim.Data.Migrations
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<int>("CategoryId");
+                    b.Property<int?>("CategoryId");
 
                     b.Property<string>("Name");
 
@@ -161,7 +161,8 @@ namespace KingPim.Data.Migrations
                 {
                     b.HasOne("KingPim.Models.Subcategory")
                         .WithMany("AttributeGroups")
-                        .HasForeignKey("SubcategoryId");
+                        .HasForeignKey("SubcategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("KingPim.Models.Product", b =>
@@ -169,7 +170,7 @@ namespace KingPim.Data.Migrations
                     b.HasOne("KingPim.Models.Subcategory", "Subcategory")
                         .WithMany("Products")
                         .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("KingPim.Models.ProductAttribute", b =>
@@ -177,7 +178,7 @@ namespace KingPim.Data.Migrations
                     b.HasOne("KingPim.Models.AttributeGroup", "AttributeGroup")
                         .WithMany("ProductAttributes")
                         .HasForeignKey("AttributeGroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("KingPim.Models.ProductAttributeValue", b =>
@@ -185,12 +186,12 @@ namespace KingPim.Data.Migrations
                     b.HasOne("KingPim.Models.ProductAttribute", "ProductAttribute")
                         .WithMany()
                         .HasForeignKey("ProductAttributeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("KingPim.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("KingPim.Models.Subcategory", b =>
@@ -198,7 +199,7 @@ namespace KingPim.Data.Migrations
                     b.HasOne("KingPim.Models.Category", "Category")
                         .WithMany("Subcategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

@@ -36,7 +36,7 @@ namespace KingPim.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: false)
+                    CategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,7 +46,7 @@ namespace KingPim.Data.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +67,7 @@ namespace KingPim.Data.Migrations
                         column: x => x.SubcategoryId,
                         principalTable: "Subcategories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +83,7 @@ namespace KingPim.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
-                    SubcategoryId = table.Column<int>(nullable: false)
+                    SubcategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,7 +93,7 @@ namespace KingPim.Data.Migrations
                         column: x => x.SubcategoryId,
                         principalTable: "Subcategories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,7 +105,7 @@ namespace KingPim.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
-                    AttributeGroupId = table.Column<int>(nullable: false)
+                    AttributeGroupId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,7 +115,7 @@ namespace KingPim.Data.Migrations
                         column: x => x.AttributeGroupId,
                         principalTable: "AttributeGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,8 +125,8 @@ namespace KingPim.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Value = table.Column<string>(nullable: true),
-                    ProductAttributeId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductAttributeId = table.Column<int>(nullable: true),
+                    ProductId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -136,13 +136,13 @@ namespace KingPim.Data.Migrations
                         column: x => x.ProductAttributeId,
                         principalTable: "ProductAttributes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_ProductAttributeValues_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

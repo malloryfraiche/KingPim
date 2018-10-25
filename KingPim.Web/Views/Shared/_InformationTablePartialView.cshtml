@@ -25,7 +25,7 @@
     <tbody>
         @foreach (var c in Model)
         {
-            <tr>
+            <tr value="@c.Id">
                 <td>@c.Name</td>
                 <td><i style="float:right;"><small>@c.AddedDate</small></i></td>
                 <td><i style="float:right;"><small>@c.UpdatedDate</small></i></td>
@@ -36,6 +36,7 @@
                     {
                         <td><i style="float:right;"><small>@c.Category.Name</small></i></td>
                     }
+                    // Can possibly delete this 'else'... have a 'required' on dropdown so this can never be null..
                     else
                     {
                         <td><i style="float:right;"><small>No category connected yet. Do it.</small></i></td>
@@ -57,9 +58,72 @@
                 </td>
                 <td>
                     <div style="float:right;">
-                        <a class="text-muted" href="#" title="Edit"><span data-feather="edit-2"></span></a>&nbsp;&nbsp;
-                        <a class="text-muted" href="#" title="Delete"><span data-feather="trash-2"></span></a>&nbsp;&nbsp;
+                        <a class="text-muted" data-toggle="modal" data-target="#editModal" title="Edit"><span data-feather="edit-2"></span></a>&nbsp;&nbsp;
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#deleteModal"
+                           title="Delete"
+                           name="deleteItem"
+                           id="deleteItem"
+                           data-id="@c.Id"
+                           data-name="@c.Name">
+                            <span data-feather="trash-2"></span>
+                        </a>&nbsp;&nbsp;
                     </div>
+
+                    <!----- The edit modal ----->
+                    <!----- TODO: HAVE A MODAL PARTIAL VIEW ------->
+                    @*<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-alignment" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="mx-4">@c.Name</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label px-4"><strong>Name:</strong></label>
+                                                <div class="px-4">
+                                                    <input class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="px-4">
+                                                    <button class="btn btn-sm btn-success" type="submit">Edit @ViewBag.Title</button>
+                                                    <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <!----- The delete modal ----->
+                    <!----- TODO: HAVE A MODAL PARTIAL VIEW ------->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="text-align:center;">
+                                    <h5 class="mx-auto"></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="text-align:center;">
+                                        <form asp-controller="Category" asp-action="DeleteCategory" method="post">
+                                            <input type="hidden" name="deleteItem" value="@c.Id" />
+                                            <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </td>
             </tr>
         }
@@ -97,6 +161,19 @@
             $('#addNewSubcatForm').find('select').val('');
             $('#viewComponents').hide();
         });
+
+
+        // To control the data that is shown in the delete modal.
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var idRecipient = button.data('id');
+            var nameRecipient = button.data('name');
+            var modal = $(this);
+            modal.find('.modal-body input').val(idRecipient);
+            modal.find('.modal-content h5').text('Are you sure you want to delete category ' + nameRecipient + '?');
+            console.log(idRecipient);
+        });
+
 
     });
 </script>
