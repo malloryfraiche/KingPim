@@ -14,6 +14,8 @@ namespace KingPim.Repositories
 
         void AddCategory(AddCategoryViewModel vm);
 
+        Category DeleteCategory(int categoryId);
+
         //void SaveCategory(Category category);
     }
 }

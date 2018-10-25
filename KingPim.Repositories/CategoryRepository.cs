@@ -44,6 +44,21 @@ namespace KingPim.Repositories
             ctx.SaveChanges();
         }
         
+
+        public Category DeleteCategory(int categoryId)
+        {
+            var ctxCategory = ctx.Categories.FirstOrDefault(c => c.Id.Equals(categoryId));
+            if (ctxCategory != null)
+            {
+                ctx.Categories.Remove(ctxCategory);
+                ctx.SaveChanges();
+            }
+            return ctxCategory;
+        }
+
+
+
+
         //// To Create or Update a Category in DB.
         //public void SaveCategory(Category cat)
         //{
