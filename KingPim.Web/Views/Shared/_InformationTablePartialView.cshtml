@@ -12,6 +12,12 @@
             <th><i style="float:right;"><small>Added</small></i></th>
             <th><i style="float:right;"><small>Latest update</small></i></th>
             <th><i style="float:right;"><small>Version</small></i></th>
+            @{
+                if (Model is IEnumerable<Subcategory>)
+                {
+                    <th><i style="float:right;"><small><b>Category</b></small></i></th>
+                }
+            }
             <th><i style="float:right;"><small><b>Publish</b></small></i></th>
             <th></th>
         </tr>
@@ -24,6 +30,18 @@
                 <td><i style="float:right;"><small>@c.AddedDate</small></i></td>
                 <td><i style="float:right;"><small>@c.UpdatedDate</small></i></td>
                 <td><i style="float:right;"><small>@c.Version</small></i></td>
+                @if (Model is IEnumerable<Subcategory>)
+                {
+                    if (c.Category.Name != null)
+                    {
+                        <td><i style="float:right;"><small>@c.Category.Name</small></i></td>
+                    }
+                    else
+                    {
+                        <td><i style="float:right;"><small>No category connected yet. Do it.</small></i></td>
+                    }
+
+                }
                 <td>
                     @{
                         if (c.Published == false)
@@ -49,8 +67,17 @@
 </table>
 
 <br />
-<div id="addNewCategoryVC" style="display:none;">
-    @await Component.InvokeAsync("AddNewCategoryVC")
+<div id="viewComponents" style="display:none;">
+    @{
+        if (Model is IEnumerable<Category>)
+        {
+            @await Component.InvokeAsync("AddNewCategoryVC")
+        }
+        if (Model is IEnumerable<Subcategory>)
+        {
+            @await Component.InvokeAsync("AddNewSubcategoryVC")
+        }
+    }
 </div>
 
 
@@ -61,14 +88,14 @@
     $(document).ready(function () {
 
         $('#addNewBtn').on('click', function () {
-            $('#addNewCategoryVC').show();
+            $('#viewComponents').show();
         });
 
-        // Can use this if can figure out a way to easily 'clear' or 'reset' the form...
         $('#cancelBtn').on('click', function () {
             $('#addNewCatForm').find('input').val('');
-            $('#addNewCategoryVC').hide();
-
+            $('#addNewSubcatForm').find('input').val('');
+            $('#addNewSubcatForm').find('select').val('');
+            $('#viewComponents').hide();
         });
 
     });

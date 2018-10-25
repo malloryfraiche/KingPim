@@ -11,17 +11,11 @@ namespace KingPim.Web.Components
 {
     public class AddNewCategoryVC : ViewComponent
     {
-        private ICategoryRepository _categoryRepo;
-        public AddNewCategoryVC(ICategoryRepository categoryRepo)
-        {
-            _categoryRepo = categoryRepo;
-        }
-
         public IViewComponentResult Invoke()
         {
-            var test = new AddCategoryViewModel();
+            var catVm = new AddCategoryViewModel();
 
-            return View(test);
+            return View(catVm);
         }
     }
 }
