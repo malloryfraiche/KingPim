@@ -8,9 +8,5 @@ namespace KingPim.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public DateTime AddedDate { get; set; }
-        //public DateTime UpdatedDate { get; set; }
-        //public bool Published { get; set; }
-        //public double Version { get; set; }
     }
 }
