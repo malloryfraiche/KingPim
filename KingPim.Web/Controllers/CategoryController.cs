@@ -44,6 +44,7 @@ namespace KingPim.Web.Controllers
             if (deletedCat != null)
             {
                 // error - category was found and not deleted for some reason.
+
             }
             else
             {
