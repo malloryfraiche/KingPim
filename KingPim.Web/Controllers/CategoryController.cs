@@ -17,7 +17,6 @@ namespace KingPim.Web.Controllers
         {
             _categoryRepo = categoryRepo;
         }
-
         
         [HttpGet]
         public IActionResult Index()
@@ -34,7 +33,9 @@ namespace KingPim.Web.Controllers
         {
             _categoryRepo.AddCategory(vm);
 
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            var url = Url.Action("Index", "Category");
+            return Json(url);
         }
 
         [HttpPost]
@@ -44,15 +45,14 @@ namespace KingPim.Web.Controllers
             if (deletedCat != null)
             {
                 // error - category was found and not deleted for some reason.
-
             }
             else
             {
                 // error - category was not found in DB.
             }
-
             return RedirectToAction(nameof(Index));
         }
+
 
     }
 }

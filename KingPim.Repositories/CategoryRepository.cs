@@ -25,11 +25,12 @@ namespace KingPim.Repositories
             return Categories;
         }
         
-
+        // CREATE and UPDATE category.
         public void AddCategory(AddCategoryViewModel vm)
         {
-            if (vm.Id == 0)
+            if (vm.Id == 0)     // Create
             {
+                vm.Version = 1;
                 var newCat = new Category
                 {
                     Name = vm.Name,
@@ -37,10 +38,21 @@ namespace KingPim.Repositories
                     AddedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Published = false,
-                    Version = 1
+                    Version = vm.Version
                 };
                 ctx.Categories.Add(newCat);
             }
+            else     // Update
+            {
+                var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(vm.Id));
+                if (ctxCategory != null)
+                {
+                    ctxCategory.Name = vm.Name;
+                    ctxCategory.UpdatedDate = DateTime.Now;
+                    ctxCategory.Version = vm.Version + 1;
+                }
+            }
+
             ctx.SaveChanges();
         }
         
@@ -55,29 +67,5 @@ namespace KingPim.Repositories
             }
             return ctxCategory;
         }
-
-
-
-
-        //// To Create or Update a Category in DB.
-        //public void SaveCategory(Category cat)
-        //{
-        //    if (cat.Id == 0)   // Create
-        //    {
-        //        ctx.Categories.Add(cat);
-        //    }
-        //    //else    // Update
-        //    //{
-        //    //    var dbCategory = ctx.Categories.FirstOrDefault(x => x.Id == cat.Id);
-        //    //    if (dbCategory != null)
-        //    //    {
-
-        //    //    }
-
-        //    //}
-
-        //    ctx.SaveChanges();
-        //}
-
     }
 }
