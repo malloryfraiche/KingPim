@@ -33,7 +33,6 @@ namespace KingPim.Web.Controllers
         {
             _categoryRepo.AddCategory(vm);
 
-            //return RedirectToAction(nameof(Index));
             var url = Url.Action("Index", "Category");
             return Json(url);
         }

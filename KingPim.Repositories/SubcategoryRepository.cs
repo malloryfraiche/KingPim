@@ -3,6 +3,7 @@ using KingPim.Models;
 using KingPim.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace KingPim.Repositories
@@ -24,9 +25,10 @@ namespace KingPim.Repositories
             return Subcategories;
         }
 
+        // CREATE and UPDATE subcategory.
         public void AddSubcategory(AddSubcategoryViewModel vm)
         {
-            if (vm.Id == 0)
+            if (vm.Id == 0)     // Create
             {
                 var newSubcat = new Subcategory
                 {
@@ -41,6 +43,18 @@ namespace KingPim.Repositories
                 };
                 ctx.Subcategories.Add(newSubcat);
             }
+            else     // Update
+            {
+                var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.Id));
+                if (ctxSubcategory != null)
+                {
+                    ctxSubcategory.Name = vm.Name;
+                    ctxSubcategory.CategoryId = vm.CategoryId;
+                    ctxSubcategory.UpdatedDate = DateTime.Now;
+                    ctxSubcategory.Version = vm.Version + 1;
+                }
+            }
+
             ctx.SaveChanges();
         }
     }
