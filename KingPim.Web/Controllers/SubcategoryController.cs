@@ -26,15 +26,34 @@ namespace KingPim.Web.Controllers
             return View(subcategories);
         }
 
-
         [HttpPost]
         public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
-
             _subcategoryRepo.AddSubcategory(vm);
+            return RedirectToAction(nameof(Index));
+        }
 
+        [HttpPost]
+        public IActionResult EditSubcategory(AddSubcategoryViewModel vm)
+        {
+            _subcategoryRepo.AddSubcategory(vm);
             var url = Url.Action("Index", "Subcategory");
             return Json(url);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSubcategory(int subcategoryId)
+        {
+            var deletedSubcat = _subcategoryRepo.DeleteSubcategory(subcategoryId);
+            if (deletedSubcat != null)
+            {
+                // error - subcategory was found and not deleted for some reason.
+            }
+            else
+            {
+                // error - subcategory was not found in DB.
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

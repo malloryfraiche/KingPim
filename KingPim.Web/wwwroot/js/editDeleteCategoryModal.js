@@ -15,7 +15,7 @@
                 formData.append($(this).attr('name'), $(this).val());
             });
             $.ajax({
-                url: '/Category/AddCategory',
+                url: '/Category/EditCategory',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',

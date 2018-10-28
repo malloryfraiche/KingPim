@@ -39,7 +39,13 @@ namespace KingPim.Web.Controllers
         public IActionResult AddCategory(AddCategoryViewModel vm)
         {
             _categoryRepo.AddCategory(vm);
+            return RedirectToAction(nameof(Index));
+        }
 
+        [HttpPost]
+        public IActionResult EditCategory(AddCategoryViewModel vm)
+        {
+            _categoryRepo.AddCategory(vm);
             var url = Url.Action("Index", "Category");
             return Json(url);
         }

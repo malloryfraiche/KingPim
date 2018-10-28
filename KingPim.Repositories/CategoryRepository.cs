@@ -53,7 +53,6 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
-        
 
         public Category DeleteCategory(int categoryId)
         {
