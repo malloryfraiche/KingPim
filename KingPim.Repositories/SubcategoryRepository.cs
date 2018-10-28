@@ -56,5 +56,17 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
+
+        public Subcategory DeleteSubcategory(int subcategoryId)
+        {
+            var ctxSubcategory = ctx.Subcategories.FirstOrDefault(s => s.Id.Equals(subcategoryId));
+            if (ctxSubcategory != null)
+            {
+                ctx.Subcategories.Remove(ctxSubcategory);
+                ctx.SaveChanges();
+            }
+            return ctxSubcategory;
+        }
+
     }
 }

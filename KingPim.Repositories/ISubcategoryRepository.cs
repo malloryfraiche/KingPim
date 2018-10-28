@@ -13,5 +13,7 @@ namespace KingPim.Repositories
         IEnumerable<Subcategory> GetAllSubcategories();
 
         void AddSubcategory(AddSubcategoryViewModel vm);
+
+        Subcategory DeleteSubcategory(int subcategoryId);
     }
 }
