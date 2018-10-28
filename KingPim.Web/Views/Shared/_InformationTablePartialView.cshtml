@@ -173,11 +173,7 @@
                                             <label for="CategoryId" class="control-label px-4"><strong>Category:</strong></label>
                                             <div class="px-4">
                                                 <select name="CategoryId" class="form-control" required>
-                                                    @*<option value="" selected>Välj</option>
-                                                    @foreach (var cat in Model)
-                                                    {
-                                                        <option value="@cat.Id">@cat.Name</option>
-                                                    }*@
+                                                    <!-- Dropdown populated dynamically by ajax GET. -->
                                                 </select>
                                             </div>
                                         </div>

@@ -51,10 +51,9 @@ namespace KingPim.Repositories
                     ctxSubcategory.Name = vm.Name;
                     ctxSubcategory.CategoryId = vm.CategoryId;
                     ctxSubcategory.UpdatedDate = DateTime.Now;
-                    ctxSubcategory.Version = vm.Version + 1;
+                    ctxSubcategory.Version = ctxSubcategory.Version + 1;
                 }
             }
-
             ctx.SaveChanges();
         }
     }

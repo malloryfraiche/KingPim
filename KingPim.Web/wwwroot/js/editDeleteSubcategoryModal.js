@@ -8,16 +8,45 @@
         var modal = $(this);
         modal.find('.modal-body input').val(nameRecipient);
 
+        // To fill the dropdown with data from the Category DB.
+        $.ajax({
+            url: '/Category/GetCategoriesToJson',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response !== null) {
+                    console.log(response);
+                    var length = response.length;
+                    $('#editSubcatForm select').empty();
+                    $('#editSubcatForm select').append("<option value='' selected>Please select...</option>");
+                    for (var i = 0; i < length; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $('#editSubcatForm select').append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                }
+                else {
+                    console.log('In the success function but data is NULL');
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
 
-        $('#editCatForm').submit(function (e) {
+        // To POST the editSubcatForm from the modal.
+        $('#editSubcatForm').submit(function (e) {
             e.preventDefault();
             var formData = new FormData();
             formData.append('id', idRecipient);
-            $('#editCatForm input').each(function () {
+            $('#editSubcatForm input').each(function () {
+                formData.append($(this).attr('name'), $(this).val());
+            });
+            $('#editSubcatForm select').each(function () {
                 formData.append($(this).attr('name'), $(this).val());
             });
             $.ajax({
-                url: '/Category/AddCategory',
+                url: '/Subcategory/AddSubcategory',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',

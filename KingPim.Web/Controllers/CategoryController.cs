@@ -28,6 +28,13 @@ namespace KingPim.Web.Controllers
             return View(categories);
         }
         
+        [HttpGet]
+        public IActionResult GetCategoriesToJson()
+        {
+            var categories = _categoryRepo.GetAllCategories();
+            return Json(categories);
+        }
+        
         [HttpPost]
         public IActionResult AddCategory(AddCategoryViewModel vm)
         {
@@ -51,7 +58,6 @@ namespace KingPim.Web.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
 
     }
 }

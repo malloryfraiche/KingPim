@@ -10,6 +10,5 @@ namespace KingPim.Models.ViewModels
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public IEnumerable<Category> Category { get; set; }
-        public int Version { get; set; }
     }
 }
