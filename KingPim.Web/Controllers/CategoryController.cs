@@ -28,12 +28,18 @@ namespace KingPim.Web.Controllers
             return View(categories);
         }
         
+        [HttpGet]
+        public IActionResult GetCategoriesToJson()
+        {
+            var categories = _categoryRepo.GetAllCategories();
+            return Json(categories);
+        }
+        
         [HttpPost]
         public IActionResult AddCategory(AddCategoryViewModel vm)
         {
             _categoryRepo.AddCategory(vm);
 
-            //return RedirectToAction(nameof(Index));
             var url = Url.Action("Index", "Category");
             return Json(url);
         }
@@ -52,7 +58,6 @@ namespace KingPim.Web.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
 
     }
 }

@@ -30,7 +30,6 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
-                vm.Version = 1;
                 var newCat = new Category
                 {
                     Name = vm.Name,
@@ -38,7 +37,7 @@ namespace KingPim.Repositories
                     AddedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Published = false,
-                    Version = vm.Version
+                    Version = 1
                 };
                 ctx.Categories.Add(newCat);
             }
@@ -49,10 +48,9 @@ namespace KingPim.Repositories
                 {
                     ctxCategory.Name = vm.Name;
                     ctxCategory.UpdatedDate = DateTime.Now;
-                    ctxCategory.Version = vm.Version + 1;
+                    ctxCategory.Version = ctxCategory.Version + 1;
                 }
             }
-
             ctx.SaveChanges();
         }
         

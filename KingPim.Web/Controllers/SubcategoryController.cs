@@ -26,12 +26,15 @@ namespace KingPim.Web.Controllers
             return View(subcategories);
         }
 
+
         [HttpPost]
         public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
+
             _subcategoryRepo.AddSubcategory(vm);
 
-            return RedirectToAction(nameof(Index));
+            var url = Url.Action("Index", "Subcategory");
+            return Json(url);
         }
     }
 }
