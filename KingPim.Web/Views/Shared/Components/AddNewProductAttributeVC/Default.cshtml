@@ -1,0 +1,57 @@
+﻿@* AddNewProductAttributeVC *@
+
+@model AttributeGroupProductAttributeViewModel
+
+<div class="form-group px-5">
+    <h4><i>Add new product attribute</i></h4>
+</div>
+<br />
+
+<form asp-controller="ProductAttribute" asp-action="AddProductAttribute" class="form-horizontal" id="addNewProductAttrForm">
+    <div class="row">
+        <div class="form-group col">
+            <label asp-for="Name" class="control-label px-5"><strong>Name:</strong></label>
+            <div class="px-5">
+                <input asp-for="Name" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group col">
+            <label asp-for="Type" class="control-label px-5"><strong>Type:</strong></label>
+            <div class="px-5">
+                <select asp-for="Type" class="form-control" required>
+                    <option value="" selected>Choose...</option>
+                    <option value="int">Number</option>
+                    <option value="string">Text</option>
+                    <option value="bool">Yes/No or True/False</option>
+                    <option value="byte">Bytes</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col">
+            <label asp-for="Description" class="control-label px-5"><strong>Description:</strong></label>
+            <div class="px-5">
+                <textarea asp-for="Description" class="form-control" form="addNewProductAttrForm" required></textarea>
+            </div>
+        </div>
+        <div class="form-group col" title="TIPS: If you do not see your desired Attribute Group here, first add a new Attribute Group by surfing into the 'Attribute Group' side menu.">
+            <label asp-for="AttributeGroupId" class="control-label px-5"><strong>Attribute Group:</strong></label>
+            <div class="px-5">
+                <select asp-for="AttributeGroupId" class="form-control" required>
+                    <option value="" selected>Choose...</option>
+                    @foreach (var attrGroup in Model.AttributeGroup)
+                    {
+                        <option value="@attrGroup.Id">@attrGroup.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="px-5">
+            <button class="btn btn-sm btn-success" type="submit">Add @ViewBag.Title</button>
+            <a class="btn btn-sm btn-secondary" id="cancelBtn">Cancel</a>
+        </div>
+    </div>
+</form>

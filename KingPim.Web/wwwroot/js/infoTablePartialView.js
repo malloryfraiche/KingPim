@@ -13,6 +13,10 @@
         $('#addNewAttrGroupForm').find('select').val('');
         $('#addNewAttrGroupForm').find('textarea').val('');
 
+        $('#addNewProductAttrForm').find('input').val('');
+        $('#addNewProductAttrForm').find('select').val('');
+        $('#addNewProductAttrForm').find('textarea').val('');
+
         $('#viewComponents').hide();
     });
 });

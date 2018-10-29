@@ -15,6 +15,11 @@
                 {
                     <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
                 }
+                if (Model is IEnumerable<ProductAttribute>)
+                {
+                    <th><i style="float:right;"><small><b>Type</b></small></i></th>
+                    <th><i style="float:right;"><small><b>Attribute group name</b></small></i></th>
+                }
             }
             <th></th>
         </tr>
@@ -25,15 +30,30 @@
             <tr value="@a.Id">
                 <td>@a.Name</td>
                 <td><i style="float:right;"><small>@a.Description</small></i></td>
-                @if (Model is IEnumerable<AttributeGroup>)
-                {
-                    if (a.SubcategoryId != null)
+                @{
+                    if (Model is IEnumerable<AttributeGroup>)
                     {
-                        <td><i style="float:right;"><small>@a.Subcategory.Name</small></i></td>
+                        if (a.SubcategoryId != null)
+                        {
+                            <td><i style="float:right;"><small>@a.Subcategory.Name</small></i></td>
+                        }
+                        if (a.SubcategoryId == null)
+                        {
+                            <td><i style="float:right;"><small>No subcategory connected. Do it.</small></i></td>
+                        }
                     }
-                    if (a.SubcategoryId == null)
+                    if (Model is IEnumerable<ProductAttribute>)
                     {
-                        <td><i style="float:right;"><small>No subcategory connected yet. Do it.</small></i></td>
+                        <td><i style="float:right;"><small>@a.Type</small></i></td>
+                        if (a.AttributeGroupId != null)
+                        {
+                            <td><i style="float:right;"><small>@a.AttributeGroup.Name</small></i></td>
+                        }
+                        if (a.AttributeGroupId == null)
+                        {
+                            <td><i style="float:right;"><small>No attribute group connected. Do it.</small></i></td>
+                        }
+
                     }
                 }
                 <td>
@@ -102,7 +122,7 @@
         }
         if (Model is IEnumerable<ProductAttribute>)
         {
-            @*@await Component.InvokeAsync("")*@
+            @await Component.InvokeAsync("AddNewProductAttributeVC")
         }
     }
 </div>

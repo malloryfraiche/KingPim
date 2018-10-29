@@ -19,7 +19,7 @@
             <label asp-for="SubcategoryId" class="control-label col-sm-2"><strong>Subcategory:</strong></label>
             <div class="col-sm-10">
                 <select asp-for="SubcategoryId" class="form-control" required>
-                    <option value="" selected>Välj</option>
+                    <option value="" selected>Choose subcategory...</option>
                     @foreach (var subcat in Model.Subcategory)
                     {
                         <option value="@subcat.Id">@subcat.Name</option>
