@@ -1,0 +1,108 @@
+﻿<div>
+    <h1>@ViewBag.Title</h1>
+    <button class="btn btn-success" id="addNewBtn" type="button" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
+</div>
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@ViewBag.TitlePlural</th>
+            <th><i style="float:right;"><small><b>Description</b></small></i></th>
+            @{
+                if (Model is IEnumerable<AttributeGroup>)
+                {
+                    <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
+                }
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr value="@a.Id">
+                <td>@a.Name</td>
+                <td><i style="float:right;"><small>@a.Description</small></i></td>
+                @if (Model is IEnumerable<AttributeGroup>)
+                {
+                    if (a.SubcategoryId != null)
+                    {
+                        <td><i style="float:right;"><small>@a.Subcategory.Name</small></i></td>
+                    }
+                    if (a.SubcategoryId == null)
+                    {
+                        <td><i style="float:right;"><small>No subcategory connected yet. Do it.</small></i></td>
+                    }
+                }
+                <td>
+                    <div style="float:right;">
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#editModal"
+                           title="Edit"
+                           id="editItem"
+                           data-id="@a.Id"
+                           data-name="@a.Name">
+                            <span data-feather="edit-2"></span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#deleteModal"
+                           title="Delete"
+                           id="deleteItem"
+                           data-id="@a.Id"
+                           data-name="@a.Name">
+                            <span data-feather="trash-2"></span>
+                        </a>&nbsp;&nbsp;
+                    </div>
+                    <!----- The edit (attribute group) modal ----->
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="mx-4">Edit @ViewBag.Title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form asp-controller="" asp-action="" id="editAttrGroupForm" method="post" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="Name" class="control-label px-4"><strong>Name:</strong></label>
+                                            <div class="px-4">
+                                                <input name="Name" id="nameInputField" class="form-control" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="px-4">
+                                                <button class="btn btn-sm btn-success" type="submit">Edit</button>
+                                                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<div id="viewComponents" style="display:none;">
+    @{
+        if (Model is IEnumerable<AttributeGroup>)
+        {
+            @await Component.InvokeAsync("AddNewAttributeGroupVC")
+        }
+        if (Model is IEnumerable<ProductAttribute>)
+        {
+            @*@await Component.InvokeAsync("")*@
+        }
+    }
+</div>

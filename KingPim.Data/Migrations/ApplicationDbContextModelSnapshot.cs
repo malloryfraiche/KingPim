@@ -157,7 +157,7 @@ namespace KingPim.Data.Migrations
 
             modelBuilder.Entity("KingPim.Models.AttributeGroup", b =>
                 {
-                    b.HasOne("KingPim.Models.Subcategory")
+                    b.HasOne("KingPim.Models.Subcategory", "Subcategory")
                         .WithMany("AttributeGroups")
                         .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.SetNull);

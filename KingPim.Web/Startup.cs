@@ -40,6 +40,8 @@ namespace KingPim.Web
             services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conn));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<ISubcategoryRepository, SubcategoryRepository>();
+            services.AddTransient<IAttributeGroupRepository, AttributeGroupRepository>();
+            services.AddTransient<IProductAttributeRepository, ProductAttributeRepository>();
 
             services.AddMvc();
             services.AddMemoryCache();
@@ -69,7 +71,7 @@ namespace KingPim.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Seed.FillIfEmpty(ctx);
+            // Seed.FillIfEmpty(ctx);
         }
     }
 }
