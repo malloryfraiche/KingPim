@@ -3,6 +3,7 @@ using KingPim.Models;
 using KingPim.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace KingPim.Repositories
@@ -38,7 +39,13 @@ namespace KingPim.Repositories
             }
             else       // Update
             {
-
+                var ctxAttributeGroup = ctx.AttributeGroups.FirstOrDefault(ag => ag.Id.Equals(vm.Id));
+                if (ctxAttributeGroup != null)
+                {
+                    ctxAttributeGroup.Name = vm.Name;
+                    ctxAttributeGroup.SubcategoryId = vm.SubcategoryId;
+                    ctxAttributeGroup.Description = vm.Description;
+                }
             }
             ctx.SaveChanges();
         }
