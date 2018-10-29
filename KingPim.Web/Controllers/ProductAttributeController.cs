@@ -6,14 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KingPim.Web.Controllers
 {
-    public class AttributeGroupController : Controller
+    public class ProductAttributeController : Controller
     {
         public IActionResult Index()
         {
-
-
-            ViewBag.TitlePlural = "Attribute Groups";
-            ViewBag.Title = "Attribute Group";
+            ViewBag.TitlePlural = "Product Attributes";
+            ViewBag.Title = "Product Attribute";
             return View();
         }
     }

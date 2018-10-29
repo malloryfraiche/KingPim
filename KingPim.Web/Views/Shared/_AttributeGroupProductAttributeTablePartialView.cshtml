@@ -1,0 +1,65 @@
+﻿<div>
+    <h1>@ViewBag.Title</h1>
+    <button class="btn btn-success" id="addNewBtn" type="button" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
+</div>
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@ViewBag.TitlePlural</th>
+            <th><i style="float:right;"><small><b>Description</b></small></i></th>
+            @{
+                if (Model is IEnumerable<AttributeGroup>)
+                {
+                    <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
+                }
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr value="@a.Id">
+                <td>@a.Name</td>
+                <td><i style="float:right;"><small>@a.Description</small></i></td>
+                @if (Model is IEnumerable<AttributeGroup>)
+                {
+                    if (a.SubcategoryId != null)
+                    {
+                        <td><i style="float:right;"><small>@a.Subcategory.Name</small></i></td>
+                    }
+                    if (a.SubcategoryId == null)
+                    {
+                        <td><i style="float:right;"><small>No subcategory connected yet. Do it.</small></i></td>
+                    }
+                }
+                <td>
+                    <div style="float:right;">
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#editModal"
+                           title="Edit"
+                           id="editItem"
+                           data-id="@a.Id"
+                           data-name="@a.Name">
+                            <span data-feather="edit-2"></span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#deleteModal"
+                           title="Delete"
+                           id="deleteItem"
+                           data-id="@a.Id"
+                           data-name="@a.Name">
+                            <span data-feather="trash-2"></span>
+                        </a>&nbsp;&nbsp;
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
