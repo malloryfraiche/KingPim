@@ -11,6 +11,7 @@
             <th>@ViewBag.TitlePlural</th>
             <th><i style="float:right;"><small>Added</small></i></th>
             <th><i style="float:right;"><small>Latest update</small></i></th>
+            <th><i style="float:right;"><small>Modified by</small></i></th>
             <th><i style="float:right;"><small>Version</small></i></th>
             @{
                 if (Model is IEnumerable<Subcategory>)
@@ -29,6 +30,10 @@
                 <td>@c.Name</td>
                 <td><i style="float:right;"><small>@c.AddedDate</small></i></td>
                 <td><i style="float:right;"><small>@c.UpdatedDate</small></i></td>
+
+                <!-- TODO: have the user who modified this last here.. -->
+                <td><i style="float:right;"><small></small></i></td>
+
                 <td><i style="float:right;"><small>@c.Version</small></i></td>
                 @if (Model is IEnumerable<Subcategory>)
                 {
