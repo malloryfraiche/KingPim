@@ -69,7 +69,7 @@ namespace KingPim.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Seed.FillIfEmpty(ctx);
+            // Seed.FillIfEmpty(ctx);
         }
     }
 }
