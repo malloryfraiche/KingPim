@@ -13,5 +13,7 @@ namespace KingPim.Repositories
         IEnumerable<AttributeGroup> GetAllAttributeGroups();
 
         void AddAttributeGroup(AttributeGroupProductAttributeViewModel vm);
+
+        AttributeGroup DeleteAttributeGroup(int attrGroupId);
     }
 }

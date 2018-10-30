@@ -39,5 +39,22 @@ namespace KingPim.Web.Controllers
             var url = Url.Action("Index", "AttributeGroup");
             return Json(url);
         }
+
+        [HttpPost]
+        public IActionResult DeleteAttributeGroup(int attrGroupId)
+        {
+            var deletedAttrGroup = _attrGroupRepo.DeleteAttributeGroup(attrGroupId);
+            if (deletedAttrGroup != null)
+            {
+                // error - attribute group was found and not deleted for some reason.
+            }
+            else
+            {
+                // error - attribute group was not found in DB.
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

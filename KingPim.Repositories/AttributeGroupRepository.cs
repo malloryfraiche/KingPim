@@ -49,5 +49,16 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
+
+        public AttributeGroup DeleteAttributeGroup(int attrGroupId)
+        {
+            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(ag => ag.Id.Equals(attrGroupId));
+            if (ctxAttrGroup != null)
+            {
+                ctx.AttributeGroups.Remove(ctxAttrGroup);
+                ctx.SaveChanges();
+            }
+            return ctxAttrGroup;
+        }
     }
 }
