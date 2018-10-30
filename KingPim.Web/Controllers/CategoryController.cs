@@ -27,9 +27,10 @@ namespace KingPim.Web.Controllers
 
             return View(categories);
         }
+
         
         [HttpGet]
-        public IActionResult GetCategoriesToJson()
+        public IActionResult GetCategoriesToJson()      // To ajax fill dropdown lists in modals with data..
         {
             var categories = _categoryRepo.GetAllCategories();
             return Json(categories);

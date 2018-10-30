@@ -31,5 +31,30 @@ namespace KingPim.Web.Controllers
             _attrGroupRepo.AddAttributeGroup(vm);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult EditAttributeGroup(AttributeGroupProductAttributeViewModel vm)
+        {
+            _attrGroupRepo.AddAttributeGroup(vm);
+            var url = Url.Action("Index", "AttributeGroup");
+            return Json(url);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAttributeGroup(int attrGroupId)
+        {
+            var deletedAttrGroup = _attrGroupRepo.DeleteAttributeGroup(attrGroupId);
+            if (deletedAttrGroup != null)
+            {
+                // error - attribute group was found and not deleted for some reason.
+            }
+            else
+            {
+                // error - attribute group was not found in DB.
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

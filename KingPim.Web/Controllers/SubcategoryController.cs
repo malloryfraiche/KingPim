@@ -26,6 +26,13 @@ namespace KingPim.Web.Controllers
             return View(subcategories);
         }
 
+        [HttpGet]
+        public IActionResult GetSubcategoriesToJson()    // To ajax fill dropdown lists in modals with data..
+        {
+            var subcategories = _subcategoryRepo.GetAllSubcategories();
+            return Json(subcategories);
+        }
+
         [HttpPost]
         public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
