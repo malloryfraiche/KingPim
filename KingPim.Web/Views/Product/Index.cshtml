@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+<div>
+    <h1>@ViewBag.Title</h1>
+    <button class="btn btn-success" id="addNewBtn" type="button" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
+</div>
+<br />
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@ViewBag.TitlePlural</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<br />
+<div id="viewComponents" style="display:none;">
+    @*@await Component.InvokeAsync("")*@
+</div>
