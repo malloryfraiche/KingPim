@@ -41,8 +41,42 @@
 
 
         // TODO: To fill the Type dropdown with data.
+        var selectedOptionValue = $('.modal-body select option[selected]').val();
+        console.log("---" + selectedOptionValue);
 
-
+        if (selectedOptionValue === 'int') {
+            //stringValue
+            $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
+            //boolValue
+            $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
+            //byteValue
+            $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+        }
+        if (selectedOptionValue === 'string') {
+            //intValue
+            $('.modal-body select[name="Type"]').append('"<option value="int">Number</option>"');
+            //boolValue
+            $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
+            //byteValue
+            $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+        }
+        if (selectedOptionValue === 'bool') {
+            //intValue
+            $('.modal-body select[name="Type"]').append('"<option value="int">Number</option>"');
+            //stringValue
+            $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
+            //byteValue
+            $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+        }
+        if (selectedOptionValue === 'byte') {
+            //intValue
+            $('.modal-body select[name="Type"]').append('"<option value="int">Number</option>"');
+            //stringValue
+            $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
+            //boolValue
+            $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
+        }
+        
         // To fill the Attribute group dropdown with data.
         $.ajax({
             url: '/AttributeGroup/GetAttributeGroupsToJson',
