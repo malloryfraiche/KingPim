@@ -31,5 +31,13 @@ namespace KingPim.Web.Controllers
             _attrGroupRepo.AddAttributeGroup(vm);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult EditAttributeGroup(AttributeGroupProductAttributeViewModel vm)
+        {
+            _attrGroupRepo.AddAttributeGroup(vm);
+            var url = Url.Action("Index", "AttributeGroup");
+            return Json(url);
+        }
     }
 }
