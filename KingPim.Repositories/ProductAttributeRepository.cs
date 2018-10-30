@@ -51,5 +51,17 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
+
+        public ProductAttribute DeleteProductAttribute(int productAttrId)
+        {
+            var ctxProductAttr = ctx.ProductAttributes.FirstOrDefault(pa => pa.Id.Equals(productAttrId));
+            if (ctxProductAttr != null)
+            {
+                ctx.ProductAttributes.Remove(ctxProductAttr);
+                ctx.SaveChanges();
+            }
+            return ctxProductAttr;
+        }
+
     }
 }

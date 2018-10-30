@@ -105,9 +105,7 @@
                                                 <div class="form-group">
                                                     <label for="SubcategoryId" class="control-label px-4"><strong>Subcategory:</strong></label>
                                                     <div class="px-4">
-                                                        <select name="SubcategoryId" class="form-control" required>
-                                                            <option value="" selected>Choose subcategory...</option>
-                                                        </select>
+                                                        <select name="SubcategoryId" class="form-control" required></select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -195,8 +193,7 @@
                                                 <div class="form-group">
                                                     <label for="Type" class="control-label px-4"><strong>Type:</strong></label>
                                                     <div class="px-4">
-                                                        <select name="Type" class="form-control" required>
-                                                        </select>
+                                                        <select name="Type" class="form-control" required></select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -208,8 +205,7 @@
                                                 <div class="form-group">
                                                     <label for="AttributeGroupId" class="control-label px-4"><strong>Attribute group:</strong></label>
                                                     <div class="px-4">
-                                                        <select name="AttributeGroupId" class="form-control" required>
-                                                        </select>
+                                                        <select name="AttributeGroupId" class="form-control" required></select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -224,6 +220,24 @@
                                 </div>
                             </div>
                             <!----- The delete (product attribute) modal ----->
+                            <div class="modal fade" id="deleteProductAttrModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="text-align:center;">
+                                            <h5 class="mx-auto"></h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="text-align:center;">
+                                                <form asp-controller="ProductAttribute" asp-action="DeleteProductAttribute" method="post">
+                                                    <input type="hidden" name="productAttrId" value="@a.Id" />
+                                                    <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
                 </td>
