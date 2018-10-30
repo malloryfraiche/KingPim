@@ -25,6 +25,13 @@ namespace KingPim.Web.Controllers
             return View(attrGroups);
         }
 
+        [HttpGet]
+        public IActionResult GetAttributeGroupsToJson()     // To ajax fill dropdown lists in modals with data..
+        {
+            var attrGroups = _attrGroupRepo.GetAllAttributeGroups();
+            return Json(attrGroups);
+        }
+
         [HttpPost]
         public IActionResult AddAttributeGroup(AttributeGroupProductAttributeViewModel vm)
         {

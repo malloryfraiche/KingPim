@@ -56,103 +56,191 @@
 
                     }
                 }
-                            <td>
-                                @{
-                                    if (Model is IEnumerable<AttributeGroup>)
-                                    {
-                                        <div style="float:right;">
-                                            <a class="text-muted"
-                                               data-toggle="modal"
-                                               data-target="#editAttrGroupModal"
-                                               title="Edit"
-                                               id="editItem"
-                                               data-id="@a.Id"
-                                               data-name="@a.Name"
-                                               data-select="@a.Subcategory.Name"
-                                               data-selectval="@a.SubcategoryId"
-                                               data-textarea="@a.Description">
-                                                <span data-feather="edit-2"></span>
-                                            </a>
-                                            &nbsp;&nbsp;
-                                            <a class="text-muted"
-                                               data-toggle="modal"
-                                               data-target="#deleteAttrGroupModal"
-                                               title="Delete"
-                                               id="deleteItem"
-                                               data-id="@a.Id"
-                                               data-name="@a.Name">
-                                                <span data-feather="trash-2"></span>
-                                            </a>&nbsp;&nbsp;
+                <td>
+                    @{
+                        if (Model is IEnumerable<AttributeGroup>)
+                        {
+                            <div style="float:right;">
+                                <a class="text-muted"
+                                   data-toggle="modal"
+                                   data-target="#editAttrGroupModal"
+                                   title="Edit"
+                                   id="editItem"
+                                   data-id="@a.Id"
+                                   data-name="@a.Name"
+                                   data-select="@a.Subcategory.Name"
+                                   data-selectval="@a.SubcategoryId"
+                                   data-textarea="@a.Description">
+                                    <span data-feather="edit-2"></span>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a class="text-muted"
+                                   data-toggle="modal"
+                                   data-target="#deleteAttrGroupModal"
+                                   title="Delete"
+                                   id="deleteItem"
+                                   data-id="@a.Id"
+                                   data-name="@a.Name">
+                                    <span data-feather="trash-2"></span>
+                                </a>&nbsp;&nbsp;
+                            </div>
+                            <!----- The edit (attribute group) modal ----->
+                            <div class="modal fade" id="editAttrGroupModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="mx-4">Edit @ViewBag.Title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <!----- The edit (attribute group) modal ----->
-                                        <div class="modal fade" id="editAttrGroupModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="mx-4">Edit @ViewBag.Title</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form asp-controller="AttributeGroup" asp-action="AddAttributeGroup" id="editAttrGroupForm" method="post" class="form-horizontal">
-                                                            <div class="form-group">
-                                                                <label for="Name" class="control-label px-4"><strong>Name:</strong></label>
-                                                                <div class="px-4">
-                                                                    <input name="Name" id="nameInputField" class="form-control" required />
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="SubcategoryId" class="control-label px-4"><strong>Subcategory:</strong></label>
-                                                                <div class="px-4">
-                                                                    <select name="SubcategoryId" class="form-control" required>
-                                                                        <option value="" selected>Choose subcategory...</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="Description" class="control-label px-4"><strong>Description:</strong></label>
-                                                                <div class="px-4">
-                                                                    <textarea name="Description" class="form-control" form="editAttrGroupForm"></textarea>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="px-4">
-                                                                    <button class="btn btn-sm btn-success" type="submit">Edit</button>
-                                                                    <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                        <div class="modal-body">
+                                            <form asp-controller="AttributeGroup" asp-action="AddAttributeGroup" id="editAttrGroupForm" method="post" class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="Name" class="control-label px-4"><strong>Name:</strong></label>
+                                                    <div class="px-4">
+                                                        <input name="Name" id="nameInputField" class="form-control" required />
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <!----- The delete (attribute group) modal ----->
-                                        <div class="modal fade" id="deleteAttrGroupModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="text-align:center;">
-                                                        <h5 class="mx-auto"></h5>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div style="text-align:center;">
-                                                            <form asp-controller="AttributeGroup" asp-action="DeleteAttributeGroup" method="post">
-                                                                <input type="hidden" name="attrGroupId" value="@a.Id" />
-                                                                <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
-                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                                            </form>
-                                                        </div>
+                                                <div class="form-group">
+                                                    <label for="SubcategoryId" class="control-label px-4"><strong>Subcategory:</strong></label>
+                                                    <div class="px-4">
+                                                        <select name="SubcategoryId" class="form-control" required></select>
                                                     </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="Description" class="control-label px-4"><strong>Description:</strong></label>
+                                                    <div class="px-4">
+                                                        <textarea name="Description" class="form-control" form="editAttrGroupForm"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="px-4">
+                                                        <button class="btn btn-sm btn-success" type="submit">Edit</button>
+                                                        <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!----- The delete (attribute group) modal ----->
+                            <div class="modal fade" id="deleteAttrGroupModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="text-align:center;">
+                                            <h5 class="mx-auto"></h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="text-align:center;">
+                                                <form asp-controller="AttributeGroup" asp-action="DeleteAttributeGroup" method="post">
+                                                    <input type="hidden" name="attrGroupId" value="@a.Id" />
+                                                    <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </form>
                                             </div>
                                         </div>
-                                    }
-                                    if (Model is IEnumerable<ProductAttribute>)
-                                    {
-
-                                    }
-                                }
-                            </td>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Model is IEnumerable<ProductAttribute>)
+                        {
+                            <div style="float:right;">
+                                <a class="text-muted"
+                                   data-toggle="modal"
+                                   data-target="#editProductAttrModal"
+                                   title="Edit"
+                                   id="editItem"
+                                   data-id="@a.Id"
+                                   data-name="@a.Name"
+                                   data-type="@a.Type"
+                                   data-textarea="@a.Description"
+                                   data-attrgroupselect="@a.AttributeGroup.Name"
+                                   data-attrgroupvalue="@a.AttributeGroupId">
+                                    <span data-feather="edit-2"></span>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a class="text-muted"
+                                   data-toggle="modal"
+                                   data-target="#deleteProductAttrModal"
+                                   title="Delete"
+                                   id="deleteItem"
+                                   data-id="@a.Id"
+                                   data-name="@a.Name">
+                                    <span data-feather="trash-2"></span>
+                                </a>&nbsp;&nbsp;
+                            </div>
+                            <!----- The edit (product attribute) modal ----->
+                            <div class="modal fade" id="editProductAttrModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="mx-4">Edit @ViewBag.Title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form asp-controller="ProductAttribute" asp-action="EditProductAttribute" id="editProductAttrForm" method="post" class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="Name" class="control-label px-4"><strong>Name:</strong></label>
+                                                    <div class="px-4">
+                                                        <input name="Name" id="nameInputField" class="form-control" required />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Type" class="control-label px-4"><strong>Type:</strong></label>
+                                                    <div class="px-4">
+                                                        <select name="Type" class="form-control" required></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Description" class="control-label px-4"><strong>Description:</strong></label>
+                                                    <div class="px-4">
+                                                        <textarea name="Description" class="form-control" form="editProductAttrForm"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="AttributeGroupId" class="control-label px-4"><strong>Attribute group:</strong></label>
+                                                    <div class="px-4">
+                                                        <select name="AttributeGroupId" class="form-control" required></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="px-4">
+                                                        <button class="btn btn-sm btn-success" type="submit">Edit</button>
+                                                        <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!----- The delete (product attribute) modal ----->
+                            <div class="modal fade" id="deleteProductAttrModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="text-align:center;">
+                                            <h5 class="mx-auto"></h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div style="text-align:center;">
+                                                <form asp-controller="ProductAttribute" asp-action="DeleteProductAttribute" method="post">
+                                                    <input type="hidden" name="productAttrId" value="@a.Id" />
+                                                    <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </td>
             </tr>
         }
     </tbody>

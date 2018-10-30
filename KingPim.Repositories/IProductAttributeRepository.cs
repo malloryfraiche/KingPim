@@ -13,5 +13,7 @@ namespace KingPim.Repositories
         IEnumerable<ProductAttribute> GetAllProductAttributes();
 
         void AddProductAttribute(AttributeGroupProductAttributeViewModel vm);
+
+        ProductAttribute DeleteProductAttribute(int productAttrId);
     }
 }

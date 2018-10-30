@@ -82,13 +82,8 @@
                 }
             });
         });
-
-
-
     });
-
-
-
+    
     // To control the data that is shown in the delete modal.
     $('#deleteAttrGroupModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);

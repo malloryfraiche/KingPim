@@ -30,5 +30,28 @@ namespace KingPim.Web.Controllers
             _productAttrRepo.AddProductAttribute(vm);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult EditProductAttribute(AttributeGroupProductAttributeViewModel vm)
+        {
+            _productAttrRepo.AddProductAttribute(vm);
+            var url = Url.Action("Index", "ProductAttribute");
+            return Json(url);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProductAttribute(int productAttrId)
+        {
+            var deletedProductAttr = _productAttrRepo.DeleteProductAttribute(productAttrId);
+            if (deletedProductAttr != null)
+            {
+                // error - product attribute was found and not deleted for some reason.
+            }
+            else
+            {
+                // error - product attribute was not found in DB.
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
