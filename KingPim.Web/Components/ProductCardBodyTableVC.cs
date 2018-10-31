@@ -27,16 +27,9 @@ namespace KingPim.Web.Components
             var theProduct = _productRepo.Products.FirstOrDefault(x => x.Id == productId);
             var theProductsSubcat = theProduct.Subcategory;
             var theProductsSubcatAttributeGroups = theProductsSubcat.AttributeGroups;
-
             var theValueRow = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId.Equals(productId));
-
-            //var theAttrGroupsProductAttributes = 
             
-            //var productAttrVal = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId == productId);
             //var subcategories = _subcatRepo.Subcategories;
-            
-            //var productsAttrGroups = product.Subcategory.AttributeGroups;
- 
             
             var prodAttrValVM = new ProductAttributeValueViewModel
             {
