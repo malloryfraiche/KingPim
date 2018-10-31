@@ -8,41 +8,48 @@
             <th><i><small><b>Attribute group</b></small></i></th>
             <th><i><small><b>Products attribute</b></small></i></th>
             <th><i><small><b>Value</b></small></i></th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var attrGroup in p.Subcategory.AttributeGroups)
+
+        @foreach (var ag in Model.AttributeGroups)
         {
-            @foreach (var productAttr in attrGroup.ProductAttributes)
+            @foreach (var pa in ag.ProductAttributes)
             {
-                @if (productAttr.AttributeGroupId != null)
-                {
-                    <tr>
-                        <td><small>@attrGroup.Name</small></td>
-                        <td><small>@productAttr.Name</small></td>
-                        <td><small></small></td>
+                <tr>
+                    <td><small>@ag.Name</small></td>
+
+                    @if (pa.AttributeGroupId != null)
+                    {
+                        <td><small>@pa.Name</small></td>
+                    }
+                    @if (pa.AttributeGroupId == null)
+                    {
+                        <!-- can this ever be null?? -->
+                        <td><i><small>Please add a product attribute to this attribute group.</small></i></td>
+                    }
+
+                    @if (Model.ProductAttributeId.Equals(pa.Id))
+                    {
                         <td>
+                            <small>@Model.Value</small>
                             <div style="float:right;">
-                                <button type="button" class="btn btn-sm btn-outline-dark" title="Edit the products attribute value.">Edit</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this products attribute.">Delete</button>
+                                <button type="button" class="btn btn-sm btn-outline-dark" title="Edit this attribute value.">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this attribute value.">Delete</button>
                             </div>
                         </td>
-                    </tr>
-                }
+                    }
+                    else
+                    {
+                        <td>
+                            <i><small>Please add a value.</small></i>
+                            <button type="button" class="btn btn-sm btn-success" title="Add a value!" style="float:right;">Add</button>
+                        </td>
+                    }
 
-
-                if (productAttr.AttributeGroupId == null)
-                {
-                    <tr>
-                        <td><small>Please add a product attribute to this attribute group.</small></td>
-                    </tr>
-                }
-
+                </tr>
             }
 
         }
-
-
     </tbody>
 </table>

@@ -10,18 +10,41 @@ namespace KingPim.Web.Components
 {
     public class ProductCardBodyTableVC : ViewComponent
     {
-        // To have access to subcat data in the product card body table.
         private ISubcategoryRepository _subcatRepo;
-        public ProductCardBodyTableVC(ISubcategoryRepository subcatRepository)
+        private IProductRepository _productRepo;
+        private IProductAttributeValueRepository _productAttrValRepo;
+        private IAttributeGroupRepository _attrGroupRepo;
+        public ProductCardBodyTableVC(ISubcategoryRepository subcatRepository, IProductRepository productRepo, IProductAttributeValueRepository productAttrValRepo, IAttributeGroupRepository attributeGroupRepo)
         {
             _subcatRepo = subcatRepository;
+            _productRepo = productRepo;
+            _productAttrValRepo = productAttrValRepo;
+            _attrGroupRepo = attributeGroupRepo;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(int productId)
         {
+            var theProduct = _productRepo.Products.FirstOrDefault(x => x.Id == productId);
+            var theProductsSubcat = theProduct.Subcategory;
+            var theProductsSubcatAttributeGroups = theProductsSubcat.AttributeGroups;
+
+            var theValueRow = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId.Equals(productId));
+
+            //var theAttrGroupsProductAttributes = 
+            
+            //var productAttrVal = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId == productId);
+            //var subcategories = _subcatRepo.Subcategories;
+            
+            //var productsAttrGroups = product.Subcategory.AttributeGroups;
+ 
+            
             var prodAttrValVM = new ProductAttributeValueViewModel
             {
-                Subcategory = _subcatRepo.GetAllSubcategories()
+                Value = theValueRow.Value,
+                ProductAttributeId = theValueRow.ProductAttributeId,
+                //ProductId = productId,
+                //Subcategory = subcategories
+                AttributeGroups = theProductsSubcatAttributeGroups
             };
             return View(prodAttrValVM);
         }
