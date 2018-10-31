@@ -42,6 +42,7 @@ namespace KingPim.Web
             services.AddTransient<ISubcategoryRepository, SubcategoryRepository>();
             services.AddTransient<IAttributeGroupRepository, AttributeGroupRepository>();
             services.AddTransient<IProductAttributeRepository, ProductAttributeRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddMvc();
             services.AddMemoryCache();

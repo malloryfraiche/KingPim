@@ -77,3 +77,8 @@ nav ul, nav li {
     color: #fff;
     background-color: #5fa2db;
 }
+
+
+.card {
+    margin-bottom: 40px;
+}

@@ -1,0 +1,196 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+<div>
+    <h1>@ViewBag.Title</h1>
+    <button class="btn btn-success" id="addNewBtn" type="button" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
+</div>
+<br />
+<br />
+
+@* --- Product Table --- *@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@ViewBag.TitlePlural</th>
+            <th><i style="float:right;"><small><b>Description</b></small></i></th>
+            <th><i style="float:right;"><small><b>Price</b></small></i></th>
+            <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr value="@p.Id">
+                <td>@p.Name</td>
+                <td><i style="float:right;"><small>@p.Description</small></i></td>
+                <td><i style="float:right;"><small>@p.Price</small></i></td>
+                <td><i style="float:right;"><small>@p.Subcategory.Name</small></i></td>
+                <td>
+                    <div style="float:right;">
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#editModal"
+                           title="Edit"
+                           id="editItem"
+                           data-id="@p"
+                           data-name="@p.Name">
+                            <span data-feather="edit-2"></span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#deleteModal"
+                           title="Delete"
+                           id="deleteItem"
+                           data-id="@p.Id"
+                           data-name="@p.Name">
+                            <span data-feather="trash-2"></span>
+                        </a>&nbsp;&nbsp;
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<br />
+<div id="viewComponents" style="display:none;">
+    @*@await Component.InvokeAsync("")*@
+</div>
+<br />
+
+@* --- Product Cards --- *@
+<div class="row">
+    @foreach (var p in Model)
+    {
+        <div class="col-sm-6">
+            <div class="card">
+                @* --- card header --- *@
+                <div class="card-header">
+                    <b>@p.Name</b>
+                    <div style="float:right;">
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#editModal"
+                           title="Edit"
+                           id="editItem"
+                           data-id="@p"
+                           data-name="@p.Name">
+                            <span data-feather="edit-2"></span>
+                        </a>
+                        &nbsp;
+                        <a class="text-muted"
+                           data-toggle="modal"
+                           data-target="#deleteModal"
+                           title="Delete"
+                           id="deleteItem"
+                           data-id="@p.Id"
+                           data-name="@p.Name">
+                            <span data-feather="trash-2"></span>
+                        </a>&nbsp;&nbsp;&nbsp;
+                        @{
+                            if (p.Published == false)
+                            {
+                                <button type="button" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
+                            }
+                        }
+                    </div>
+                </div>
+                @* --- card body --- *@
+                <div class="card-body">
+                    <p class="card-text">
+                        <small>
+                            <b>Description:<br /></b>
+                            <i>@p.Description</i>
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        <small>
+                            <b>Price:</b>
+                            <i>@p.Price &#107;&#114;</i>
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        <small>
+                            <b>Subcategory:</b>
+                            <i>@p.Subcategory.Name</i>
+                        </small>
+                    </p><br />
+                    @* --- card body table --- *@
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th><i><small><b>Attribute group</b></small></i></th>
+                                <th><i><small><b>Products attribute</b></small></i></th>
+                                <th><i><small><b>Value</b></small></i></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+
+
+                            @foreach (var attrGroup in p.Subcategory.AttributeGroups)
+                            {
+                                @foreach (var productAttr in attrGroup.ProductAttributes)
+                                {
+                                    @if (productAttr.AttributeGroupId != null)
+                                    {
+                                        <tr>
+                                            <td><small>@attrGroup.Name</small></td>
+                                            <td><small>@productAttr.Name</small></td>
+                                            <td><small></small></td>
+                                            <td><button type="button" class="btn btn-sm btn-dark" style="float:right;" title="Edit the products attribute value.">Edit</button></td>
+                                        </tr>
+                                    }
+                                    
+
+                                    if (productAttr.AttributeGroupId == null)
+                                    {
+                                        <tr>
+                                            <td><small>Please add a product attribute to this attribute group.</small></td>
+                                        </tr>
+                                    }
+
+                                }
+
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+                @* --- card footer --- *@
+                <div class="card-footer text-muted text-center">
+                    <small>
+                        <i><b>version:</b></i>&nbsp;
+                        <i>@p.Version</i>
+                    </small><br />
+                    <small>
+                        <i><b>added:</b></i>&nbsp;
+                        <i>@p.AddedDate.ToString("dd-MM-yyyy HH:mm")</i>&nbsp;
+                    </small>&nbsp;&nbsp;&nbsp;
+                    <small>
+                        <i><b>updated:</b></i>&nbsp;
+                        <i>@p.UpdatedDate.ToString("dd-MM-yyyy HH:mm")</i>&nbsp;
+                    </small>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+
