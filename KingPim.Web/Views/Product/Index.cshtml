@@ -126,58 +126,17 @@
                             <i>@p.Subcategory.Name</i>
                         </small>
                     </p><br />
-                    @* --- card body table --- *@
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th><i><small><b>Attribute group</b></small></i></th>
-                                <th><i><small><b>Products attribute</b></small></i></th>
-                                <th><i><small><b>Value</b></small></i></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
+                    @* --- card body table view component --- *@
+                    @await Component.InvokeAsync("ProductCardBodyTableVC")
 
-
-
-
-                            @foreach (var attrGroup in p.Subcategory.AttributeGroups)
-                            {
-                                @foreach (var productAttr in attrGroup.ProductAttributes)
-                                {
-                                    @if (productAttr.AttributeGroupId != null)
-                                    {
-                                        <tr>
-                                            <td><small>@attrGroup.Name</small></td>
-                                            <td><small>@productAttr.Name</small></td>
-                                            <td><small></small></td>
-                                            <td><button type="button" class="btn btn-sm btn-dark" style="float:right;" title="Edit the products attribute value.">Edit</button></td>
-                                        </tr>
-                                    }
-                                    
-
-                                    if (productAttr.AttributeGroupId == null)
-                                    {
-                                        <tr>
-                                            <td><small>Please add a product attribute to this attribute group.</small></td>
-                                        </tr>
-                                    }
-
-                                }
-
-                            }
-
-
-                        </tbody>
-                    </table>
                 </div>
                 @* --- card footer --- *@
                 <div class="card-footer text-muted text-center">
                     <small>
                         <i><b>version:</b></i>&nbsp;
                         <i>@p.Version</i>
-                    </small><br />
+                    </small>&nbsp;&nbsp;&nbsp;
                     <small>
                         <i><b>added:</b></i>&nbsp;
                         <i>@p.AddedDate.ToString("dd-MM-yyyy HH:mm")</i>&nbsp;

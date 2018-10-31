@@ -1,0 +1,48 @@
+﻿@* ProductCardBodyTableVC *@
+
+@model ProductAttributeValueViewModel
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th><i><small><b>Attribute group</b></small></i></th>
+            <th><i><small><b>Products attribute</b></small></i></th>
+            <th><i><small><b>Value</b></small></i></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var attrGroup in p.Subcategory.AttributeGroups)
+        {
+            @foreach (var productAttr in attrGroup.ProductAttributes)
+            {
+                @if (productAttr.AttributeGroupId != null)
+                {
+                    <tr>
+                        <td><small>@attrGroup.Name</small></td>
+                        <td><small>@productAttr.Name</small></td>
+                        <td><small></small></td>
+                        <td>
+                            <div style="float:right;">
+                                <button type="button" class="btn btn-sm btn-outline-dark" title="Edit the products attribute value.">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this products attribute.">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+
+                if (productAttr.AttributeGroupId == null)
+                {
+                    <tr>
+                        <td><small>Please add a product attribute to this attribute group.</small></td>
+                    </tr>
+                }
+
+            }
+
+        }
+
+
+    </tbody>
+</table>
