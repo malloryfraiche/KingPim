@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,14 @@ namespace KingPim.Web.Controllers
             ViewBag.TitlePlural = "Products";
             return View(products);
         }
+
+        [HttpPost]
+        public IActionResult AddProduct(ProductViewModel vm)
+        {
+            _productRepo.AddProduct(vm);
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }

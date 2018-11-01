@@ -28,14 +28,39 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
-                var attrGroup = new AttributeGroup
+                
+                var matchingAttributeGroupName = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Contains(vm.Name));
+                var theListOfProductAttributes = matchingAttributeGroupName.ProductAttributes;
+                
+                if (matchingAttributeGroupName != null)
                 {
-                    Name = vm.Name,
-                    Description = vm.Description,
-                    SubcategoryId = vm.SubcategoryId,
-                    ProductAttributes = null
-                };
-                ctx.AttributeGroups.Add(attrGroup);
+                    var attrGroup = new AttributeGroup
+                    {
+                        Name = vm.Name,
+                        Description = vm.Description,
+                        SubcategoryId = vm.SubcategoryId,
+                        ProductAttributes = theListOfProductAttributes
+                    };
+                    ctx.AttributeGroups.Add(attrGroup);
+                }
+                else
+                {
+                    var attrGroup = new AttributeGroup
+                    {
+                        Name = vm.Name,
+                        Description = vm.Description,
+                        SubcategoryId = vm.SubcategoryId,
+                        ProductAttributes = null
+                    };
+                    ctx.AttributeGroups.Add(attrGroup);
+                }
+
+                
+
+
+
+
+
             }
             else       // Update
             {
