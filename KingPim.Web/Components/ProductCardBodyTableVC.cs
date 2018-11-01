@@ -28,18 +28,27 @@ namespace KingPim.Web.Components
             var theProductsSubcat = theProduct.Subcategory;
             var theProductsSubcatAttributeGroups = theProductsSubcat.AttributeGroups;
             var theValueRow = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId.Equals(productId));
-            
+
             //var subcategories = _subcatRepo.Subcategories;
-            
-            var prodAttrValVM = new ProductAttributeValueViewModel
+
+            if (theValueRow != null)
             {
-                Value = theValueRow.Value,
-                ProductAttributeId = theValueRow.ProductAttributeId,
-                //ProductId = productId,
-                //Subcategory = subcategories
-                AttributeGroups = theProductsSubcatAttributeGroups
-            };
-            return View(prodAttrValVM);
+                var prodAttrValVM = new ProductAttributeValueViewModel
+                {
+                    Value = theValueRow.Value,
+                    ProductAttributeId = theValueRow.ProductAttributeId,
+                    //ProductId = productId,
+                    //Subcategory = subcategories
+                    AttributeGroups = theProductsSubcatAttributeGroups
+                };
+                return View(prodAttrValVM);
+            }
+            else
+            {
+                var prodAttrValVM = new ProductAttributeValueViewModel();
+                return View(prodAttrValVM);
+            }
+            
         }
     }
 }

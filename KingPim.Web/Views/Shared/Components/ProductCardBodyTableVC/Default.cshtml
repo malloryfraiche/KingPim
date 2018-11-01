@@ -1,55 +1,69 @@
-﻿@* ProductCardBodyTableVC *@
-
-@model ProductAttributeValueViewModel
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th><i><small><b>Attribute group</b></small></i></th>
-            <th><i><small><b>Products attribute</b></small></i></th>
-            <th><i><small><b>Value</b></small></i></th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var ag in Model.AttributeGroups)
-        {
-            @foreach (var pa in ag.ProductAttributes)
+﻿@model ProductAttributeValueViewModel
+<!-- If there are attribute groups connected to this subcategory... -->
+@if (Model.AttributeGroups != null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th><i><small><b>Attribute group</b></small></i></th>
+                <th><i><small><b>Products attribute</b></small></i></th>
+                <th><i><small><b>Value</b></small></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ag in Model.AttributeGroups)
             {
-                <tr>
-                    <td><small>@ag.Name</small></td>
-
-                    @if (pa.AttributeGroupId != null)
-                    {
-                        <td><small>@pa.Name</small></td>
-                    }
-                    @if (pa.AttributeGroupId == null)
-                    {
-                        <!-- can this ever be null?? -->
-                        <td><i><small>Please add a product attribute to this attribute group.</small></i></td>
-                    }
-
-                    @if (Model.ProductAttributeId.Equals(pa.Id))
-                    {
-                        <td>
-                            <small>@Model.Value</small>
-                            <div style="float:right;">
-                                <button type="button" class="btn btn-sm btn-outline-dark" title="Edit this attribute value.">Edit</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this attribute value.">Delete</button>
-                            </div>
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            <i><small>Please add a value.</small></i>
-                            <button type="button" class="btn btn-sm btn-success" title="Add a value!" style="float:right;">Add</button>
-                        </td>
-                    }
-
-                </tr>
+                @foreach (var pa in ag.ProductAttributes)
+                {
+                    <tr>
+                        <td><small>@ag.Name</small></td>
+                        @if (pa.AttributeGroupId != null)
+                        {
+                            <td><small>@pa.Name</small></td>
+                        }
+                        @if (pa.AttributeGroupId == null)
+                        {
+                            <!-- can this ever be null?? -->
+                            <td><i><small>Please add a product attribute to this attribute group.</small></i></td>
+                        }
+                        @if (Model.ProductAttributeId.Equals(pa.Id))
+                        {
+                            <td>
+                                <small>@Model.Value</small>
+                                <div style="float:right;">
+                                    <button type="button" class="btn btn-sm btn-outline-dark" title="Edit this attribute value.">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this attribute value.">Delete</button>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <i><small>Please add a value.</small></i>
+                                <button type="button" class="btn btn-sm btn-success" title="Add a value!" style="float:right;">Add</button>
+                            </td>
+                        }
+                    </tr>
+                }
             }
-
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th><i><small><b>Attribute group</b></small></i></th>
+                <th><i><small><b>Products attribute</b></small></i></th>
+                <th><i><small><b>Value</b></small></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- There are NO attribute groups connected to this subcategory yet... -->
+            <tr>
+                <td colspan="3"><i><small>Please add an <b>Attribute Group</b> AND a connecting <b>Product Attribute</b> to complete this table.</small></i></td>
+            </tr>
+        </tbody>
+    </table>
+}

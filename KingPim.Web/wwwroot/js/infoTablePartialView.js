@@ -17,6 +17,10 @@
         $('#addNewProductAttrForm').find('select').val('');
         $('#addNewProductAttrForm').find('textarea').val('');
 
+        $('#addNewProductForm').find('input').val('');
+        $('#addNewProductForm').find('select').val('');
+        $('#addNewProductForm').find('textarea').val('');
+
         $('#viewComponents').hide();
     });
 });

@@ -28,6 +28,20 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
+
+
+
+                //var searchThroughAttrGroupNames = 
+                //if (vm.Name )
+                //{
+
+                //}
+
+
+
+
+
+
                 var attrGroup = new AttributeGroup
                 {
                     Name = vm.Name,
