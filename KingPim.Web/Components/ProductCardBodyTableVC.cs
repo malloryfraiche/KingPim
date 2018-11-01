@@ -45,7 +45,10 @@ namespace KingPim.Web.Components
             }
             else
             {
-                var prodAttrValVM = new ProductAttributeValueViewModel();
+                var prodAttrValVM = new ProductAttributeValueViewModel
+                {
+                    AttributeGroups = theProductsSubcatAttributeGroups
+                };
                 return View(prodAttrValVM);
             }
             
