@@ -13,6 +13,7 @@ namespace KingPim.Models
         //public int? SubcategoryId { get; set; }
         public virtual List<ProductAttribute> ProductAttributes { get; set; }
 
-        public virtual List<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
+        //public virtual List<Subcategory> Subcategories { get; set; }
+        //public virtual List<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
     }
 }
