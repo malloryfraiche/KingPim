@@ -26,7 +26,7 @@ namespace KingPim.Web.Components
         {
             var theProduct = _productRepo.Products.FirstOrDefault(x => x.Id == productId);
             var theProductsSubcat = theProduct.Subcategory;
-            var theProductsSubcatAttributeGroups = theProductsSubcat.AttributeGroups;
+            //var theProductsSubcatAttributeGroups = theProductsSubcat.SubcategoryAttributeGroups;
             var theValueRow = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId.Equals(productId));
 
             //var subcategories = _subcatRepo.Subcategories;
@@ -39,7 +39,7 @@ namespace KingPim.Web.Components
                     ProductAttributeId = theValueRow.ProductAttributeId,
                     //ProductId = productId,
                     //Subcategory = subcategories
-                    AttributeGroups = theProductsSubcatAttributeGroups
+                    //AttributeGroups = theProductsSubcatAttributeGroups
                 };
                 return View(prodAttrValVM);
             }
@@ -47,7 +47,7 @@ namespace KingPim.Web.Components
             {
                 var prodAttrValVM = new ProductAttributeValueViewModel
                 {
-                    AttributeGroups = theProductsSubcatAttributeGroups
+                    //AttributeGroups = theProductsSubcatAttributeGroups
                 };
                 return View(prodAttrValVM);
             }

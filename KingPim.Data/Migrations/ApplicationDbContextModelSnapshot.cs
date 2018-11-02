@@ -155,9 +155,28 @@ namespace KingPim.Data.Migrations
                     b.ToTable("Subcategories");
                 });
 
+            modelBuilder.Entity("KingPim.Models.SubcategoryAttributeGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AttributeGroupId");
+
+                    b.Property<int?>("SubcategoryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeGroupId");
+
+                    b.HasIndex("SubcategoryId");
+
+                    b.ToTable("SubcategoryAttributeGroups");
+                });
+
             modelBuilder.Entity("KingPim.Models.AttributeGroup", b =>
                 {
-                    b.HasOne("KingPim.Models.Subcategory", "Subcategory")
+                    b.HasOne("KingPim.Models.Subcategory")
                         .WithMany("AttributeGroups")
                         .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -197,6 +216,19 @@ namespace KingPim.Data.Migrations
                     b.HasOne("KingPim.Models.Category", "Category")
                         .WithMany("Subcategories")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("KingPim.Models.SubcategoryAttributeGroup", b =>
+                {
+                    b.HasOne("KingPim.Models.AttributeGroup", "AttributeGroup")
+                        .WithMany()
+                        .HasForeignKey("AttributeGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("KingPim.Models.Subcategory", "Subcategory")
+                        .WithMany()
+                        .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

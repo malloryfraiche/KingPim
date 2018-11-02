@@ -17,6 +17,7 @@ namespace KingPim.Data.DataAccess
         public DbSet<AttributeGroup> AttributeGroups { get; set; }
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
         public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+        public DbSet<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {

@@ -56,18 +56,18 @@ namespace KingPim.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    SubcategoryId = table.Column<int>(nullable: true)
+                    Description = table.Column<string>(nullable: true)
+                    //SubcategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AttributeGroups", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AttributeGroups_Subcategories_SubcategoryId",
-                        column: x => x.SubcategoryId,
-                        principalTable: "Subcategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                    //table.ForeignKey(
+                    //    name: "FK_AttributeGroups_Subcategories_SubcategoryId",
+                    //    column: x => x.SubcategoryId,
+                    //    principalTable: "Subcategories",
+                    //    principalColumn: "Id",
+                    //    onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,6 +119,32 @@ namespace KingPim.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubcategoryAttributeGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SubcategoryId = table.Column<int>(nullable: true),
+                    AttributeGroupId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubcategoryAttributeGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubcategoryAttributeGroups_AttributeGroups_AttributeGroupId",
+                        column: x => x.AttributeGroupId,
+                        principalTable: "AttributeGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_SubcategoryAttributeGroups_Subcategories_SubcategoryId",
+                        column: x => x.SubcategoryId,
+                        principalTable: "Subcategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductAttributeValues",
                 columns: table => new
                 {
@@ -145,10 +171,10 @@ namespace KingPim.Data.Migrations
                         onDelete: ReferentialAction.SetNull);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AttributeGroups_SubcategoryId",
-                table: "AttributeGroups",
-                column: "SubcategoryId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_AttributeGroups_SubcategoryId",
+            //    table: "AttributeGroups",
+            //    column: "SubcategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductAttributes_AttributeGroupId",
@@ -174,12 +200,25 @@ namespace KingPim.Data.Migrations
                 name: "IX_Subcategories_CategoryId",
                 table: "Subcategories",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubcategoryAttributeGroups_AttributeGroupId",
+                table: "SubcategoryAttributeGroups",
+                column: "AttributeGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubcategoryAttributeGroups_SubcategoryId",
+                table: "SubcategoryAttributeGroups",
+                column: "SubcategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "ProductAttributeValues");
+
+            migrationBuilder.DropTable(
+                name: "SubcategoryAttributeGroups");
 
             migrationBuilder.DropTable(
                 name: "ProductAttributes");

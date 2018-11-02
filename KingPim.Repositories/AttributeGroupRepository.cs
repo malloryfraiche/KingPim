@@ -38,7 +38,7 @@ namespace KingPim.Repositories
                     {
                         Name = vm.Name,
                         Description = vm.Description,
-                        SubcategoryId = vm.SubcategoryId,
+                        //SubcategoryId = vm.SubcategoryId,
                         ProductAttributes = theListOfProductAttributes
                     };
                     ctx.AttributeGroups.Add(attrGroup);
@@ -49,18 +49,12 @@ namespace KingPim.Repositories
                     {
                         Name = vm.Name,
                         Description = vm.Description,
-                        SubcategoryId = vm.SubcategoryId,
+                        //SubcategoryId = vm.SubcategoryId,
                         ProductAttributes = null
                     };
                     ctx.AttributeGroups.Add(attrGroup);
                 }
-
                 
-
-
-
-
-
             }
             else       // Update
             {
@@ -68,7 +62,7 @@ namespace KingPim.Repositories
                 if (ctxAttributeGroup != null)
                 {
                     ctxAttributeGroup.Name = vm.Name;
-                    ctxAttributeGroup.SubcategoryId = vm.SubcategoryId;
+                    //ctxAttributeGroup.SubcategoryId = vm.SubcategoryId;
                     ctxAttributeGroup.Description = vm.Description;
                 }
             }
