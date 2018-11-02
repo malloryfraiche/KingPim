@@ -54,13 +54,7 @@ namespace KingPim.Repositories
                     };
                     ctx.AttributeGroups.Add(attrGroup);
                 }
-
                 
-
-
-
-
-
             }
             else       // Update
             {

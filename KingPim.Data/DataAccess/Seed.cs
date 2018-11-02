@@ -119,7 +119,7 @@ namespace KingPim.Data.DataAccess
             {
                 Name = "Equiptment",
                 Products = productList,
-                AttributeGroups = attributeGroupList,
+                SubcategoryAttributeGroups = attributeGroupList,
                 UpdatedDate = DateTime.Now,
                 AddedDate = DateTime.Today,
                 Published = false,
@@ -129,7 +129,7 @@ namespace KingPim.Data.DataAccess
             {
                 Name = "Clothes",
                 Products = productList2,
-                AttributeGroups = attributeGroupList2,
+                SubcategoryAttributeGroups = attributeGroupList2,
                 UpdatedDate = DateTime.Now,
                 AddedDate = DateTime.Today,
                 Published = false,
