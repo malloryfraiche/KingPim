@@ -17,10 +17,10 @@
             </div>
         </div>
         <div class="form-group col" title="TIPS: If you do not see your desired Category here, first add a new Category by surfing into the 'Category' side menu.">
-            <label asp-for="CategoryId" class="control-label col-sm-2"><strong>Category:</strong></label>
-            <div class="col-sm-10">
+            <label asp-for="CategoryId" class="control-label px-5"><strong>Category:</strong></label>
+            <div class="px-5">
                 <select asp-for="CategoryId" class="form-control" required>
-                    <option value="" selected>Välj</option>
+                    <option value="" selected>Choose...</option>
                     @foreach (var cat in Model.Category)
                     {
                         <option value="@cat.Id">@cat.Name</option>
@@ -28,24 +28,41 @@
                 </select>
             </div>
         </div>
-        @*<div class="form-group col" title="TIPS: If you do not see your desired AttributeGroup here, first add a new AttributeGroup by surfing into the 'AttributeGroup' side menu.">
-            <label asp-for="CategoryId" class="control-label col-sm-2"><strong>Category:</strong></label>
-            <div class="col-sm-10">
-                <select asp-for="CategoryId" class="form-control" required>
-                    <option value="" selected>Välj</option>
-                    @foreach (var cat in Model.Category)
-                    {
-                        <option value="@cat.Id">@cat.Name</option>
-                    }
-                </select>
-            </div>
-        </div>*@
     </div>
-    <div class="form-group">
+    <div class="row">
+
+        <div class="form-group col" title="TIPS: If you do not see your desired AttributeGroup here, first add a new AttributeGroup by surfing into the 'AttributeGroup' side menu.">
+            <label class="control-label px-5"><small><i><b>Please choose your subcategories attribute groups:</b></i></small></label>
+            <div class="px-5">
+                <!----- list of attribute group table ----->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td><small><i><b>Name</b></i></small></td>
+                        </tr>
+                    </thead>
+                    <tbody id="attrGroupTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group col">
+            <label asp-for="AttributeGroupId" class="control-label px-5" title="TIPS: Click 'Add' to the left to add attribute groups here!"><strong>Attribute Groups:</strong></label>
+            <div class="px-5">
+                <!----- list of added attribute groups table ----->
+                <table class="table table-bordered" id="addedAttrGroupsTableId" style="display:none;">
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <hr />
+    <div class="form-group" style="float:right;">
         <div class="px-5">
             <button class="btn btn-sm btn-success" type="submit">Add @ViewBag.Title</button>
             <a class="btn btn-sm btn-secondary" id="cancelBtn">Cancel</a>
         </div>
     </div>
 </form>
-

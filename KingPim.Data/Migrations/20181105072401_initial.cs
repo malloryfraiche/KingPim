@@ -9,6 +9,20 @@ namespace KingPim.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AttributeGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributeGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -23,6 +37,28 @@ namespace KingPim.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductAttributes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    AttributeGroupId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductAttributes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductAttributes_AttributeGroups_AttributeGroupId",
+                        column: x => x.AttributeGroupId,
+                        principalTable: "AttributeGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,27 +86,6 @@ namespace KingPim.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AttributeGroups",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
-                    //SubcategoryId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AttributeGroups", x => x.Id);
-                    //table.ForeignKey(
-                    //    name: "FK_AttributeGroups_Subcategories_SubcategoryId",
-                    //    column: x => x.SubcategoryId,
-                    //    principalTable: "Subcategories",
-                    //    principalColumn: "Id",
-                    //    onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -92,28 +107,6 @@ namespace KingPim.Data.Migrations
                         name: "FK_Products_Subcategories_SubcategoryId",
                         column: x => x.SubcategoryId,
                         principalTable: "Subcategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductAttributes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
-                    AttributeGroupId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductAttributes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductAttributes_AttributeGroups_AttributeGroupId",
-                        column: x => x.AttributeGroupId,
-                        principalTable: "AttributeGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                 });
@@ -170,11 +163,6 @@ namespace KingPim.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                 });
-
-            //migrationBuilder.CreateIndex(
-            //    name: "IX_AttributeGroups_SubcategoryId",
-            //    table: "AttributeGroups",
-            //    column: "SubcategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductAttributes_AttributeGroupId",
