@@ -28,32 +28,29 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
-                
-                var matchingAttributeGroupName = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Contains(vm.Name));
-                var theListOfProductAttributes = matchingAttributeGroupName.ProductAttributes;
-                
-                if (matchingAttributeGroupName != null)
+                var attrGroup = new AttributeGroup
                 {
-                    var attrGroup = new AttributeGroup
-                    {
-                        Name = vm.Name,
-                        Description = vm.Description,
-                        //SubcategoryId = vm.SubcategoryId,
-                        ProductAttributes = theListOfProductAttributes
-                    };
-                    ctx.AttributeGroups.Add(attrGroup);
-                }
-                else
-                {
-                    var attrGroup = new AttributeGroup
-                    {
-                        Name = vm.Name,
-                        Description = vm.Description,
-                        //SubcategoryId = vm.SubcategoryId,
-                        ProductAttributes = null
-                    };
-                    ctx.AttributeGroups.Add(attrGroup);
-                }
+                    Name = vm.Name,
+                    Description = vm.Description,
+                    ProductAttributes = null
+                };
+                ctx.AttributeGroups.Add(attrGroup);
+
+                //var matchingAttributeGroupName = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Contains(vm.Name));
+                //if (matchingAttributeGroupName != null)
+                //{
+                //    var attrGroup = new AttributeGroup
+                //    {
+                //        Name = vm.Name,
+                //        Description = vm.Description,
+                //        ProductAttributes = null
+                //    };
+                //    ctx.AttributeGroups.Add(attrGroup);
+                //}
+                //else
+                //{
+                //    // TODO: error message because you are trying to add an Attribute Group with same name that already exsists. 
+                //}
                 
             }
             else       // Update

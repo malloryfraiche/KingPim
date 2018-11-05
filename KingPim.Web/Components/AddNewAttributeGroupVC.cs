@@ -10,19 +10,19 @@ namespace KingPim.Web.Components
 {
     public class AddNewAttributeGroupVC : ViewComponent
     {
-        private ISubcategoryRepository _subcatRepo;
-        public AddNewAttributeGroupVC(ISubcategoryRepository subcategoryRepository)
-        {
-            _subcatRepo = subcategoryRepository;
-        }
+        //private ISubcategoryRepository _subcatRepo;
+        //public AddNewAttributeGroupVC(ISubcategoryRepository subcategoryRepository)
+        //{
+        //    _subcatRepo = subcategoryRepository;
+        //}
 
         public IViewComponentResult Invoke()
         {
-            var subcategory = _subcatRepo.Subcategories;
-            var attrVm = new AttributeGroupProductAttributeViewModel
-            {
-                Subcategory = subcategory
-            };
+            //var subcategory = _subcatRepo.Subcategories;
+            var attrVm = new AttributeGroupProductAttributeViewModel();
+            //{
+            //    Subcategory = subcategory
+            //};
 
             return View(attrVm);
         }
