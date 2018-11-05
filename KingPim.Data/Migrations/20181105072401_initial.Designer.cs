@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KingPim.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181102095140_initial")]
+    [Migration("20181105072401_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,7 @@ namespace KingPim.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("SubcategoryId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SubcategoryId");
 
                     b.ToTable("AttributeGroups");
                 });
@@ -176,14 +172,6 @@ namespace KingPim.Data.Migrations
                     b.ToTable("SubcategoryAttributeGroups");
                 });
 
-            modelBuilder.Entity("KingPim.Models.AttributeGroup", b =>
-                {
-                    b.HasOne("KingPim.Models.Subcategory")
-                        .WithMany("AttributeGroups")
-                        .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
-                });
-
             modelBuilder.Entity("KingPim.Models.Product", b =>
                 {
                     b.HasOne("KingPim.Models.Subcategory", "Subcategory")
@@ -229,7 +217,7 @@ namespace KingPim.Data.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("KingPim.Models.Subcategory", "Subcategory")
-                        .WithMany()
+                        .WithMany("SubcategoryAttributeGroups")
                         .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });

@@ -17,7 +17,10 @@ namespace KingPim.Models
         //public virtual AttributeGroup AttributeGroup { get; set; }
         //public int? AttributeGroupId { get; set; }
 
-        public virtual List<AttributeGroup> AttributeGroups { get; set; }
-        //public virtual List<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
+
+
+
+        //public virtual List<AttributeGroup> AttributeGroups { get; set; }
+        public virtual List<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
     }
 }
