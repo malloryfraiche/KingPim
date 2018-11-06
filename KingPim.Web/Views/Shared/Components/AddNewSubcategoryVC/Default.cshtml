@@ -8,18 +8,18 @@
 </div>
 <br />
 
-<form asp-controller="Subcategory" asp-action="AddSubcategory" class="form-horizontal" id="addNewSubcatForm">
+<form asp-controller="Subcategory" asp-action="AddSubcategory" class="form-horizontal" id="addNewSubcatForm" method="post">
     <div class="row">
         <div class="form-group col">
-            <label asp-for="Name" class="control-label px-5"><strong>Name:</strong></label>
+            <label for="Name" class="control-label px-5"><strong>Name:</strong></label>
             <div class="px-5">
-                <input asp-for="Name" class="form-control" required />
+                <input name="Name" class="form-control" required />
             </div>
         </div>
         <div class="form-group col" title="TIPS: If you do not see your desired Category here, first add a new Category by surfing into the 'Category' side menu.">
-            <label asp-for="CategoryId" class="control-label px-5"><strong>Category:</strong></label>
+            <label for="CategoryId" class="control-label px-5"><strong>Category:</strong></label>
             <div class="px-5">
-                <select asp-for="CategoryId" class="form-control" required>
+                <select name="CategoryId" class="form-control" required>
                     <option value="" selected>Choose...</option>
                     @foreach (var cat in Model.Category)
                     {
@@ -35,19 +35,14 @@
             <label class="control-label px-5"><small><i><b>Please choose your subcategories attribute groups:</b></i></small></label>
             <div class="px-5">
                 <!----- list of attribute group table ----->
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <td><small><i><b>Name</b></i></small></td>
-                        </tr>
-                    </thead>
+                <table class="table ">
                     <tbody id="attrGroupTableBody"></tbody>
                 </table>
             </div>
         </div>
 
         <div class="form-group col">
-            <label asp-for="AttributeGroupId" class="control-label px-5" title="TIPS: Click 'Add' to the left to add attribute groups here!"><strong>Attribute Groups:</strong></label>
+            <label for="TestId" class="control-label px-5" title="TIPS: Click 'Add' to the left to add attribute groups here!"><strong>Attribute Groups:</strong></label>
             <div class="px-5">
                 <!----- list of added attribute groups table ----->
                 <table class="table table-bordered" id="addedAttrGroupsTableId" style="display:none;">

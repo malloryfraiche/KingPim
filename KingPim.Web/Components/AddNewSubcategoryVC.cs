@@ -11,15 +11,15 @@ namespace KingPim.Web.Components
     public class AddNewSubcategoryVC : ViewComponent
     {
         private ICategoryRepository _categoryRepo;
-        private IAttributeGroupRepository _attrGroupRepo;
 
+        private IAttributeGroupRepository _attrGroupRepo;
         private ISubcategoryAttributeGroupRepository _subcatAttrGroupRepo;
 
         public AddNewSubcategoryVC(ICategoryRepository categoryRepo, IAttributeGroupRepository attributeGroupRepo, ISubcategoryAttributeGroupRepository subcategoryAttributeGroupRepo)
         {
             _categoryRepo = categoryRepo;
-            _attrGroupRepo = attributeGroupRepo;
 
+            _attrGroupRepo = attributeGroupRepo;
             _subcatAttrGroupRepo = subcategoryAttributeGroupRepo;
         }
 

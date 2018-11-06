@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    // TODO: consolidate - have this function in 2 different places..
+
+    // -------- TODO --------- (consolidate - have this function in 2 different places..)
     function getTheAttributeGroupTableData() {
         // To fill the AttributeGroup table with data from the AttributeGroup DB.
         $.ajax({
@@ -22,8 +23,8 @@
                     $('button.addAttrGroupBtn').click(function () {
                         var id = $(this).closest('tr').data('attributegroupid');
                         var name = $(this).closest('tr').data('attributegroupname');
-                        console.log(id);
-                        console.log(name);
+                        //console.log(id);
+                        //console.log(name);
 
                         var parentTr = $(this).closest('tr');
                         parentTr.hide();
@@ -34,12 +35,12 @@
                             "<tr data-attributegroupid='" + id +
                             "'data-attributegroupname=" + name +
                             "><td><small><i>" + name +
-                            "</i></small><button class='btn btn-sm btn-outline-danger' type='button' style='float:right;'>Delete</button></td></tr>"
+                            "</i></small><button class='btn btn-sm btn-outline-danger removeAttrGroupBtn' type='button' style='float:right;'>Remove</button></td></tr>"
                         ];
                         $('#addedAttrGroupsTableId tbody').append(addedTr.join(''));
 
                     });
-
+                    
                 }
                 else {
                     console.log('In the success function but data is NULL');

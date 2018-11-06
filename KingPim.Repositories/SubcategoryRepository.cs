@@ -30,18 +30,53 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
-                var newSubcat = new Subcategory
+                if (vm.AttributeGroupId != null)
                 {
-                    Name = vm.Name,
-                    CategoryId = vm.CategoryId,
-                    Products = null,
-                    //SubcategoryAttributeGroups = null,
-                    AddedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now,
-                    Published = false,
-                    Version = 1
-                };
-                ctx.Subcategories.Add(newSubcat);
+                    var subcatAttrGroupList = new List<SubcategoryAttributeGroup>();
+
+                    foreach (var attrGroupId in vm.AttributeGroupId)
+                    {
+                        var vmSubcatAttrGroup = new SubcategoryAttributeGroup
+                        {
+                            SubcategoryId = vm.Id,
+                            AttributeGroupId = attrGroupId
+                        };
+                        subcatAttrGroupList.Add(vmSubcatAttrGroup);
+                    }
+
+                    var newSubcat = new Subcategory
+                    {
+                        Name = vm.Name,
+                        CategoryId = vm.CategoryId,
+                        Products = null,
+                        SubcategoryAttributeGroups = subcatAttrGroupList,
+                        AddedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now,
+                        Published = false,
+                        Version = 1
+                    };
+
+                    ctx.Subcategories.Add(newSubcat);
+                }
+                else
+                {
+                    // save SubcategoryAttributeGroups as null..
+                    var newSubcat = new Subcategory
+                    {
+                        Name = vm.Name,
+                        CategoryId = vm.CategoryId,
+                        Products = null,
+                        SubcategoryAttributeGroups = null,
+                        AddedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now,
+                        Published = false,
+                        Version = 1
+                    };
+                    ctx.Subcategories.Add(newSubcat);
+                }
+
+                
+                
             }
             else     // Update
             {
