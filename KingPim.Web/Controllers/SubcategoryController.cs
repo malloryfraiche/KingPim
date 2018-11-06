@@ -37,7 +37,6 @@ namespace KingPim.Web.Controllers
         public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
             _subcategoryRepo.AddSubcategory(vm);
-            //return RedirectToAction(nameof(Index));
             var url = Url.Action("Index", "Subcategory");
             return Json(url);
         }
