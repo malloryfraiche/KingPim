@@ -8,21 +8,23 @@
         var modal = $(this);
         modal.find('.modal-body input').val(nameRecipient);
 
-        // To fill the dropdown with data from the Category DB.
+        $('#subcategoriesAttrGroupsTableBody').empty();
+
+        // To fill the category dropdown with data from the Category DB.
         $.ajax({
             url: '/Category/GetCategoriesToJson',
             type: 'GET',
             dataType: 'json',
             success: function (response) {
                 if (response !== null) {
-                    console.log(response);
+                    //console.log(response);
                     var length = response.length;
-                    $('#editSubcatForm select').empty();
-                    $('#editSubcatForm select').append("<option value='' selected>Please select...</option>");
+                    $('#editSubcatForm select.categorySelect').empty();
+                    $('#editSubcatForm select.categorySelect').append("<option value='' selected>Please select...</option>");
                     for (var i = 0; i < length; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
-                        $('#editSubcatForm select').append("<option value='" + id + "'>" + name + "</option>");
+                        $('#editSubcatForm select.categorySelect').append("<option value='" + id + "'>" + name + "</option>");
                     }
                 }
                 else {
@@ -33,6 +35,82 @@
                 console.log(response.responseText);
             }
         });
+
+
+        // To fill the subcategories attribute groups table with data from the SubcategoryAttributeGroup DB.
+        $.ajax({
+            url: '/Subcategory/GetSubcategoryAttributeGroupsToJson',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response !== null) {
+
+                    $.each(response, function (r, subcatAttrGroup) {
+
+                        if (idRecipient === subcatAttrGroup.subcategoryId) {
+                            console.log(subcatAttrGroup);
+
+                            // Add the connected rows to the subcatAttrGroup table.
+                            var tr = [
+                                "<tr data-subcategoryattributegroupattributegroupid='" + subcatAttrGroup.attributeGroupId +
+                                "'data-subcategoryattributegroupsubcategoryid=" + subcatAttrGroup.subcategoryId +
+                                "><td><small><i>" + subcatAttrGroup.attributeGroup.name +
+                                "</i></small><button type='button' class='close' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
+                            ];
+                            $('#subcategoriesAttrGroupsTableBody').append(tr.join(''));
+
+
+
+                        }
+
+
+                    });
+
+                }
+                else {
+                    console.log('In the success function but there is no data to present');
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+
+
+
+
+
+
+        // To fill the attrGroup dropdown with data from the AttributeGroup DB.
+        $.ajax({
+            url: '/AttributeGroup/GetAttributeGroupsToJson',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                if (response !== null) {
+                    $('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>Please select...</option>");
+
+                    $.each(response, function (r, attrGroup) {
+                        $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "'>" + attrGroup.name + "</option>");
+                    });
+
+                }
+                else {
+                    console.log('In the success function but there is no data to present');
+                    $('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>There are no attribute groups to select from.</option>");
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+
+
+
+
+
+
+
 
         // To POST the editSubcatForm from the modal.
         $('#editSubcatForm').submit(function (e) {
