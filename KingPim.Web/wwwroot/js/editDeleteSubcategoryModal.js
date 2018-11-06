@@ -11,7 +11,6 @@
         $('#subcategoriesAttrGroupsTableBody').empty();
         $('#editSubcatForm select.attrGroupsSelect').empty();
         
-
         // To fill the category dropdown with data from the Category DB.
         $.ajax({
             url: '/Category/GetCategoriesToJson',
@@ -58,6 +57,11 @@
                             ];
                             $('#subcategoriesAttrGroupsTableBody').append(tr.join(''));
                         }
+                        //if ()
+                        //{
+                        //    // Add the other attribute groups to the attributeGroup dropdown list.
+                        //    $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + subcatAttrGroup.attributeGroupId + "' data-name='" + subcatAttrGroup.attributeGroup.name + "'>" + subcatAttrGroup.attributeGroup.name + "</option>");
+                        //}
                     });
                 }
                 else {
@@ -78,7 +82,20 @@
                 if (response !== null) {
                     $('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>Please select...</option>");
                     $.each(response, function (r, attrGroup) {
+
+                        //$('#subcategoriesAttrGroupsTableBody tr').each(function () {
+                        //    var tableDataText = $('tr').data('subcategoryattributegroupattributegroupid');
+                        //    console.log(tableDataText);
+                        //    //if ( === attrGroup.name) {
+                        //    //    console.log(attrGroup.name);
+                        //    //}
+                        //});
+                        
+
                         $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "' data-name='" + attrGroup.name + "'>" + attrGroup.name + "</option>");
+
+
+
                     });
                 }
                 else {
@@ -91,12 +108,21 @@
             }
         });
 
+
         $('#addAttrGroupSubcatEditModalBtn').click(function () {
 
             var selectedValId = $('#editSubcatForm select.attrGroupsSelect').val();
             var selectedValName = $('#editSubcatForm select.attrGroupsSelect option:selected').text();
             console.log(selectedValId);
             console.log(selectedValName);
+
+            var tr = [
+                "<tr data-subcategoryattributegroupattributegroupid='" + selectedValId +
+                "'data-subcategoryattributegroupsubcategoryid=" + idRecipient +
+                "><td><small><i>" + selectedValName +
+                "</i></small><button type='button' class='close' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
+            ];
+            $('#subcategoriesAttrGroupsTableBody').append(tr);
 
             // To clear out the seleted attrGroup from dropdown when selected.
             $('#editSubcatForm select.attrGroupsSelect option:selected').hide();
@@ -105,7 +131,7 @@
             $('#editSubcatForm select.attrGroupsSelect option:eq(0)').attr('selected', 'selected');
             $('#editSubcatForm select.attrGroupsSelect').get(0).selectedIndex = 0;
 
-
+            //----------------TODO: fix so when you close down a modal and then open a new one and add an attributeGroup...the 'Please select...' doesn't follow----------
 
         });
 
@@ -139,6 +165,8 @@
                 }
             });
         });
+
+
         console.log(idRecipient);
     });
 
