@@ -30,10 +30,10 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
+                // If the Subcategory has any connecting Attribute Groups.
                 if (vm.AttributeGroupId != null)
                 {
                     var subcatAttrGroupList = new List<SubcategoryAttributeGroup>();
-
                     foreach (var attrGroupId in vm.AttributeGroupId)
                     {
                         var vmSubcatAttrGroup = new SubcategoryAttributeGroup
@@ -43,7 +43,6 @@ namespace KingPim.Repositories
                         };
                         subcatAttrGroupList.Add(vmSubcatAttrGroup);
                     }
-
                     var newSubcat = new Subcategory
                     {
                         Name = vm.Name,
@@ -55,12 +54,11 @@ namespace KingPim.Repositories
                         Published = false,
                         Version = 1
                     };
-
                     ctx.Subcategories.Add(newSubcat);
                 }
                 else
                 {
-                    // save SubcategoryAttributeGroups as null..
+                    // Otherwise will save SubcategoryAttributeGroups as null.
                     var newSubcat = new Subcategory
                     {
                         Name = vm.Name,
@@ -74,9 +72,6 @@ namespace KingPim.Repositories
                     };
                     ctx.Subcategories.Add(newSubcat);
                 }
-
-                
-                
             }
             else     // Update
             {
@@ -102,6 +97,5 @@ namespace KingPim.Repositories
             }
             return ctxSubcategory;
         }
-
     }
 }

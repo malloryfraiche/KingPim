@@ -12,7 +12,7 @@ namespace KingPim.Models.ViewModels
         public IEnumerable<Category> Category { get; set; }     // to get the categories in the 'add new subcat' dropdown list.
 
 
-        public IEnumerable<AttributeGroup> AttributeGroups { get; set; }    // to get the attributegroups in the 'add new subcat' table.
+        public IEnumerable<AttributeGroup> AttributeGroups { get; set; }    // to get the attributegroups in the 'add new subcat' table.((DONT USE THIS ANYMORE))
         public List<int> AttributeGroupId { get; set; }
 
         //public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }      // to save for the 

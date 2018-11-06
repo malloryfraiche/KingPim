@@ -61,9 +61,7 @@
     //}
 
     //getTheAttributeGroupTableData();
-
-
-
+    
     // To POST the addNewSubcatForm.
     $('#addNewSubcatForm').submit(function (e) {
         e.preventDefault();
@@ -73,10 +71,6 @@
         formData.append('name', inputAreaData);
         var selectData = $('#addNewSubcatForm select').val();
         formData.append('categoryid', selectData);
-
-        //var tableTr = $('#addNewSubcatForm tr').data('attributegroupid');
-        //formData.append('attributegroupid', tableTr);
-
         $('#addNewSubcatForm table[id="addedAttrGroupsTableId"] tr').each(function () {
             formData.append('attributegroupid', $(this).data('attributegroupid'));
         });
@@ -97,5 +91,4 @@
             }
         });
     });
-
 });

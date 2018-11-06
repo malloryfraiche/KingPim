@@ -11,9 +11,11 @@ namespace KingPim.Web.Controllers
     public class SubcategoryController : Controller
     {
         private ISubcategoryRepository _subcategoryRepo;
-        public SubcategoryController(ISubcategoryRepository subcategoryRepo)
+        private ISubcategoryAttributeGroupRepository _subcatAttributeGroupRepo;
+        public SubcategoryController(ISubcategoryRepository subcategoryRepo, ISubcategoryAttributeGroupRepository subcategoryAttributeGroupRepo)
         {
             _subcategoryRepo = subcategoryRepo;
+            _subcatAttributeGroupRepo = subcategoryAttributeGroupRepo;
         }
 
         [HttpGet]
@@ -33,11 +35,17 @@ namespace KingPim.Web.Controllers
             return Json(subcategories);
         }
 
+        [HttpGet]
+        public IActionResult GetSubcategoryAttributeGroupsToJson()  // To ajax fill the dropdown list in edit modals with data..
+        {
+            var subcatAttrGroups = _subcatAttributeGroupRepo.SubcategoryAttributeGroups;
+            return Json(subcatAttrGroups);
+        }
+
         [HttpPost]
         public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
             _subcategoryRepo.AddSubcategory(vm);
-            //return RedirectToAction(nameof(Index));
             var url = Url.Action("Index", "Subcategory");
             return Json(url);
         }

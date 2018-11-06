@@ -5,6 +5,17 @@
 <br />
 <br />
 
+
+<!-- custom table styling to have the edit modal table non striped. -->
+<style>
+    .table-nostriped tbody tr:nth-of-type(odd) {
+        background-color: transparent;
+    }
+</style>
+
+
+
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -177,11 +188,41 @@
                                         <div class="form-group">
                                             <label for="CategoryId" class="control-label px-4"><strong>Category:</strong></label>
                                             <div class="px-4">
-                                                <select name="CategoryId" class="form-control" required>
+                                                <select name="CategoryId" class="form-control categorySelect" required>
                                                     <!-- Dropdown populated dynamically by ajax GET. -->
                                                 </select>
                                             </div>
                                         </div>
+
+
+
+                                        <div class="row">
+
+                                            <div class="form-group col">
+                                                <label class="control-label px-4"><strong>Attribute groups:</strong></label>
+                                                <div class="px-4">
+                                                    <!-- table of subcategories attribute groups. -->
+                                                    <table class="table table-nostriped">
+                                                        <tbody id="subcategoriesAttrGroupsTableBody"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col">
+                                                <label class="control-label px-4"><small><i><b>Add attribute group:</b></i></small></label>
+                                                <div class="px-4">
+                                                    <select class="form-control attrGroupsSelect">
+                                                        <!-- dropdown with all attribute groups not already connected. -->
+                                                    </select>
+                                                    <button class="btn btn-sm mt-2" type="button" id="addAttrGroupSubcatEditModalBtn" style="float:right;">Add</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
                                         <div class="form-group">
                                             <div class="px-4">
                                                 <button class="btn btn-sm btn-success" type="submit">Edit</button>
@@ -231,3 +272,5 @@
         }
     }
 </div>
+
+
