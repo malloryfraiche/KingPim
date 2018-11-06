@@ -9,6 +9,8 @@
         modal.find('.modal-body input').val(nameRecipient);
 
         $('#subcategoriesAttrGroupsTableBody').empty();
+        $('#editSubcatForm select.attrGroupsSelect').empty();
+        
 
         // To fill the category dropdown with data from the Category DB.
         $.ajax({
@@ -44,12 +46,9 @@
             dataType: 'json',
             success: function (response) {
                 if (response !== null) {
-
                     $.each(response, function (r, subcatAttrGroup) {
-
                         if (idRecipient === subcatAttrGroup.subcategoryId) {
                             console.log(subcatAttrGroup);
-
                             // Add the connected rows to the subcatAttrGroup table.
                             var tr = [
                                 "<tr data-subcategoryattributegroupattributegroupid='" + subcatAttrGroup.attributeGroupId +
@@ -58,14 +57,8 @@
                                 "</i></small><button type='button' class='close' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
                             ];
                             $('#subcategoriesAttrGroupsTableBody').append(tr.join(''));
-
-
-
                         }
-
-
                     });
-
                 }
                 else {
                     console.log('In the success function but there is no data to present');
@@ -75,12 +68,7 @@
                 console.log(response.responseText);
             }
         });
-
-
-
-
-
-
+        
         // To fill the attrGroup dropdown with data from the AttributeGroup DB.
         $.ajax({
             url: '/AttributeGroup/GetAttributeGroupsToJson',
@@ -89,11 +77,9 @@
             success: function (response) {
                 if (response !== null) {
                     $('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>Please select...</option>");
-
                     $.each(response, function (r, attrGroup) {
-                        $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "'>" + attrGroup.name + "</option>");
+                        $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "' data-name='" + attrGroup.name + "'>" + attrGroup.name + "</option>");
                     });
-
                 }
                 else {
                     console.log('In the success function but there is no data to present');
@@ -105,9 +91,23 @@
             }
         });
 
+        $('#addAttrGroupSubcatEditModalBtn').click(function () {
+
+            var selectedValId = $('#editSubcatForm select.attrGroupsSelect').val();
+            var selectedValName = $('#editSubcatForm select.attrGroupsSelect option:selected').text();
+            console.log(selectedValId);
+            console.log(selectedValName);
+
+            // To clear out the seleted attrGroup from dropdown when selected.
+            $('#editSubcatForm select.attrGroupsSelect option:selected').hide();
+            $('#editSubcatForm select.attrGroupsSelect').find('option:first').attr('selected', 'selected');
+            $('#editSubcatForm select.attrGroupsSelect').val(0);
+            $('#editSubcatForm select.attrGroupsSelect option:eq(0)').attr('selected', 'selected');
+            $('#editSubcatForm select.attrGroupsSelect').get(0).selectedIndex = 0;
 
 
 
+        });
 
 
 
