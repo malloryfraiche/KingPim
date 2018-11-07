@@ -76,10 +76,27 @@ namespace KingPim.Repositories
             else     // Update
             {
                 var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.Id));
+                var ctxSubcatAttrGroups = ctx.SubcategoryAttributeGroups.Where(x => x.SubcategoryId == vm.Id);
+
+                // Remove the subcat attribute group connection from DB first.
+                ctx.SubcategoryAttributeGroups.RemoveRange(ctxSubcatAttrGroups);
+
+                var subcatAttrGroupList = new List<SubcategoryAttributeGroup>();
+                foreach (var attrGroupId in vm.AttributeGroupId)
+                {
+                    var vmSubcatAttrGroup = new SubcategoryAttributeGroup
+                    {
+                        SubcategoryId = vm.Id,
+                        AttributeGroupId = attrGroupId
+                    };
+                    subcatAttrGroupList.Add(vmSubcatAttrGroup);
+                }
+                
                 if (ctxSubcategory != null)
                 {
                     ctxSubcategory.Name = vm.Name;
                     ctxSubcategory.CategoryId = vm.CategoryId;
+                    ctxSubcategory.SubcategoryAttributeGroups = subcatAttrGroupList;
                     ctxSubcategory.UpdatedDate = DateTime.Now;
                     ctxSubcategory.Version = ctxSubcategory.Version + 1;
                 }
