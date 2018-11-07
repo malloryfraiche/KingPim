@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     var attrGroups = [];
-    function fillAttrGroupDropdown() {
+    function fillAttrGroupDropdown(idRecipient) {
         // To fill the attrGroup dropdown with data from the AttributeGroup DB.
         $.ajax({
             url: '/AttributeGroup/GetAttributeGroupsToJson',
@@ -13,26 +13,59 @@
 
                 if (response !== null) {
 
-                    console.log(subcatAttrGroups);
-                    console.log(attrGroups);
+                    console.log('subcat attrGroups: ');
+                    console.log(subcatAttrGroups);  // data in the table.
+                    console.log('attrGroups: ');
+                    console.log(attrGroups);    // all data from attrGroup DB.
 
                     $('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>Please select...</option>");
-                    $.each(response, function (r, attrGroup) {
-
-                        //$('#subcategoriesAttrGroupsTableBody tr').each(function () {
-                        //    var tableDataText = $('tr').data('subcategoryattributegroupattributegroupid');
-                        //    console.log(tableDataText);
-                        //    //if ( === attrGroup.name) {
-                        //    //    console.log(attrGroup.name);
-                        //    //}
-                        //});
+                    //$.each(response, function (r, attrGroup) {
+                    //    $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "' data-name='" + attrGroup.name + "'>" + attrGroup.name + "</option>");
+                    //});
 
 
-                        $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "' data-name='" + attrGroup.name + "'>" + attrGroup.name + "</option>");
+                    $.each(attrGroups, function (i, attrGroup) {
+                        var added = false;
 
+                        $.each(subcatAttrGroups, function (j, subcatAttrGroup) {
+                            if (subcatAttrGroup.subcategoryId === idRecipient) {
+                                if (attrGroup.id === subcatAttrGroup.attributeGroupId) {
+                                    added = true;
+                                }
+                            }
 
+                        });
 
+                        if (!added) {
+                            $('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "' data-name='" + attrGroup.name + "'>" + attrGroup.name + "</option>");
+                        }
                     });
+
+
+
+
+
+                    var tableArray = [];
+                    $('#subcategoriesAttrGroupsTableBody tr').each(function () {
+                        var tableDataId = $(this).data('subcategoryattributegroupattributegroupid');
+                        //console.log('table data ----');
+                        //console.log(tableDataId);
+                        tableArray.push(tableDataId);
+                        console.log(tableArray);
+                    });
+                    var attrGroupsArray = [];
+                    $.each(response, function (r, attrGroup) {
+                        attrGroupsArray.push(attrGroup.id);
+                        console.log(attrGroupsArray);
+                    });
+                    var difference = $(tableArray).not(attrGroupsArray).get();
+                    console.log(difference);
+
+
+
+
+
+
                 }
                 else {
                     console.log('In the success function but there is no data to present');
@@ -53,9 +86,7 @@
             type: 'GET',
             dataType: 'json',
             success: function (response) {
-
                 subcatAttrGroups = response;
-
                 if (response !== null) {
                     $.each(response, function (r, subcatAttrGroup) {
                         if (idRecipient === subcatAttrGroup.subcategoryId) {
@@ -74,17 +105,23 @@
                 else {
                     console.log('In the success function but there is no data to present');
                 }
-
-                fillAttrGroupDropdown();
+                // To fill the dropdown list after the table loaded..
+                fillAttrGroupDropdown(idRecipient);
             },
             error: function (response) {
                 console.log(response.responseText);
             }
         });
     }
-    
+
     // To control the data that is shown in the edit modal.
     $('#editModal').on('show.bs.modal', function (event) {
+
+        /////// empty table and dropdown
+        $('#subcategoriesAttrGroupsTableBody').empty();
+        $('select.attrGroupsSelect').empty();
+
+
         var button = $(event.relatedTarget);
         var idRecipient = button.data('id');
         var nameRecipient = button.data('name');
@@ -119,11 +156,10 @@
                 console.log(response.responseText);
             }
         });
-        
-        fillSubcatAttrGroupTable(idRecipient);
-        
-        $('#addAttrGroupSubcatEditModalBtn').click(function () {
 
+        fillSubcatAttrGroupTable(idRecipient);
+
+        $('#addAttrGroupSubcatEditModalBtn').click(function () {
             $('#addAttrGroupSubcatEditModalBtn').attr('disabled', true);
             var selectedValId = $('#editSubcatForm select.attrGroupsSelect').val();
             var selectedValName = $('#editSubcatForm select.attrGroupsSelect option:selected').text();
@@ -146,14 +182,10 @@
             }
         });
 
-
-
-
         // To POST the editSubcatForm from the modal.
         $('#editSubcatForm').submit(function (e) {
             e.preventDefault();
             var formData = new FormData();
-
             formData.append('id', idRecipient);
             var inputAreaData = $('#editSubcatForm input').val();
             formData.append('name', inputAreaData);
@@ -162,7 +194,6 @@
             $('#editSubcatForm tbody[id="subcategoriesAttrGroupsTableBody"] tr').each(function () {
                 formData.append('attributegroupid', $(this).data('subcategoryattributegroupattributegroupid'));
             });
-            
             $.ajax({
                 url: '/Subcategory/AddSubcategory',
                 type: 'POST',
@@ -179,7 +210,6 @@
                 }
             });
         });
-
     });
 
     // To control the data that is shown in the delete modal.
