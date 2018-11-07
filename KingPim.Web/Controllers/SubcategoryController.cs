@@ -49,15 +49,7 @@ namespace KingPim.Web.Controllers
             var url = Url.Action("Index", "Subcategory");
             return Json(url);
         }
-
-        [HttpPost]
-        public IActionResult EditSubcategory(AddSubcategoryViewModel vm)
-        {
-            _subcategoryRepo.AddSubcategory(vm);
-            var url = Url.Action("Index", "Subcategory");
-            return Json(url);
-        }
-
+        
         [HttpPost]
         public IActionResult DeleteSubcategory(int subcategoryId)
         {

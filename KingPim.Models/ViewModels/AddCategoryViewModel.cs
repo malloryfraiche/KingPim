@@ -8,5 +8,7 @@ namespace KingPim.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public bool Published { get; set; }     // For the publish/unpublish buttons
     }
 }
