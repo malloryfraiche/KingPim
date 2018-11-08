@@ -10,7 +10,14 @@ namespace KingPim.Models.ViewModels
         public string Value { get; set; }       // ProductAttributeValue usage.
         public int? ProductAttributeId { get; set; }     // ProductAttributeValue usage.
         public int ProductId { get; set; }      // ProductAttributeValue usage.
+
         public IEnumerable<Subcategory> Subcategory { get; set; }     // To have access to the AttributeGroup and ProductAttribute data.
+        public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
+
+
+
+
         public IEnumerable<AttributeGroup> AttributeGroups { get; set; }
+        public IEnumerable<ProductAttributeValue> ProductAttributeValues { get; set; }
     }
 }
