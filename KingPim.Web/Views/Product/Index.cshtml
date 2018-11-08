@@ -73,37 +73,40 @@
             <div class="card">
                 @* --- card header --- *@
                 <div class="card-header">
-                    <b>@p.Name</b>
-                    <div style="float:right;">
-                        <a class="text-muted"
-                           data-toggle="modal"
-                           data-target="#editProductModal"
-                           title="Edit"
-                           id="editItem"
-                           data-id="@p.Id"
-                           data-name="@p.Name">
-                            <span data-feather="edit-2"></span>
-                        </a>
-                        &nbsp;
-                        <a class="text-muted"
-                           data-toggle="modal"
-                           data-target="#deleteProductModal"
-                           title="Delete"
-                           id="deleteItem"
-                           data-id="@p.Id"
-                           data-name="@p.Name">
-                            <span data-feather="trash-2"></span>
-                        </a>&nbsp;&nbsp;&nbsp;
-                        @{
-                            if (p.Published == false)
+                    <div>
+                        <b>@p.Name</b>
+                        <form asp-controller="Product" asp-action="PublishProduct" style="float:right;">
+                            <input value="@p.Id" name="id" style="display:none;" />
+                            @if (p.Published == false)
                             {
-                                <button type="button" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
+                                <button type="submit" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
+                                <button type="submit" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
                             }
-                        }
+                        </form>
+                        <div style="float:right;">
+                            <a class="text-muted"
+                               data-toggle="modal"
+                               data-target="#editProductModal"
+                               title="Edit"
+                               id="editItem"
+                               data-id="@p.Id"
+                               data-name="@p.Name">
+                                <span data-feather="edit-2"></span>
+                            </a>
+                            &nbsp;
+                            <a class="text-muted"
+                               data-toggle="modal"
+                               data-target="#deleteProductModal"
+                               title="Delete"
+                               id="deleteItem"
+                               data-id="@p.Id"
+                               data-name="@p.Name">
+                                <span data-feather="trash-2"></span>
+                            </a>&nbsp;&nbsp;&nbsp;
+                        </div>
                     </div>
                 </div>
                 @* --- card body --- *@
@@ -128,7 +131,7 @@
                     </p><br />
 
                     @* --- card body table view component --- *@
-                    @await Component.InvokeAsync("ProductCardBodyTableVC",  p.Id)
+                    @await Component.InvokeAsync("ProductCardBodyTableVC", p.Id)
 
                 </div>
                 @* --- card footer --- *@

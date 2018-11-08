@@ -66,7 +66,6 @@ namespace KingPim.Repositories
 
         public void PublishCategory(AddCategoryViewModel vm)
         {
-
             var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(vm.Id));
             if (ctxCategory != null)
             {
@@ -80,15 +79,16 @@ namespace KingPim.Repositories
                 }
                 ctx.SaveChanges();
 
-
+                
                 var ctxSubcats = ctx.Subcategories.Where(x => x.CategoryId.Equals(vm.Id));
-                //var trueFalseValue = false;
                 foreach (var subcat in ctxSubcats)
                 {
+                    // If the category is true (published), then all the categories subcategories will be true (published).
                     if (ctxCategory.Published)
                     {
                         subcat.Published = true;
                     }
+                    // If the category is false (unpublished), then all the categories subcategories will be false (unpublished).
                     else
                     {
                         subcat.Published = false;
@@ -96,8 +96,6 @@ namespace KingPim.Repositories
 
                 }
                 ctx.SaveChanges();
-                //ctx.Subcategories.FirstOrDefault(x => x.);
-
             }
         }
     }
