@@ -15,5 +15,7 @@ namespace KingPim.Repositories
         void AddSubcategory(AddSubcategoryViewModel vm);
 
         Subcategory DeleteSubcategory(int subcategoryId);
+
+        void PublishSubcategory(AddSubcategoryViewModel vm);
     }
 }

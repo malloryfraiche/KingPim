@@ -32,6 +32,11 @@ namespace KingPim.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        [HttpPost]
+        public IActionResult PublishProduct(ProductViewModel vm)
+        {
+            _productRepo.PublishProduct(vm);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace KingPim.Repositories
         IEnumerable<Product> GetAllProducts();
 
         void AddProduct(ProductViewModel vm);
+
+        void PublishProduct(ProductViewModel vm);
     }
 }

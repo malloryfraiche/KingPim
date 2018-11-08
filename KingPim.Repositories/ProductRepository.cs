@@ -54,5 +54,41 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
+
+
+        public void PublishProduct(ProductViewModel vm)
+        {
+            var ctxProduct = ctx.Products.FirstOrDefault(p => p.Id.Equals(vm.Id));
+            if (ctxProduct != null)
+            {
+                // The products subcategory.
+                var ctxSubcategory = ctx.Subcategories.FirstOrDefault(s => s.Id.Equals(ctxProduct.SubcategoryId));
+                // The products subcategories category.
+                var ctxCategory = ctx.Categories.FirstOrDefault(c => c.Id.Equals(ctxSubcategory.CategoryId));
+
+                if (!ctxProduct.Published)
+                {
+                    ctxProduct.Published = true;
+                    ctxSubcategory.Published = true;
+                    ctxCategory.Published = true;
+                }
+                else
+                {
+                    ctxProduct.Published = false;
+
+                    // If all the subcategory products have false (unpublished) for all products, then the subcategory needs to also be false (unpublished).
+                    if (ctxSubcategory.Products.Count(p => p.Published) == 0)
+                    {
+                        ctxSubcategory.Published = false;
+                    }
+                    // If all the category subcategories have false (unpublished) for all subcats, then the category needs to also be false (unpublished).
+                    if (ctxCategory.Subcategories.Count(s => s.Published) == 0)
+                    {
+                        ctxCategory.Published = false;
+                    }
+                }
+                ctx.SaveChanges();
+            }
+        }
     }
 }

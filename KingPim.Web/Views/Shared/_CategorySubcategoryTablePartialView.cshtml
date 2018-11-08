@@ -74,7 +74,8 @@
                     }
                     @if (Model is IEnumerable<Subcategory>)
                     {
-                        <form asp-controller="Subcategory" asp-action="">
+                        <form asp-controller="Subcategory" asp-action="PublishSubcategory">
+                            <input value="@c.Id" name="id" style="display:none;" />
                             @if (c.Published == false)
                             {
                                 <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
@@ -83,9 +84,7 @@
                             {
                                 <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
                             }
-
                         </form>
-
                     }
                 </td>
                 <td>

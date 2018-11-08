@@ -114,5 +114,49 @@ namespace KingPim.Repositories
             }
             return ctxSubcategory;
         }
+
+        public void PublishSubcategory(AddSubcategoryViewModel vm)
+        {
+            var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.Id));
+            if (ctxSubcategory != null)
+            {
+                // The subcategories category.
+                var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(ctxSubcategory.CategoryId));
+                if (!ctxSubcategory.Published)
+                {
+                    ctxSubcategory.Published = true;
+                    ctxCategory.Published = true;
+                }
+                else
+                {
+                    ctxSubcategory.Published = false;
+
+                    // If all the category subcategories have false (unpublished) for all subcats, then the category needs to also be false (unpublished).
+                    if (ctxCategory.Subcategories.Count(x => x.Published) == 0)
+                    {
+                        ctxCategory.Published = false;
+                    }
+                }
+                ctx.SaveChanges();
+
+                // The products in the subcategory.
+                var ctxProducts = ctx.Products.Where(p => p.SubcategoryId.Equals(vm.Id));
+                foreach (var prod in ctxProducts)
+                {
+                    // If the subcategory is true (published), then all the subcategories products need to be true (published).
+                    if (ctxSubcategory.Published)
+                    {
+                        prod.Published = true;
+                    }
+                    // If the subcategory is false (unpublished), then all the subcategories products need to be false (unpublished).
+                    else
+                    {
+                        prod.Published = false;
+                    }
+                }
+                ctx.SaveChanges();
+            }
+            
+        }
     }
 }
