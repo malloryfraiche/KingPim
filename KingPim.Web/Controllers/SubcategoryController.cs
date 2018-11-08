@@ -64,5 +64,12 @@ namespace KingPim.Web.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult PublishSubcategory(AddSubcategoryViewModel vm)
+        {
+            _subcategoryRepo.PublishSubcategory(vm);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

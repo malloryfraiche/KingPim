@@ -19,12 +19,11 @@ namespace KingPim.Repositories
 
         public IEnumerable<Category> Categories => ctx.Categories;
 
-
         public IEnumerable<Category> GetAllCategories()
         {
             return Categories;
         }
-        
+
         // CREATE and UPDATE category.
         public void AddCategory(AddCategoryViewModel vm)
         {
@@ -67,6 +66,7 @@ namespace KingPim.Repositories
 
         public void PublishCategory(AddCategoryViewModel vm)
         {
+
             var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(vm.Id));
             if (ctxCategory != null)
             {
@@ -78,8 +78,26 @@ namespace KingPim.Repositories
                 {
                     ctxCategory.Published = false;
                 }
+                ctx.SaveChanges();
             }
-            ctx.SaveChanges();
+
+            var ctxSubcats = ctx.Subcategories.Where(x => x.CategoryId.Equals(vm.Id));
+            //var trueFalseValue = false;
+
+            foreach (var subcat in ctxSubcats)
+            {
+                if (ctxCategory.Published)
+                {
+                    subcat.Published = true;
+                }
+                else
+                {
+                    subcat.Published = false;
+                }
+                ctx.SaveChanges();
+            }
+
+            //ctx.Subcategories.FirstOrDefault(x => x.);
         }
     }
 }
