@@ -53,11 +53,20 @@ namespace KingPim.Repositories
                     ctxProduct.UpdatedDate = DateTime.Now;
                     ctxProduct.Version = ctxProduct.Version + 1;
                 }
-                
             }
             ctx.SaveChanges();
         }
 
+        public Product DeleteProduct(int productId)
+        {
+            var ctxProduct = ctx.Products.FirstOrDefault(p => p.Id.Equals(productId));
+            if (ctxProduct != null)
+            {
+                ctx.Products.Remove(ctxProduct);
+                ctx.SaveChanges();
+            }
+            return ctxProduct;
+        }
 
         public void PublishProduct(ProductViewModel vm)
         {

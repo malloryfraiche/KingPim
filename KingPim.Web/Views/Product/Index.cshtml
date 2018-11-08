@@ -110,7 +110,24 @@
                         </div>
                     </div>
                     <!----- The delete (product) modal ----->
-
+                    <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="text-align:center;">
+                                    <h5 class="mx-auto"></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div style="text-align:center;">
+                                        <form asp-controller="Product" asp-action="DeleteProduct" method="post">
+                                            <input type="hidden" name="productId" value="@p.Id" />
+                                            <button type="submit" id="confirmDeleteItem" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }

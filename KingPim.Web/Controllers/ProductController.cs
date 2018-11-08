@@ -41,6 +41,13 @@ namespace KingPim.Web.Controllers
         }
 
         [HttpPost]
+        public IActionResult DeleteProduct(int productId)
+        {
+            _productRepo.DeleteProduct(productId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
         public IActionResult PublishProduct(ProductViewModel vm)
         {
             _productRepo.PublishProduct(vm);

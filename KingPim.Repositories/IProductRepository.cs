@@ -14,6 +14,8 @@ namespace KingPim.Repositories
 
         void AddProduct(ProductViewModel vm);
 
+        Product DeleteProduct(int productId);
+
         void PublishProduct(ProductViewModel vm);
     }
 }
