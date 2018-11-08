@@ -79,25 +79,26 @@ namespace KingPim.Repositories
                     ctxCategory.Published = false;
                 }
                 ctx.SaveChanges();
-            }
 
-            var ctxSubcats = ctx.Subcategories.Where(x => x.CategoryId.Equals(vm.Id));
-            //var trueFalseValue = false;
 
-            foreach (var subcat in ctxSubcats)
-            {
-                if (ctxCategory.Published)
+                var ctxSubcats = ctx.Subcategories.Where(x => x.CategoryId.Equals(vm.Id));
+                //var trueFalseValue = false;
+                foreach (var subcat in ctxSubcats)
                 {
-                    subcat.Published = true;
-                }
-                else
-                {
-                    subcat.Published = false;
+                    if (ctxCategory.Published)
+                    {
+                        subcat.Published = true;
+                    }
+                    else
+                    {
+                        subcat.Published = false;
+                    }
+
                 }
                 ctx.SaveChanges();
-            }
+                //ctx.Subcategories.FirstOrDefault(x => x.);
 
-            //ctx.Subcategories.FirstOrDefault(x => x.);
+            }
         }
     }
 }
