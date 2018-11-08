@@ -113,7 +113,7 @@
                         </div>
                         <!----- The edit (category) modal ----->
                         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="mx-4">Edit @ViewBag.Title</h5>
@@ -142,7 +142,7 @@
                         </div>
                         <!----- The delete (category) modal ----->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header" style="text-align:center;">
                                         <h5 class="mx-auto"></h5>
@@ -186,7 +186,7 @@
                         </div>
                         <!----- The edit (subcategory) modal ----->
                         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="mx-4">Edit @ViewBag.Title</h5>
@@ -211,6 +211,8 @@
                                                 </div>
                                             </div>
 
+
+
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="AttributeGroupId" class="control-label px-4"><strong>Attribute groups:</strong></label>
@@ -221,16 +223,34 @@
                                                         </table>
                                                     </div>
                                                 </div>
+
+
+
+
                                                 <div class="form-group col">
                                                     <label class="control-label px-4"><small><i><b>Add attribute group:</b></i></small></label>
                                                     <div class="px-4">
-                                                        <select class="form-control attrGroupsSelect">
+                                                        @*<select class="form-control attrGroupsSelect">*@
                                                             <!-- dropdown with all attribute groups not already connected. -->
-                                                        </select>
-                                                        <button class="btn btn-sm mt-2" type="button" id="addAttrGroupSubcatEditModalBtn" style="float:right;" disabled>Add</button>
+                                                        @*</select>
+                                                        <button class="btn btn-sm mt-2" type="button" id="addAttrGroupSubcatEditModalBtn" style="float:right;" disabled>Add</button>*@
+
+
+                                                        <!----- list of added attribute groups table ----->
+                                                        <table class="table table-nostriped" >
+                                                            <tbody id="allAttrGroupsTableBody"></tbody>
+                                                        </table>
+
+
                                                     </div>
                                                 </div>
+
+
+
+
                                             </div>
+
+
 
                                             <div class="form-group">
                                                 <div class="px-4">
@@ -245,7 +265,7 @@
                         </div>
                         <!----- The delete (subcategory) modal ----->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header" style="text-align:center;">
                                         <h5 class="mx-auto"></h5>

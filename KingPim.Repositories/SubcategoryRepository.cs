@@ -110,6 +110,12 @@ namespace KingPim.Repositories
             if (ctxSubcategory != null)
             {
                 ctx.Subcategories.Remove(ctxSubcategory);
+                // To also delete the SubcategoryAttributeGroup connection in DB table.
+                var ctxSubcatAttrGroup = ctx.SubcategoryAttributeGroups.Where(x => x.SubcategoryId.Equals(subcategoryId));
+                foreach (var subAttrGroup in ctxSubcatAttrGroup)
+                {
+                    ctx.SubcategoryAttributeGroups.Remove(subAttrGroup);
+                }
                 ctx.SaveChanges();
             }
             return ctxSubcategory;
