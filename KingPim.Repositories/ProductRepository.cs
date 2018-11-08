@@ -43,18 +43,30 @@ namespace KingPim.Repositories
             }
             else     // Update
             {
-                //var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.Id));
-                //if (ctxSubcategory != null)
-                //{
-                //    ctxSubcategory.Name = vm.Name;
-                //    ctxSubcategory.CategoryId = vm.CategoryId;
-                //    ctxSubcategory.UpdatedDate = DateTime.Now;
-                //    ctxSubcategory.Version = ctxSubcategory.Version + 1;
-                //}
+                var ctxProduct = ctx.Products.FirstOrDefault(p => p.Id.Equals(vm.Id));
+                if (ctxProduct != null)
+                {
+                    ctxProduct.Name = vm.Name;
+                    ctxProduct.Price = vm.Price;
+                    ctxProduct.Description = vm.Description;
+                    ctxProduct.SubcategoryId = vm.SubcategoryId;
+                    ctxProduct.UpdatedDate = DateTime.Now;
+                    ctxProduct.Version = ctxProduct.Version + 1;
+                }
             }
             ctx.SaveChanges();
         }
 
+        public Product DeleteProduct(int productId)
+        {
+            var ctxProduct = ctx.Products.FirstOrDefault(p => p.Id.Equals(productId));
+            if (ctxProduct != null)
+            {
+                ctx.Products.Remove(ctxProduct);
+                ctx.SaveChanges();
+            }
+            return ctxProduct;
+        }
 
         public void PublishProduct(ProductViewModel vm)
         {

@@ -1,4 +1,5 @@
-﻿using KingPim.Models.ViewModels;
+﻿using KingPim.Models;
+using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,44 +15,141 @@ namespace KingPim.Web.Components
         private IProductRepository _productRepo;
         private IProductAttributeValueRepository _productAttrValRepo;
         private IAttributeGroupRepository _attrGroupRepo;
-        public ProductCardBodyTableVC(ISubcategoryRepository subcatRepository, IProductRepository productRepo, IProductAttributeValueRepository productAttrValRepo, IAttributeGroupRepository attributeGroupRepo)
+        private ISubcategoryAttributeGroupRepository _subcategoryAttributeGroupRepo;
+        public ProductCardBodyTableVC(ISubcategoryRepository subcatRepository, IProductRepository productRepo, IProductAttributeValueRepository productAttrValRepo, IAttributeGroupRepository attributeGroupRepo, ISubcategoryAttributeGroupRepository subcategoryAttributeGroupRepo)
         {
             _subcatRepo = subcatRepository;
             _productRepo = productRepo;
             _productAttrValRepo = productAttrValRepo;
             _attrGroupRepo = attributeGroupRepo;
+            _subcategoryAttributeGroupRepo = subcategoryAttributeGroupRepo;
         }
 
         public IViewComponentResult Invoke(int productId)
         {
-            var theProduct = _productRepo.Products.FirstOrDefault(x => x.Id == productId);
-            var theProductsSubcat = theProduct.Subcategory;
-            //var theProductsSubcatAttributeGroups = theProductsSubcat.SubcategoryAttributeGroups;
-            var theValueRow = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId.Equals(productId));
+            //// The rows where the Products card id matches the ProductAttributeValues product id.
+            //var theProdAttrValueRows = _productAttrValRepo.ProductAttributeValues.Where(x => x.ProductId.Equals(productId));
+            //foreach (var prodAttrValrow in theProdAttrValueRows)
+            //{
+            //    // if there is a row in the DB..
+            //    if (prodAttrValrow != null)
+            //    {
+            //        var productAttributeValueVM = new ProductAttributeValueViewModel
+            //        {
 
-            //var subcategories = _subcatRepo.Subcategories;
+            //        };
+            //        return View(productAttributeValueVM);
+            //    }
+            //    // there is no row in the DB so send an empty VM to be taken care of in Default.cshtml...
+            //    // there is filter
+            //    else
+            //    {
+            //        var productAttributeValueVM = new ProductAttributeValueViewModel
+            //        {
 
-            if (theValueRow != null)
+            //        };
+            //        return View(productAttributeValueVM);
+            //    }
+            //}
+
+
+            
+            // To get the product (from the product id the card passed in).
+            var theProduct = _productRepo.Products.FirstOrDefault(p => p.Id.Equals(productId));
+            // To get the products subcategory.
+            var productsSubcategoryId = theProduct.Subcategory.Id;
+            
+            // To have all info from the SubcategoryAttributeGroup DB.
+            var subcategoryAttributeGroups = _subcategoryAttributeGroupRepo.SubcategoryAttributeGroups;
+            var theCardsSubcategoryAttributeGroups = new List<AttributeGroup>();
+            // To get each subcatId so can get the subcategories different AttrGroups it has.
+            foreach (var subcatAttrGroup in subcategoryAttributeGroups)
             {
-                var prodAttrValVM = new ProductAttributeValueViewModel
+                // if the subcatId matches the products subcategory id, push the attrGroup to the list...
+                if (subcatAttrGroup.SubcategoryId == productsSubcategoryId)
                 {
-                    Value = theValueRow.Value,
-                    ProductAttributeId = theValueRow.ProductAttributeId,
-                    //ProductId = productId,
-                    //Subcategory = subcategories
-                    //AttributeGroups = theProductsSubcatAttributeGroups
+                    theCardsSubcategoryAttributeGroups.Add(subcatAttrGroup.AttributeGroup);
+                }
+            }
+            
+            // To have all info from the ProductAttributeValue DB.
+            var productAttributeValues = _productAttrValRepo.ProductAttributeValues;
+            var theCardsProductAttributeValues = new List<ProductAttributeValue>();
+            foreach (var productAttrValueRow in productAttributeValues)
+            {
+                if (productId == productAttrValueRow.ProductId)
+                {
+                    theCardsProductAttributeValues.Add(productAttrValueRow);
+                }
+            }
+
+
+
+
+
+
+
+            if (theCardsSubcategoryAttributeGroups != null)
+            {
+
+                var productAttributeValueVM = new ProductAttributeValueViewModel
+                {
+                    Id = productId,
+                    AttributeGroups = theCardsSubcategoryAttributeGroups,
+                    ProductAttributeValues = theCardsProductAttributeValues
+
                 };
-                return View(prodAttrValVM);
+
+                return View(productAttributeValueVM);
+
             }
             else
             {
-                var prodAttrValVM = new ProductAttributeValueViewModel
+                var productAttributeValueVM = new ProductAttributeValueViewModel
                 {
-                    //AttributeGroups = theProductsSubcatAttributeGroups
+
                 };
-                return View(prodAttrValVM);
+                return View(productAttributeValueVM);
             }
-            
+
+
+
+
+
+
+
+
+
+
+
+            //var theProduct = _productRepo.Products.FirstOrDefault(x => x.Id == productId);
+            //var theProductsSubcat = theProduct.Subcategory;
+            ////var theProductsSubcatAttributeGroups = theProductsSubcat.SubcategoryAttributeGroups;
+            //var theValueRow = _productAttrValRepo.ProductAttributeValues.FirstOrDefault(x => x.ProductId.Equals(productId));
+
+            ////var subcategories = _subcatRepo.Subcategories;
+
+            //if (theValueRow != null)
+            //{
+            //    var prodAttrValVM = new ProductAttributeValueViewModel
+            //    {
+            //        Value = theValueRow.Value,
+            //        ProductAttributeId = theValueRow.ProductAttributeId,
+            //        //ProductId = productId,
+            //        //Subcategory = subcategories
+            //        //AttributeGroups = theProductsSubcatAttributeGroups
+            //    };
+            //    return View(prodAttrValVM);
+            //}
+            //else
+            //{
+            //    var prodAttrValVM = new ProductAttributeValueViewModel
+            //    {
+            //        //AttributeGroups = theProductsSubcatAttributeGroups
+            //    };
+            //    return View(prodAttrValVM);
+            //}
+
         }
     }
 }
