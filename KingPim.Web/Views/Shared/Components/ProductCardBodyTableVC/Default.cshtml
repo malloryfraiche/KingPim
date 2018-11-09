@@ -1,95 +1,4 @@
-﻿<!-- If there are attribute groups connected to this subcategory... -->
-@*@if (Model.AttributeGroups != null)
-    {*@
-
-
-
-@*<table class="table table-bordered">
-        <thead>
-            <tr>
-                <th><i><small><b>Attribute group</b></small></i></th>
-                <th><i><small><b>Products attribute</b></small></i></th>
-                <th><i><small><b>Value</b></small></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var ag in Model.AttributeGroups)
-            {
-                 if you have an Attribute Group AND Product Attributes
-                @if (ag.ProductAttributes.Count >= 1)
-                {
-                    @foreach (var pa in ag.ProductAttributes)
-                    {
-                        <tr>
-                            <td><small>@ag.Name</small></td>
-
-                            <td value="@pa.Id"><small>@pa.Name</small></td>
-
-
-
-
-
-                            @if (Model.ProductAttributeId.Equals(pa.Id))
-                                {
-                                    <td>
-                                        <small>@Model.Value</small>
-                                        <div style="float:right;">
-                                            <button type="button" class="btn btn-sm btn-outline-dark" title="Edit this attribute value.">Edit</button>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this attribute value.">Delete</button>
-                                        </div>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        <i><small>Please add a value.</small></i>
-                                        <button type="button" class="btn btn-sm btn-success" title="Add a value!" style="float:right;">Add</button>
-                                    </td>
-                                }
-                        </tr>
-                    }
-
-                }
-
-                 if you have added an Attribute Group but not a connecting Product Attribute...
-                @if (ag.ProductAttributes.Count == 0)
-                {
-                    <tr>
-                        <td><i><small>@ag.Name</small></i></td>
-                        <td colspan="2"><i><small>Please add a <b>Product Attribute</b> to this Attribute Group.</small></i></td>
-                    </tr>
-                }
-
-
-            }
-        </tbody>
-    </table>*@
-
-
-
-@*}
-    else
-    {*@
-<!-- There are NO attribute groups (and therefore no product attributes) connected to this subcategory yet... -->
-@*<table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><i><small><b>Attribute group</b></small></i></th>
-                    <th><i><small><b>Products attribute</b></small></i></th>
-                    <th><i><small><b>Value</b></small></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colspan="3"><i><small>Please add an <b>Attribute Group</b> AND a connecting <b>Product Attribute</b> to complete this table.</small></i></td>
-                </tr>
-            </tbody>
-        </table>
-    }*@
-
-
-
-
+﻿
 
 
 
@@ -99,52 +8,68 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th><i><small><b>Attribute group</b></small></i></th>
+            <th><i><small><b>AttrGroup</b></small></i></th>
             <th><i><small><b>Products attribute</b></small></i></th>
             <th><i><small><b>Value</b></small></i></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var ag in Model.AttributeGroups)
+        <!-- Shows all product attributes and gives you a chance to add values. -->
+        @foreach (var subcatAttrGroup in Model.CardSubcategoryAttributeGroups)
         {
-            @if (ag.ProductAttributes.Count >= 1)
+            @foreach (var productAttr in subcatAttrGroup.AttributeGroup.ProductAttributes)
             {
-                @foreach (var pa in ag.ProductAttributes)
-                {
-                    <tr>
-                        <td><small>@ag.Name</small></td>
-                        <td value="@pa.Id"><small>@pa.Name</small></td>
+                <tr>
+                    <td><i><small>@subcatAttrGroup.AttributeGroup.Name</small></i></td>
+                    <td value="@productAttr.Id"><i><small>@productAttr.Name</small></i></td>
 
-                        @foreach (var item in Model.ProductAttributeValues)
-                        {
-                            if (item.Value != null && item.ProductId.Equals(pa.Id))
-                            {
-                                <td>
-                                    <small>@item.Value</small>
-                                    <div style="float:right;">
-                                        <button type="button" class="btn btn-sm btn-outline-dark" title="Edit this attribute value.">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" title="Delete this attribute value.">Delete</button>
-                                    </div>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <i><small>Please add a value.</small></i>
-                                    <button type="button" class="btn btn-sm btn-success" title="Add a value!" style="float:right;">Add</button>
-                                </td>
-                            }
-                        }
-                    </tr>
-                }
+                    @{
+
+                        var test = Model.CardProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id == productAttr.Id);
+                        var test2 = test?.Value;
+                    }
+
+                    @if (productAttr.Type == "bool")
+                    {
+                        <td>
+                            <form class="form-inline">
+                                <select class="form-control-sm" required>
+
+
+                                    @if (test2 != null)
+                                    {
+                                        <option>@test2</option>
+                                    }
+                                    else if (test2 == null)
+                                    {
+                                        <option value="" disabled selected>Please choose...</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    }
+                                    
+                                    <option>TEST</option>
+
+                                </select>&nbsp;&nbsp;
+                                <button class="btn btn-sm" type="submit"><i>Save</i></button>
+                            </form>
+                        </td>
+                    }
+                    else if (productAttr.Type == "int")
+                    {
+                        <td></td>
+                    }
+                    else if (productAttr.Type == "string")
+                    {
+                        <td>
+                            <form class="form-inline">
+                                <input class="form-control form-control-sm" type="text" required />&nbsp;&nbsp;
+                                <button class="btn btn-sm" type="submit"><i>Save</i></button>
+                            </form>
+                        </td>
+                    }
+                </tr>
             }
         }
+        
     </tbody>
 </table>
-
-
-
-
-
-
-

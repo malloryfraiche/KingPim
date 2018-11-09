@@ -101,6 +101,52 @@
         });
     }
 
+
+
+
+
+
+
+    // To add the desired AttrGroup to the list to left.
+    $('#allAttrGroupsTableBody').on('click', 'button.editModalAddAttrGroupBtn', function () {
+        var id = $(this).closest('tr').data('subcategoryattributegroupattributegroupid');
+        var name = $(this).closest('tr').data('subcategoryattributegroupattributegroupname');
+
+        var subCatId = $(this).closest('tr').data('subcategoryattributegroupsubcategoryid');
+
+        $($(this).closest('tr')).remove();
+        var addedTr = [
+            "<tr data-subcategoryattributegroupattributegroupid='" + id +
+            "'data-subcategoryattributegroupsubcategoryid='" + subCatId +
+            "'data-subcategoryattributegroupattributegroupname='" + name +
+            "'><td><small><i>" + name +
+            "</i></small><button type='button' class='close editModalRemoveAttrGroupBtn' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
+        ];
+        //console.log('******************************* Added: ' + name);
+        $('#subcategoriesAttrGroupsTableBody').append(addedTr.join(''));
+    });
+
+    // To remove the added AttrGroup off of the list.
+    $('#subcategoriesAttrGroupsTableBody').on('click', 'button.editModalRemoveAttrGroupBtn', function () {
+        var addedOrAlreadyThereId = $(this).closest('tr').data('subcategoryattributegroupattributegroupid');
+        var addedOrAlreadyThereName = $(this).closest('tr').data('subcategoryattributegroupattributegroupname');
+
+        var subCatId = $(this).closest('tr').data('subcategoryattributegroupsubcategoryid');
+
+        $($(this).closest('tr')).remove();
+        $('#allAttrGroupsTableBody').append(
+            "<tr data-subcategoryattributegroupattributegroupid='" + addedOrAlreadyThereId +
+            "'data-subcategoryattributegroupsubcategoryid='" + subCatId +
+            "'data-subcategoryattributegroupattributegroupname='" + addedOrAlreadyThereName +
+            "'><td><small><i>" + addedOrAlreadyThereName +
+            "</i></small><button type='button' class='btn btn-sm btn-outline-success editModalAddAttrGroupBtn' style='float:right;'>Add</button></td></tr>");
+    });
+
+
+
+
+
+
     // To control the data that is shown in the edit modal.
     $('#editModal').on('show.bs.modal', function (event) {
 
@@ -147,33 +193,7 @@
 
         fillSubcatAttrGroupTable(idRecipient);
         
-        // To add the desired AttrGroup to the list to left.
-        $('#allAttrGroupsTableBody').on('click', 'button.editModalAddAttrGroupBtn', function () {
-            var id = $(this).closest('tr').data('subcategoryattributegroupattributegroupid');
-            var name = $(this).closest('tr').data('subcategoryattributegroupattributegroupname');
-            $($(this).closest('tr')).remove();
-            var addedTr = [
-                "<tr data-subcategoryattributegroupattributegroupid='" + id +
-                "'data-subcategoryattributegroupsubcategoryid='" + idRecipient +
-                "'data-subcategoryattributegroupattributegroupname='" + name +
-                "'><td><small><i>" + name +
-                "</i></small><button type='button' class='close editModalRemoveAttrGroupBtn' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
-            ];
-            $('#subcategoriesAttrGroupsTableBody').append(addedTr.join(''));
-        });
-        
-        // To remove the added AttrGroup off of the list.
-        $('#subcategoriesAttrGroupsTableBody').on('click', 'button.editModalRemoveAttrGroupBtn', function () {
-            var addedOrAlreadyThereId = $(this).closest('tr').data('subcategoryattributegroupattributegroupid');
-            var addedOrAlreadyThereName = $(this).closest('tr').data('subcategoryattributegroupattributegroupname');
-            $($(this).closest('tr')).remove();
-            $('#allAttrGroupsTableBody').append(
-                "<tr data-subcategoryattributegroupattributegroupid='" + addedOrAlreadyThereId +
-                "'data-subcategoryattributegroupsubcategoryid='" + idRecipient +
-                "'data-subcategoryattributegroupattributegroupname='" + addedOrAlreadyThereName +
-                "'><td><small><i>" + addedOrAlreadyThereName +
-                "</i></small><button type='button' class='btn btn-sm btn-outline-success editModalAddAttrGroupBtn' style='float:right;'>Add</button></td></tr>");
-        });
+
         
         //$('#addAttrGroupSubcatEditModalBtn').click(function () {
         //    $('#addAttrGroupSubcatEditModalBtn').attr('disabled', true);
