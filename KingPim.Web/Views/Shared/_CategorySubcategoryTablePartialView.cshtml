@@ -184,85 +184,7 @@
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
                         </div>
-                        <!----- The edit (subcategory) modal ----->
-                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="mx-4">Edit @ViewBag.Title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form asp-controller="Subcategory" asp-action="AddSubcategory" id="editSubcatForm" method="post" class="form-horizontal">
-                                            <div class="form-group">
-                                                <label for="Name" class="control-label px-4"><strong>Name:</strong></label>
-                                                <div class="px-4">
-                                                    <input name="Name" id="nameInputField" class="form-control" required />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="CategoryId" class="control-label px-4"><strong>Category:</strong></label>
-                                                <div class="px-4">
-                                                    <select name="CategoryId" class="form-control categorySelect" required>
-                                                        <!-- Dropdown populated dynamically by ajax GET. -->
-                                                    </select>
-                                                </div>
-                                            </div>
 
-
-
-                                            <div class="row">
-                                                <div class="form-group col">
-                                                    <label for="AttributeGroupId" class="control-label px-4"><strong>Attribute groups:</strong></label>
-                                                    <div class="px-4">
-                                                        <!-- table of subcategories attribute groups. -->
-                                                        <table class="table table-nostriped">
-                                                            <tbody id="subcategoriesAttrGroupsTableBody"></tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-
-
-
-                                                <div class="form-group col">
-                                                    <label class="control-label px-4"><small><i><b>Add attribute group:</b></i></small></label>
-                                                    <div class="px-4">
-                                                        @*<select class="form-control attrGroupsSelect">*@
-                                                            <!-- dropdown with all attribute groups not already connected. -->
-                                                        @*</select>
-                                                        <button class="btn btn-sm mt-2" type="button" id="addAttrGroupSubcatEditModalBtn" style="float:right;" disabled>Add</button>*@
-
-
-                                                        <!----- list of added attribute groups table ----->
-                                                        <table class="table table-nostriped" >
-                                                            <tbody id="allAttrGroupsTableBody"></tbody>
-                                                        </table>
-
-
-                                                    </div>
-                                                </div>
-
-
-
-
-                                            </div>
-
-
-
-                                            <div class="form-group">
-                                                <div class="px-4">
-                                                    <button class="btn btn-sm btn-success" type="submit">Edit</button>
-                                                    <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <!----- The delete (subcategory) modal ----->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -304,4 +226,89 @@
 </div>
 
 
+
+
+
+
+
+
+<!----- The edit (subcategory) modal ----->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="mx-4">Edit @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Subcategory" asp-action="AddSubcategory" id="editSubcatForm" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="Name" class="control-label px-4"><strong>Name:</strong></label>
+                        <div class="px-4">
+                            <input name="Name" id="nameInputField" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CategoryId" class="control-label px-4"><strong>Category:</strong></label>
+                        <div class="px-4">
+                            <select name="CategoryId" class="form-control categorySelect" required>
+                                <!-- Dropdown populated dynamically by ajax GET. -->
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="AttributeGroupId" class="control-label px-4"><strong>Attribute groups:</strong></label>
+                            <div class="px-4">
+                                <!-- table of subcategories attribute groups. -->
+                                <table class="table table-nostriped">
+                                    <tbody id="subcategoriesAttrGroupsTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group col">
+                            <label class="control-label px-4"><small><i><b>Add attribute group:</b></i></small></label>
+                            <div class="px-4">
+                                @*<select class="form-control attrGroupsSelect">*@
+                                <!-- dropdown with all attribute groups not already connected. -->
+                                @*</select>
+                                    <button class="btn btn-sm mt-2" type="button" id="addAttrGroupSubcatEditModalBtn" style="float:right;" disabled>Add</button>*@
+
+
+                                <!----- list of added attribute groups table ----->
+                                <table class="table table-nostriped">
+                                    <tbody id="allAttrGroupsTableBody"></tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="px-4">
+                            <button class="btn btn-sm btn-success" type="submit">Edit</button>
+                            <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
