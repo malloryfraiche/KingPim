@@ -108,11 +108,9 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Add
             {
-
                 var row = ctx.ProductAttributeValues.FirstOrDefault(x => x.ProductAttributeId.Equals(vm.ProductAttributeId) && x.ProductId.Equals(vm.ProductId));
                 if (row == null)
                 {
-
                     var productAttributeValue = new ProductAttributeValue
                     {
                         Value = vm.Value,
@@ -120,7 +118,6 @@ namespace KingPim.Repositories
                         ProductId = vm.ProductId
                     };
                     ctx.ProductAttributeValues.Add(productAttributeValue);
-
                 }
                 else
                 {
@@ -135,9 +132,7 @@ namespace KingPim.Repositories
                     };
                     ctx.ProductAttributeValues.Add(productAttributeValue);
                 }
-
                 
-
             }
             else    // Update
             {
