@@ -17,5 +17,7 @@ namespace KingPim.Repositories
         Product DeleteProduct(int productId);
 
         void PublishProduct(ProductViewModel vm);
+
+        void SaveProductAttributeValue(ProductAttributeValueViewModel vm);
     }
 }
