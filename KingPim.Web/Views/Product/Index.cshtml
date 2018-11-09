@@ -55,60 +55,6 @@
                             <span data-feather="trash-2"></span>
                         </a>&nbsp;&nbsp;
                     </div>
-                    <!----- The edit (product) modal ----->
-                    <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="mx-4">Edit @ViewBag.Title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form asp-controller="Product" asp-action="AddProduct" id="editProductForm" method="post" class="form-horizontal">
-                                        <input asp-for="Id" id="inputId" type="hidden" />
-                                        <div class="form-group">
-                                            <label asp-for="Name" class="control-label px-4"><strong>Name:</strong></label>
-                                            <div class="px-4">
-                                                <input asp-for="Name" id="inputName" class="form-control" required />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Price" class="control-label px-4"><strong>Price:</strong></label>
-                                            <div class="px-4">
-                                                <input asp-for="Price" id="inputPrice" class="form-control" required />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="SubcategoryId" class="control-label px-4"><strong>Subcategory:</strong></label>
-                                            <div class="px-4">
-                                                <select asp-for="SubcategoryId" class="form-control" required>
-                                                    <option value="" selected>Please choose...</option>
-                                                    @foreach (var subcat in Model.Subcategory)
-                                                    {
-                                                        <option value="@subcat.Id">@subcat.Name</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label asp-for="Description" class="control-label px-4"><strong>Description:</strong></label>
-                                            <div class="px-4">
-                                                <textarea asp-for="Description" class="form-control" form="editProductForm"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="px-4">
-                                                <button class="btn btn-sm btn-success" type="submit">Edit</button>
-                                                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!----- The delete (product) modal ----->
                     <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -133,7 +79,6 @@
         }
     </tbody>
 </table>
-
 
 <br />
 <div id="viewComponents" style="display:none;">
@@ -234,4 +179,57 @@
 </div>
 <br />
 
-
+<!----- The edit (product) modal ----->
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="mx-4">Edit @ViewBag.Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Product" asp-action="AddProduct" id="editProductForm" method="post" class="form-horizontal">
+                    <input asp-for="Id" id="inputId" type="hidden" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label px-4"><strong>Name:</strong></label>
+                        <div class="px-4">
+                            <input asp-for="Name" id="inputName" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label px-4"><strong>Price:</strong></label>
+                        <div class="px-4">
+                            <input asp-for="Price" id="inputPrice" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SubcategoryId" class="control-label px-4"><strong>Subcategory:</strong></label>
+                        <div class="px-4">
+                            <select asp-for="SubcategoryId" class="form-control" required>
+                                <option value="" selected>Please choose...</option>
+                                @foreach (var subcat in Model.Subcategory)
+                                {
+                                    <option value="@subcat.Id">@subcat.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label px-4"><strong>Description:</strong></label>
+                        <div class="px-4">
+                            <textarea asp-for="Description" class="form-control" form="editProductForm"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="px-4">
+                            <button class="btn btn-sm btn-success" type="submit">Edit</button>
+                            <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

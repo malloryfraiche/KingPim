@@ -53,5 +53,12 @@ namespace KingPim.Web.Controllers
             _productRepo.PublishProduct(vm);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult SaveProductAttributeValue(ProductAttributeValueViewModel vm)
+        {
+            _productRepo.SaveProductAttributeValue(vm);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

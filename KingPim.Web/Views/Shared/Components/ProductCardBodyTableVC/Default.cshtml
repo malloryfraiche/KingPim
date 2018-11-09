@@ -1,9 +1,4 @@
-﻿
-
-
-
-@model ProductAttributeValueViewModel
-
+﻿@model ProductAttributeValueViewModel
 
 <table class="table table-bordered">
     <thead>
@@ -22,33 +17,36 @@
                 <tr>
                     <td><i><small>@subcatAttrGroup.AttributeGroup.Name</small></i></td>
                     <td value="@productAttr.Id"><i><small>@productAttr.Name</small></i></td>
-
                     @{
-
-                        var test = Model.CardProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id == productAttr.Id);
-                        var test2 = test?.Value;
+                        var productAttrValueRow = Model.CardProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id == productAttr.Id);
+                        var productAttrValueRowValue = productAttrValueRow?.Value;
+                        var productAttrValueRowProductId = productAttrValueRow?.ProductId;
                     }
-
                     @if (productAttr.Type == "bool")
                     {
                         <td>
-                            <form class="form-inline">
-                                <select class="form-control-sm" required>
-
-
-                                    @if (test2 != null)
+                            <form class="form-inline" asp-controller="Product" asp-action="SaveProductAttributeValue">
+                                <input type="hidden" value="@productAttr.Id" asp-for="ProductAttributeId" />
+                                <input type="hidden" value="@Model.ProductId" asp-for="ProductId" />
+                                <select asp-for="Value" class="form-control-sm" required>
+                                    @if (productAttrValueRowValue != null)
                                     {
-                                        <option>@test2</option>
+                                        <option value="@productAttrValueRowValue">@productAttrValueRowValue</option>
+                                        @if (productAttrValueRowValue == "Yes")
+                                        {
+                                            <option value="No">No</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="Yes">Yes</option>
+                                        }
                                     }
-                                    else if (test2 == null)
+                                    else
                                     {
                                         <option value="" disabled selected>Please choose...</option>
-                                        <option>Yes</option>
-                                        <option>No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     }
-                                    
-                                    <option>TEST</option>
-
                                 </select>&nbsp;&nbsp;
                                 <button class="btn btn-sm" type="submit"><i>Save</i></button>
                             </form>
@@ -61,8 +59,19 @@
                     else if (productAttr.Type == "string")
                     {
                         <td>
-                            <form class="form-inline">
-                                <input class="form-control form-control-sm" type="text" required />&nbsp;&nbsp;
+                            <form class="form-inline" asp-controller="Product" asp-action="SaveProductAttributeValue">
+                                <input type="hidden" value="@productAttr.Id" asp-for="ProductAttributeId" />
+                                <input type="hidden" value="@Model.ProductId" asp-for="ProductId" />
+                                @if (productAttrValueRowValue != null)
+                                {
+                                    <input asp-for="Value" class="form-control form-control-sm" type="text" value="@productAttrValueRowValue" required />
+                                }
+                                else
+                                {
+                                    <input asp-for="Value" class="form-control form-control-sm" type="text" required />
+
+                                }
+                                &nbsp;&nbsp;
                                 <button class="btn btn-sm" type="submit"><i>Save</i></button>
                             </form>
                         </td>
@@ -70,6 +79,5 @@
                 </tr>
             }
         }
-        
     </tbody>
 </table>

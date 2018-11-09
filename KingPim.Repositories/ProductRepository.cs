@@ -102,5 +102,48 @@ namespace KingPim.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        // ADD and UPDATE product attribute value.
+        public void SaveProductAttributeValue(ProductAttributeValueViewModel vm)
+        {
+            if (vm.Id == 0)     // Add
+            {
+
+                var row = ctx.ProductAttributeValues.FirstOrDefault(x => x.ProductAttributeId.Equals(vm.ProductAttributeId) && x.ProductId.Equals(vm.ProductId));
+                if (row == null)
+                {
+
+                    var productAttributeValue = new ProductAttributeValue
+                    {
+                        Value = vm.Value,
+                        ProductAttributeId = vm.ProductAttributeId,
+                        ProductId = vm.ProductId
+                    };
+                    ctx.ProductAttributeValues.Add(productAttributeValue);
+
+                }
+                else
+                {
+                    ctx.ProductAttributeValues.Remove(row);
+                    ctx.SaveChanges();
+
+                    var productAttributeValue = new ProductAttributeValue
+                    {
+                        Value = vm.Value,
+                        ProductAttributeId = vm.ProductAttributeId,
+                        ProductId = vm.ProductId
+                    };
+                    ctx.ProductAttributeValues.Add(productAttributeValue);
+                }
+
+                
+
+            }
+            else    // Update
+            {
+
+            }
+            ctx.SaveChanges();
+        }
     }
 }
