@@ -1,5 +1,6 @@
 ﻿using KingPim.Models;
 using KingPim.Models.ViewModels;
+using KingPim.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,25 +9,41 @@ namespace KingPim.Infrastructure.Helpers
 {
     public static class ViewModelHelper
     {
+        //private ICategoryRepository _categoryRepo;
+        //public ViewModelHelper(ICategoryRepository categoryRepo)
+        //{
+        //    _categoryRepo = categoryRepo;
+        //}
+        
         // Get categories to XML or JSON.
         public static List<CategoryViewModel> GetCategories(IEnumerable<Category> categories)
         {
-            var categoriesVm = new List<CategoryViewModel>();
-            foreach (var cat in categories)
-            {
-                categoriesVm.Add(new CategoryViewModel
+            //if (categoryId != 0)
+            //{
+            //    foreach(var cat in categories)
+            //    {
+            //        var selectedCategory = cat.Id.Equals(categoryId);
+            //    }
+            //}
+            //else
+            //{}
+                var categoriesVm = new List<CategoryViewModel>();
+                foreach (var cat in categories)
                 {
-                    Id = cat.Id,
-                    Name = cat.Name,
-                    Subcategories = ConvertToListOfSubcatVms(cat.Subcategories),
-                    AddedDate = cat.AddedDate,
-                    UpdatedDate = cat.UpdatedDate,
-                    Published = cat.Published,
-                    Version = cat.Version
+                    categoriesVm.Add(new CategoryViewModel
+                    {
+                        Id = cat.Id,
+                        Name = cat.Name,
+                        Subcategories = ConvertToListOfSubcatVms(cat.Subcategories),
+                        AddedDate = cat.AddedDate,
+                        UpdatedDate = cat.UpdatedDate,
+                        Published = cat.Published,
+                        Version = cat.Version
 
-                });
-            }
-            return categoriesVm;
+                    });
+                }
+                return categoriesVm;
+            
         }
 
         private static List<SubcategoryViewModel> ConvertToListOfSubcatVms(List<Subcategory> subcategories)
@@ -52,7 +69,7 @@ namespace KingPim.Infrastructure.Helpers
         public static List<SubcategoryViewModel> GetSubcategories(IEnumerable<Subcategory> subcategories)
         {
             var subcategoriesVm = new List<SubcategoryViewModel>();
-            foreach(var subcat in subcategories)
+            foreach (var subcat in subcategories)
             {
                 subcategoriesVm.Add(new SubcategoryViewModel
                 {
@@ -65,14 +82,14 @@ namespace KingPim.Infrastructure.Helpers
                     Version = subcat.Version
                 });
             }
-            
+
             return subcategoriesVm;
         }
 
         private static List<ProductViewModel> ConvertToListOfProductVms(List<Product> products)
         {
             var productList = new List<ProductViewModel>();
-            foreach(var product in products)
+            foreach (var product in products)
             {
                 productList.Add(new ProductViewModel
                 {
@@ -87,6 +104,27 @@ namespace KingPim.Infrastructure.Helpers
                 });
             }
             return productList;
+        }
+
+        // Get products to XML and JSON.
+        public static List<ProductViewModel> GetProducts(IEnumerable<Product> products)
+        {
+            var productVm = new List<ProductViewModel>();
+            foreach (var product in products)
+            {
+                productVm.Add(new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Description = product.Description,
+                    AddedDate = product.AddedDate,
+                    UpdatedDate = product.UpdatedDate,
+                    Version = product.Version,
+                    Published = product.Published
+                });
+            }
+            return productVm;
         }
     }
 }

@@ -15,58 +15,125 @@ namespace KingPim.Web.Controllers
         private IProductRepository _productRepo;
         private ISubcategoryRepository _subcategoryRepo;
         private ICategoryRepository _categoryRepo;
-        private ISearchRepository _searchRepo;
 
         public HomeController(IProductRepository productRepo, ISubcategoryRepository subcategoryRepo, ICategoryRepository categoryRepo, ISearchRepository searchRepo)
         {
             _productRepo = productRepo;
             _subcategoryRepo = subcategoryRepo;
             _categoryRepo = categoryRepo;
-            _searchRepo = searchRepo;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetCategoriesToJson()
+        public IActionResult GetCategoriesToJson(int categoryId)
         {
             var categories = _categoryRepo.GetAllCategories();
             var getCategories = ViewModelHelper.GetCategories(categories);
-            return Json(getCategories);
+
+            if (categoryId == 0)
+            {
+                return Json(getCategories);
+            }
+            else
+            {
+                var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
+                return Json(selectedCategory);
+            }
         }
 
         [HttpGet]
         [Produces("application/xml")]
-        public IActionResult GetCategoriesToXml()
+        public IActionResult GetCategoriesToXml(int categoryId)
         {
             var categories = _categoryRepo.GetAllCategories();
             var getCategories = ViewModelHelper.GetCategories(categories);
-            return Ok(getCategories);
-        }
 
+            if (categoryId == 0)
+            {
+                return Ok(getCategories);
+            }
+            else
+            {
+                var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
+                return Ok(selectedCategory);
+            }
+        }
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetSubcategoriesToJson()
+        public IActionResult GetSubcategoriesToJson(int subcategoryId)
         {
             var subcategories = _subcategoryRepo.Subcategories;
             var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);
-            return Json(getSubcategories);
+
+            if (subcategoryId == 0)
+            {
+                return Json(getSubcategories);
+            }
+            else
+            {
+                var selectedSubcategory = getSubcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
+                return Json(selectedSubcategory);
+            }
         }
 
         [HttpGet]
         [Produces("application/xml")]
-        public IActionResult GetSubcategoriesToXml()
+        public IActionResult GetSubcategoriesToXml(int subcategoryId)
         {
             var subcategories = _subcategoryRepo.Subcategories;
             var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);
-            return Ok(getSubcategories);
+
+            if (subcategoryId == 0)
+            {
+                return Ok(getSubcategories);
+            }
+            else
+            {
+                var selectedSubcategory = getSubcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
+                return Ok(selectedSubcategory);
+            }
         }
-        
+
+        [HttpGet]
+        [Produces("application/json")]
+        public IActionResult GetProductsToJson(int productId)
+        {
+            var products = _productRepo.Products;
+            var getProducts = ViewModelHelper.GetProducts(products);
+
+            if (productId == 0)
+            {
+                return Json(getProducts);
+            }
+            else
+            {
+                var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
+                return Json(selectedProduct);
+            }
+        }
+
+        [HttpGet]
+        [Produces("application/xml")]
+        public IActionResult GetProductsToXml(int productId)
+        {
+            var products = _productRepo.Products;
+            var getProducts = ViewModelHelper.GetProducts(products);
+
+            if (productId == 0)
+            {
+                return Ok(getProducts);
+            }
+            else
+            {
+                var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
+                return Ok(selectedProduct);
+            }
+        }
     }
 }
