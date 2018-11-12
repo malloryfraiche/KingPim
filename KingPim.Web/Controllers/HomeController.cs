@@ -40,7 +40,13 @@ namespace KingPim.Web.Controllers
 
             if (categoryId == 0)
             {
-                return Json(getCategories);
+                // Converting the category object to byte array.
+                var binFormatter = new BinaryFormatter();
+                var mStream = new MemoryStream();
+                binFormatter.Serialize(mStream, getCategories);
+                var selectedCategoryByteArray = mStream.ToArray();
+
+                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Categories.json");
             }
             else
             {
@@ -65,12 +71,25 @@ namespace KingPim.Web.Controllers
 
             if (categoryId == 0)
             {
-                return Ok(getCategories);
+                // Converting the category object to byte array.
+                var binFormatter = new BinaryFormatter();
+                var mStream = new MemoryStream();
+                binFormatter.Serialize(mStream, getCategories);
+                var selectedCategoryByteArray = mStream.ToArray();
+
+                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Categories.xml");
             }
             else
             {
                 var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
-                return Ok(selectedCategory);
+
+                // Converting the category object to byte array.
+                var binFormatter = new BinaryFormatter();
+                var mStream = new MemoryStream();
+                binFormatter.Serialize(mStream, getCategories);
+                var selectedCategoryByteArray = mStream.ToArray();
+
+                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Category_" + categoryId + ".xml");
             }
         }
 
