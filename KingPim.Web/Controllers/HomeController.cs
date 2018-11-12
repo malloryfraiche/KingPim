@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using KingPim.Infrastructure.Helpers;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace KingPim.Web.Controllers
 {
@@ -37,28 +41,19 @@ namespace KingPim.Web.Controllers
         {
             var categories = _categoryRepo.GetAllCategories();
             var getCategories = ViewModelHelper.GetCategories(categories);
+            var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
 
             if (categoryId == 0)
             {
-                // Converting the category object to byte array.
-                var binFormatter = new BinaryFormatter();
-                var mStream = new MemoryStream();
-                binFormatter.Serialize(mStream, getCategories);
-                var selectedCategoryByteArray = mStream.ToArray();
-
-                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Categories.json");
+                var categoryJson = JsonConvert.SerializeObject(getCategories);
+                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                return File(bytes, "application/octet-stream", "categories.json");
             }
             else
             {
-                var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
-
-                // Converting the category object to byte array.
-                var binFormatter = new BinaryFormatter();
-                var mStream = new MemoryStream();
-                binFormatter.Serialize(mStream, selectedCategory);
-                var selectedCategoryByteArray = mStream.ToArray();
-               
-                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Category_" + categoryId + ".json");
+                var selectedCategoryJson = JsonConvert.SerializeObject(selectedCategory);
+                var bytes = Encoding.UTF8.GetBytes(selectedCategoryJson);
+                return File(bytes, "application/octet-stream", "category_" + categoryId + ".json");
             }
         }
 
@@ -71,25 +66,17 @@ namespace KingPim.Web.Controllers
 
             if (categoryId == 0)
             {
-                // Converting the category object to byte array.
-                var binFormatter = new BinaryFormatter();
-                var mStream = new MemoryStream();
-                binFormatter.Serialize(mStream, getCategories);
-                var selectedCategoryByteArray = mStream.ToArray();
-
-                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Categories.xml");
+                var categoryJson = JsonConvert.SerializeObject(getCategories);
+                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                return File(bytes, "application/octet-stream", "categories.xml");
             }
             else
             {
                 var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
 
-                // Converting the category object to byte array.
-                var binFormatter = new BinaryFormatter();
-                var mStream = new MemoryStream();
-                binFormatter.Serialize(mStream, getCategories);
-                var selectedCategoryByteArray = mStream.ToArray();
-
-                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Category_" + categoryId + ".xml");
+                var categoryJson = JsonConvert.SerializeObject(selectedCategory);
+                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                return File(bytes, "application/octet-stream", "category_" + categoryId + ".xml");
             }
         }
 
