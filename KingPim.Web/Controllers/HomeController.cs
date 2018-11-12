@@ -6,6 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
+using KingPim.Data.DataAccess;
 using KingPim.Infrastructure.Helpers;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
@@ -23,11 +25,14 @@ namespace KingPim.Web.Controllers
         private ISubcategoryRepository _subcategoryRepo;
         private ICategoryRepository _categoryRepo;
 
-        public HomeController(IProductRepository productRepo, ISubcategoryRepository subcategoryRepo, ICategoryRepository categoryRepo, ISearchRepository searchRepo)
+        private ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context, IProductRepository productRepo, ISubcategoryRepository subcategoryRepo, ICategoryRepository categoryRepo, ISearchRepository searchRepo)
         {
             _productRepo = productRepo;
             _subcategoryRepo = subcategoryRepo;
             _categoryRepo = categoryRepo;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -61,19 +66,50 @@ namespace KingPim.Web.Controllers
         [Produces("application/xml")]
         public IActionResult GetCategoriesToXml(int categoryId)
         {
-            var categories = _categoryRepo.GetAllCategories();
+            //var categories = _categoryRepo.GetAllCategories();
+            var categories = _context.Categories;
             var getCategories = ViewModelHelper.GetCategories(categories);
+            var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
 
             if (categoryId == 0)
             {
-                var categoryJson = JsonConvert.SerializeObject(getCategories);
-                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                //var categoryJson = JsonConvert.SerializeObject(getCategories);
+                //var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                string returnString = null;
+                XmlSerializer categoryXml = new XmlSerializer(typeof(CategoryViewModel));
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    NewLineOnAttributes = true,
+                    Encoding = Encoding.UTF8
+                };
+
+                using (StringWriter sw = new StringWriter())
+                {
+                    using (var textWriter = XmlWriter.Create(sw, settings))
+                    {
+                        categoryXml.Serialize(textWriter, getCategories);
+                    }
+                    sw.Flush();
+                    returnString = sw.ToString();
+                }
+                
+                var bytes = Encoding.UTF8.GetBytes(returnString);
+                
+                //XmlDocument doc = new XmlDocument();
+                //XmlElement root = doc.CreateElement("root");
+                //XmlElement element = doc.CreateElement("child");
+                //root.AppendChild(element);
+                //doc.AppendChild(root);
+
+                //MemoryStream ms = new MemoryStream();
+                //doc.Save(ms);
+                //byte[] bytes = ms.ToArray();
+
                 return File(bytes, "application/octet-stream", "categories.xml");
             }
             else
             {
-                var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
-
                 var categoryJson = JsonConvert.SerializeObject(selectedCategory);
                 var bytes = Encoding.UTF8.GetBytes(categoryJson);
                 return File(bytes, "application/octet-stream", "category_" + categoryId + ".xml");
@@ -86,15 +122,19 @@ namespace KingPim.Web.Controllers
         {
             var subcategories = _subcategoryRepo.Subcategories;
             var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);
+            var selectedSubcategory = getSubcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
 
             if (subcategoryId == 0)
             {
-                return Json(getSubcategories);
+                var subcategoryJson = JsonConvert.SerializeObject(getSubcategories);
+                var bytes = Encoding.UTF8.GetBytes(subcategoryJson);
+                return File(bytes, "application/octet-stream", "subcategories.json");
             }
             else
             {
-                var selectedSubcategory = getSubcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
-                return Json(selectedSubcategory);
+                var selectedSubcategoryJson = JsonConvert.SerializeObject(selectedSubcategory);
+                var bytes = Encoding.UTF8.GetBytes(selectedSubcategoryJson);
+                return File(bytes, "application/octet-stream", "subcategory_" + subcategoryId + ".json");
             }
         }
 
@@ -104,6 +144,7 @@ namespace KingPim.Web.Controllers
         {
             var subcategories = _subcategoryRepo.Subcategories;
             var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);
+            var selectedSubcategory = getSubcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
 
             if (subcategoryId == 0)
             {
@@ -111,7 +152,6 @@ namespace KingPim.Web.Controllers
             }
             else
             {
-                var selectedSubcategory = getSubcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
                 return Ok(selectedSubcategory);
             }
         }
@@ -122,15 +162,19 @@ namespace KingPim.Web.Controllers
         {
             var products = _productRepo.Products;
             var getProducts = ViewModelHelper.GetProducts(products);
+            var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
 
             if (productId == 0)
             {
-                return Json(getProducts);
+                var productJson = JsonConvert.SerializeObject(getProducts);
+                var bytes = Encoding.UTF8.GetBytes(productJson);
+                return File(bytes, "application/octet-stream", "products.json");
             }
             else
             {
-                var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
-                return Json(selectedProduct);
+                var selectedProductJson = JsonConvert.SerializeObject(selectedProduct);
+                var bytes = Encoding.UTF8.GetBytes(selectedProductJson);
+                return File(bytes, "application/octet-stream", "product_" + productId + ".json");
             }
         }
 
@@ -140,6 +184,7 @@ namespace KingPim.Web.Controllers
         {
             var products = _productRepo.Products;
             var getProducts = ViewModelHelper.GetProducts(products);
+            var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
 
             if (productId == 0)
             {
@@ -147,7 +192,6 @@ namespace KingPim.Web.Controllers
             }
             else
             {
-                var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
                 return Ok(selectedProduct);
             }
         }
