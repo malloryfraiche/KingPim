@@ -8,7 +8,7 @@ namespace KingPim.Infrastructure.Helpers
 {
     public static class ViewModelHelper
     {
-        // Get categories to XML or JSON
+        // Get categories to XML or JSON.
         public static List<CategoryViewModel> GetCategories(IEnumerable<Category> categories)
         {
             var categoriesVm = new List<CategoryViewModel>();
@@ -18,7 +18,11 @@ namespace KingPim.Infrastructure.Helpers
                 {
                     Id = cat.Id,
                     Name = cat.Name,
-                    Subcategories = ConvertToListOfSubcatVms(cat.Subcategories)
+                    Subcategories = ConvertToListOfSubcatVms(cat.Subcategories),
+                    AddedDate = cat.AddedDate,
+                    UpdatedDate = cat.UpdatedDate,
+                    Published = cat.Published,
+                    Version = cat.Version
 
                 });
             }
@@ -33,10 +37,56 @@ namespace KingPim.Infrastructure.Helpers
                 subcatList.Add(new SubcategoryViewModel
                 {
                     Id = subcat.Id,
-                    Name = subcat.Name
+                    Name = subcat.Name,
+                    AddedDate = subcat.AddedDate,
+                    UpdatedDate = subcat.UpdatedDate,
+                    Version = subcat.Version,
+                    Published = subcat.Published
+                    // can have a list of products here too if neccessary..
                 });
             }
             return subcatList;
+        }
+
+        // Get subcategories to XML and JSON.
+        public static List<SubcategoryViewModel> GetSubcategories(IEnumerable<Subcategory> subcategories)
+        {
+            var subcategoriesVm = new List<SubcategoryViewModel>();
+            foreach(var subcat in subcategories)
+            {
+                subcategoriesVm.Add(new SubcategoryViewModel
+                {
+                    Id = subcat.Id,
+                    Name = subcat.Name,
+                    Products = ConvertToListOfProductVms(subcat.Products),
+                    AddedDate = subcat.AddedDate,
+                    UpdatedDate = subcat.UpdatedDate,
+                    Published = subcat.Published,
+                    Version = subcat.Version
+                });
+            }
+            
+            return subcategoriesVm;
+        }
+
+        private static List<ProductViewModel> ConvertToListOfProductVms(List<Product> products)
+        {
+            var productList = new List<ProductViewModel>();
+            foreach(var product in products)
+            {
+                productList.Add(new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Description = product.Description,
+                    AddedDate = product.AddedDate,
+                    UpdatedDate = product.UpdatedDate,
+                    Version = product.Version,
+                    Published = product.Published
+                });
+            }
+            return productList;
         }
     }
 }

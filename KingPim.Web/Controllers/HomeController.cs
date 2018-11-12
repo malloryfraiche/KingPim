@@ -29,26 +29,15 @@ namespace KingPim.Web.Controllers
         {
             return View();
         }
-
-
-        //[HttpPost]
-        //public IActionResult Search(string searchString)
-        //{
-        //    //var catSearchResults = _categoryRepo.Search(searchString);
-        //    //var subcatSearchResults = _subcategoryRepo.Search(catSearchResults);
-        //    //var searchResults = _productRepo
-
-        //    return View("Index", searchResults);
-        //}
-
-
+        
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetToJson()
+        public IActionResult GetCategoriesToJson()
         {
             var categories = _categoryRepo.GetAllCategories();
-            return Json(categories);
+            var getCategories = ViewModelHelper.GetCategories(categories);
+            return Json(getCategories);
         }
 
         [HttpGet]
@@ -60,21 +49,24 @@ namespace KingPim.Web.Controllers
             return Ok(getCategories);
         }
 
-        
 
-
-
-
-        [HttpGet("category/testgetjsonorxml/api/values.{format}"), FormatFilter]
-        public IEnumerable<string> TestGetJsonOrXml()
+        [HttpGet]
+        [Produces("application/json")]
+        public IActionResult GetSubcategoriesToJson()
         {
-            var categories = _categoryRepo.GetAllCategories();
-
-            //return new string[] { categories.ToString() };
-            return new string[] { "value1", "value2" };
+            var subcategories = _subcategoryRepo.Subcategories;
+            var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);
+            return Json(getSubcategories);
         }
 
+        [HttpGet]
+        [Produces("application/xml")]
+        public IActionResult GetSubcategoriesToXml()
+        {
+            var subcategories = _subcategoryRepo.Subcategories;
+            var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);
+            return Ok(getSubcategories);
+        }
+        
     }
-
-
 }
