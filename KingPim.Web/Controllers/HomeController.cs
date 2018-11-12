@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KingPim.Infrastructure.Helpers;
+using KingPim.Models;
+using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,9 +34,9 @@ namespace KingPim.Web.Controllers
         //[HttpPost]
         //public IActionResult Search(string searchString)
         //{
-        //    ////var catSearchResults = _categoryRepo.Search(searchString);
-        //    ////var subcatSearchResults = _subcategoryRepo.Search(catSearchResults);
-        //    ////var searchResults = _productRepo
+        //    //var catSearchResults = _categoryRepo.Search(searchString);
+        //    //var subcatSearchResults = _subcategoryRepo.Search(catSearchResults);
+        //    //var searchResults = _productRepo
 
         //    return View("Index", searchResults);
         //}
@@ -50,18 +53,25 @@ namespace KingPim.Web.Controllers
 
         [HttpGet]
         [Produces("application/xml")]
-        public IActionResult GetToXml()
+        public IActionResult GetCategoriesToXml()
         {
             var categories = _categoryRepo.GetAllCategories();
-            return Ok(categories);
+            var getCategories = ViewModelHelper.GetCategories(categories);
+            return Ok(getCategories);
         }
+
+        
+
+
+
 
         [HttpGet("category/testgetjsonorxml/api/values.{format}"), FormatFilter]
         public IEnumerable<string> TestGetJsonOrXml()
         {
             var categories = _categoryRepo.GetAllCategories();
 
-            return new string[] { categories.ToString() };
+            //return new string[] { categories.ToString() };
+            return new string[] { "value1", "value2" };
         }
 
     }
