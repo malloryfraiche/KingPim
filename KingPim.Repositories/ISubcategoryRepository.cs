@@ -17,5 +17,7 @@ namespace KingPim.Repositories
         Subcategory DeleteSubcategory(int subcategoryId);
 
         void PublishSubcategory(AddSubcategoryViewModel vm);
+
+        //IEnumerable<Subcategory> Search(string searchString);
     }
 }

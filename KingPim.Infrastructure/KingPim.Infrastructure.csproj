@@ -13,7 +13,11 @@
 
   <ItemGroup>
     <Folder Include="ExtentionMethods\" />
-    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KingPim.Models\KingPim.Models.csproj" />
+    <ProjectReference Include="..\KingPim.Repositories\KingPim.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

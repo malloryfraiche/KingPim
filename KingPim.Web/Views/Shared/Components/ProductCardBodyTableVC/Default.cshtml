@@ -5,6 +5,7 @@
         <tr>
             <th><i><small><b>AttrGroup</b></small></i></th>
             <th><i><small><b>Products attribute</b></small></i></th>
+            <th><i><small><b>Description</b></small></i></th>
             <th><i><small><b>Value</b></small></i></th>
         </tr>
     </thead>
@@ -15,8 +16,10 @@
             @foreach (var productAttr in subcatAttrGroup.AttributeGroup.ProductAttributes)
             {
                 <tr>
-                    <td><i><small>@subcatAttrGroup.AttributeGroup.Name</small></i></td>
+                    <td title="@subcatAttrGroup.AttributeGroup.Name"><i><small>@subcatAttrGroup.AttributeGroup.Id</small></i></td>
                     <td value="@productAttr.Id"><i><small>@productAttr.Name</small></i></td>
+                    <td><i><small>@productAttr.Description</small></i></td>
+
                     @{
                         var productAttrValueRow = Model.CardProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id == productAttr.Id);
                         var productAttrValueRowValue = productAttrValueRow?.Value;
@@ -28,7 +31,7 @@
                             <form class="form-inline" asp-controller="Product" asp-action="SaveProductAttributeValue">
                                 <input type="hidden" value="@productAttr.Id" asp-for="ProductAttributeId" />
                                 <input type="hidden" value="@Model.ProductId" asp-for="ProductId" />
-                                <select asp-for="Value" class="form-control-sm" required>
+                                <select asp-for="Value" class="form-control-sm col-8" required>
                                     @if (productAttrValueRowValue != null)
                                     {
                                         <option value="@productAttrValueRowValue">@productAttrValueRowValue</option>
@@ -43,7 +46,7 @@
                                     }
                                     else
                                     {
-                                        <option value="" disabled selected>Please choose...</option>
+                                        <option value="" disabled selected>Select...</option>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     }
@@ -52,11 +55,7 @@
                             </form>
                         </td>
                     }
-                    else if (productAttr.Type == "int")
-                    {
-                        <td></td>
-                    }
-                    else if (productAttr.Type == "string")
+                    else if (productAttr.Type == "string" || productAttr.Type == "int" || productAttr.Type == "byte")
                     {
                         <td>
                             <form class="form-inline" asp-controller="Product" asp-action="SaveProductAttributeValue">
@@ -64,12 +63,11 @@
                                 <input type="hidden" value="@Model.ProductId" asp-for="ProductId" />
                                 @if (productAttrValueRowValue != null)
                                 {
-                                    <input asp-for="Value" class="form-control form-control-sm" type="text" value="@productAttrValueRowValue" required />
+                                    <input asp-for="Value" class="form-control form-control-sm col-8" type="text" value="@productAttrValueRowValue" required />
                                 }
                                 else
                                 {
-                                    <input asp-for="Value" class="form-control form-control-sm" type="text" required />
-
+                                    <input asp-for="Value" class="form-control form-control-sm col-8" type="text" required />
                                 }
                                 &nbsp;&nbsp;
                                 <button class="btn btn-sm" type="submit"><i>Save</i></button>
