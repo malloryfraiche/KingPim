@@ -110,6 +110,10 @@
                                data-name="@c.Name">
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
+
+                            <a asp-controller="Home" asp-action="GetCategoriesToJson" asp-route-categoryId="@c.Id" title="Export to Json" class="btn btn-sm">JSON</a>
+                            <a asp-controller="Home" asp-action="GetCategoriesToXml" asp-route-categoryId="@c.Id" title="Export to Xml" class="btn btn-sm">XML</a>
+
                         </div>
                         <!----- The delete (category) modal ----->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -154,6 +158,10 @@
                                data-name="@c.Name">
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
+
+                            <a asp-controller="Home" asp-action="GetSubcategoriesToJson" asp-route-subcategoryId="@c.Id" title="Export to Json" class="btn btn-sm">JSON</a>
+                            <a asp-controller="Home" asp-action="GetSubcategoriesToXml" asp-route-subcategoryId="@c.Id" title="Export to Xml" class="btn btn-sm">XML</a>
+
                         </div>
 
                         <!----- The delete (subcategory) modal ----->
