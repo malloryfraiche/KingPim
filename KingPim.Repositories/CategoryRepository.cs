@@ -98,5 +98,14 @@ namespace KingPim.Repositories
                 ctx.SaveChanges();
             }
         }
+
+        //public IEnumerable<Category> Search(string searchString)
+        //{
+        //    IEnumerable<Category> categories;
+
+        //    // search logic here.
+
+        //    return categories;
+        //}
     }
 }

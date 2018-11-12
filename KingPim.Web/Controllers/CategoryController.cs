@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +31,6 @@ namespace KingPim.Web.Controllers
 
             return View(categories);
         }
-
         
         [HttpGet]
         public IActionResult GetCategoriesToJson()      // To ajax fill dropdown lists in modals with data..

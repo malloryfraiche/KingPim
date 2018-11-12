@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,11 +27,18 @@ namespace KingPim.Web
        
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc()
+                // To return data in XML.
+                .AddXmlSerializerFormatters()
+                .AddXmlDataContractSerializerFormatters();
+
+            
             // So the Json() in the controller will return correctly..
             services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Configuration for DB connection.
@@ -45,8 +53,8 @@ namespace KingPim.Web
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
             services.AddTransient<ISubcategoryAttributeGroupRepository, SubcategoryAttributeGroupRepository>();
-
-            services.AddMvc();
+            services.AddTransient<ISearchRepository, SearchRepository>();
+                
             services.AddMemoryCache();
             services.AddSession();
         }
@@ -74,7 +82,7 @@ namespace KingPim.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Seed.FillIfEmpty(ctx);
+            //Seed.FillIfEmpty(ctx);
         }
     }
 }

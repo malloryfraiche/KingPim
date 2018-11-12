@@ -1,2 +1,21 @@
-﻿
-<i>HomeController</i>
+﻿<i>HomeController</i>
+
+<h6>Have the export data view here?</h6>
+<br />
+<br />
+
+
+<form asp-controller="Home" asp-action="Search" class="form-inline">
+
+    <input for="" id="" class="form-control" placeholder="Search" required />
+    &nbsp;&nbsp;
+    <button class="btn btn-success" type="submit">Get</button>
+
+</form>
+
+
+<br />
+<a asp-controller="Home" asp-action="GetToJson" class="btn btn-primary">Get Categories to JSON</a>
+<br />
+<br />
+<a asp-controller="Home" asp-action="GetToXml" class="btn btn-primary">Get Categories to XML</a>

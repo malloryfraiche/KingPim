@@ -164,5 +164,14 @@ namespace KingPim.Repositories
             }
             
         }
+
+        //public IEnumerable<Subcategory> Search(string searchString)
+        //{
+        //    IEnumerable<Subcategory> subcategories;
+
+        //    // search logic here.
+
+        //    return subcategories;
+        //}
     }
 }
