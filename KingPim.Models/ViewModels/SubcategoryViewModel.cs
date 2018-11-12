@@ -4,6 +4,7 @@ using System.Text;
 
 namespace KingPim.Models.ViewModels
 {
+    [Serializable]
     public class SubcategoryViewModel
     {
         public int Id { get; set; }

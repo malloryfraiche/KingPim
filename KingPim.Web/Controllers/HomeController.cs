@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using KingPim.Infrastructure.Helpers;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KingPim.Web.Controllers
@@ -42,7 +45,14 @@ namespace KingPim.Web.Controllers
             else
             {
                 var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
-                return Json(selectedCategory);
+
+                // Converting the category object to byte array.
+                var binFormatter = new BinaryFormatter();
+                var mStream = new MemoryStream();
+                binFormatter.Serialize(mStream, selectedCategory);
+                var selectedCategoryByteArray = mStream.ToArray();
+               
+                return File(selectedCategoryByteArray, System.Net.Mime.MediaTypeNames.Application.Octet, "Category_" + categoryId + ".json");
             }
         }
 

@@ -55,8 +55,8 @@
                             <span data-feather="trash-2"></span>
                         </a>&nbsp;&nbsp;
 
-                        <a asp-controller="Home" asp-action="GetProductsToJson" asp-route-productId="@p.Id" class="btn btn-sm">JSON</a>
-                        <a asp-controller="Home" asp-action="GetProductsToXml" asp-route-productId="@p.Id" class="btn btn-sm">XML</a>
+                        <a asp-controller="Home" asp-action="GetProductsToJson" asp-route-productId="@p.Id" title="Export to Json" class="btn btn-sm">JSON</a>
+                        <a asp-controller="Home" asp-action="GetProductsToXml" asp-route-productId="@p.Id" title="Export to Xml" class="btn btn-sm">XML</a>
 
                     </div>
                     <!----- The delete (product) modal ----->

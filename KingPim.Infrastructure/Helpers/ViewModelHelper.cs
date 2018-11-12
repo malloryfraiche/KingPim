@@ -9,41 +9,26 @@ namespace KingPim.Infrastructure.Helpers
 {
     public static class ViewModelHelper
     {
-        //private ICategoryRepository _categoryRepo;
-        //public ViewModelHelper(ICategoryRepository categoryRepo)
-        //{
-        //    _categoryRepo = categoryRepo;
-        //}
-        
         // Get categories to XML or JSON.
         public static List<CategoryViewModel> GetCategories(IEnumerable<Category> categories)
         {
-            //if (categoryId != 0)
-            //{
-            //    foreach(var cat in categories)
-            //    {
-            //        var selectedCategory = cat.Id.Equals(categoryId);
-            //    }
-            //}
-            //else
-            //{}
-                var categoriesVm = new List<CategoryViewModel>();
-                foreach (var cat in categories)
+            var categoriesVm = new List<CategoryViewModel>();
+            foreach (var cat in categories)
+            {
+                categoriesVm.Add(new CategoryViewModel
                 {
-                    categoriesVm.Add(new CategoryViewModel
-                    {
-                        Id = cat.Id,
-                        Name = cat.Name,
-                        Subcategories = ConvertToListOfSubcatVms(cat.Subcategories),
-                        AddedDate = cat.AddedDate,
-                        UpdatedDate = cat.UpdatedDate,
-                        Published = cat.Published,
-                        Version = cat.Version
+                    Id = cat.Id,
+                    Name = cat.Name,
+                    Subcategories = ConvertToListOfSubcatVms(cat.Subcategories),
+                    AddedDate = cat.AddedDate,
+                    UpdatedDate = cat.UpdatedDate,
+                    Published = cat.Published,
+                    Version = cat.Version
 
-                    });
-                }
-                return categoriesVm;
-            
+                });
+            }
+            return categoriesVm;
+
         }
 
         private static List<SubcategoryViewModel> ConvertToListOfSubcatVms(List<Subcategory> subcategories)
