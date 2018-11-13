@@ -148,7 +148,7 @@
 
 
     // To control the data that is shown in the edit modal.
-    $('#editModal').on('show.bs.modal', function (event) {
+    $('#editSubcategoryModal').on('show.bs.modal', function (event) {
 
         /////// empty table and dropdown
         $('#subcategoriesAttrGroupsTableBody').empty();

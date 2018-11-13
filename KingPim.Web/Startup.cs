@@ -7,6 +7,7 @@ using KingPim.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
@@ -31,13 +32,11 @@ namespace KingPim.Web
                 // To return data in XML.
                 .AddXmlSerializerFormatters()
                 .AddXmlDataContractSerializerFormatters();
-
             
             // So the Json() in the controller will return correctly..
             services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -54,26 +53,36 @@ namespace KingPim.Web
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
             services.AddTransient<ISubcategoryAttributeGroupRepository, SubcategoryAttributeGroupRepository>();
             services.AddTransient<ISearchRepository, SearchRepository>();
-                
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 3;
+            });
+
             services.AddMemoryCache();
             services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx)
+        //IIdentitySeeder identitySeeder
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
             }
-
-            // To get access to the wwwroot files...
-            app.UseStaticFiles();
-            // Enables default file mapping on the web root.
-            app.UseMvcWithDefaultRoute();
-
+            
+            app.UseStaticFiles();   // To get access to the wwwroot files.
+            app.UseMvcWithDefaultRoute();   // Enables default file mapping on the web root.
             app.UseSession();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -82,6 +91,7 @@ namespace KingPim.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //var runIdentitySeed = Task.Run(async () => await identitySeeder.CreateAdminAccountIfEmpty()).Result;
             //Seed.FillIfEmpty(ctx);
         }
     }

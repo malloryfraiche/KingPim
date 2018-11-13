@@ -19,7 +19,12 @@
             <th><i style="float:right;"><small><b>Description</b></small></i></th>
             <th><i style="float:right;"><small><b>Price</b></small></i></th>
             <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
-            <th></th>
+            <th>
+                <div style="float:right;">
+                    <a asp-controller="Home" asp-action="GetProductsToJson" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
+                    <a asp-controller="Home" asp-action="GetProductsToXml" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to XML</a>
+                </div>
+            </th>
         </tr>
     </thead>
     <tbody>
