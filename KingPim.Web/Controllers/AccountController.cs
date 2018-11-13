@@ -10,7 +10,13 @@ namespace KingPim.Web.Controllers
     {
         public IActionResult Index()
         {
+            // Have the whole King Pim site access here...
             return View();
+        }
+
+        public IActionResult Login()
+        {
+            return RedirectToAction(nameof(Index));
         }
     }
 }

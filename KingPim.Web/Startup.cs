@@ -53,7 +53,14 @@ namespace KingPim.Web
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
             services.AddTransient<ISubcategoryAttributeGroupRepository, SubcategoryAttributeGroupRepository>();
             services.AddTransient<ISearchRepository, SearchRepository>();
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            // Services for Identity.
+            services.AddTransient<IIdentitySeed, IdentitySeed>();
+            services.AddTransient<IRoleSeed, RoleSeed>();
+            services.AddTransient<IUserRoleSeed, UserRoleSeed>();
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
@@ -70,8 +77,7 @@ namespace KingPim.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx)
-        //IIdentitySeeder identitySeeder
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx, IIdentitySeed identitySeed, IRoleSeed roleSeed, IUserRoleSeed userRoleSeed)
         {
             if (env.IsDevelopment())
             {
@@ -91,7 +97,10 @@ namespace KingPim.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //var runIdentitySeed = Task.Run(async () => await identitySeeder.CreateAdminAccountIfEmpty()).Result;
+            var runIdentitySeed = Task.Run(async () => await identitySeed.CreateAdminAccountIfEmpty()).Result;
+            var runRoleSeed = Task.Run(async () => await roleSeed.CreateRoleIfEmpty()).Result;
+            //var runUserRoleSeed = Task.Run(async ()=> await userRoleSeed.CreateUserRoleIfEmpty()).Result;
+
             //Seed.FillIfEmpty(ctx);
         }
     }
