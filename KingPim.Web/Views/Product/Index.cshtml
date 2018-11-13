@@ -21,8 +21,8 @@
             <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
             <th>
                 <div style="float:right;">
-                    <a asp-controller="Home" asp-action="GetProductsToJson" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
-                    <a asp-controller="Home" asp-action="GetProductsToXml" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to XML</a>
+                    <a asp-controller="Product" asp-action="GetProductsToJson" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
+                    <a asp-controller="Product" asp-action="GetProductsToXml" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to XML</a>
                 </div>
             </th>
         </tr>
@@ -60,8 +60,8 @@
                             <span data-feather="trash-2"></span>
                         </a>&nbsp;&nbsp;
 
-                        <a asp-controller="Home" asp-action="GetProductsToJson" asp-route-productId="@p.Id" title="Export to Json" class="btn btn-sm">JSON</a>
-                        <a asp-controller="Home" asp-action="GetProductsToXml" asp-route-productId="@p.Id" title="Export to Xml" class="btn btn-sm">XML</a>
+                        <a asp-controller="Product" asp-action="GetProductsToJson" asp-route-productId="@p.Id" title="Export to Json" class="btn btn-sm">JSON</a>
+                        <a asp-controller="Product" asp-action="GetProductsToXml" asp-route-productId="@p.Id" title="Export to Xml" class="btn btn-sm">XML</a>
 
                     </div>
                     <!----- The delete (product) modal ----->

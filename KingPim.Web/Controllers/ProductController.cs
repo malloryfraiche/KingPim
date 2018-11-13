@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using KingPim.Infrastructure.Helpers;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KingPim.Web.Controllers
 {
@@ -61,6 +64,46 @@ namespace KingPim.Web.Controllers
         {
             _productRepo.SaveProductAttributeValue(vm);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        [Produces("application/json")]
+        public IActionResult GetProductsToJson(int productId)
+        {
+            var products = _productRepo.Products;
+            var getProducts = ViewModelHelper.GetProducts(products);
+            var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
+
+            if (productId == 0)
+            {
+                var productJson = JsonConvert.SerializeObject(getProducts);
+                var bytes = Encoding.UTF8.GetBytes(productJson);
+                return File(bytes, "application/octet-stream", "products.json");
+            }
+            else
+            {
+                var selectedProductJson = JsonConvert.SerializeObject(selectedProduct);
+                var bytes = Encoding.UTF8.GetBytes(selectedProductJson);
+                return File(bytes, "application/octet-stream", "product_" + productId + ".json");
+            }
+        }
+
+        [HttpGet]
+        [Produces("application/xml")]
+        public IActionResult GetProductsToXml(int productId)
+        {
+            var products = _productRepo.Products;
+            var getProducts = ViewModelHelper.GetProducts(products);
+            var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
+
+            if (productId == 0)
+            {
+                return Ok(getProducts);
+            }
+            else
+            {
+                return Ok(selectedProduct);
+            }
         }
     }
 }
