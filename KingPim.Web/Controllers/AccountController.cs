@@ -35,5 +35,10 @@ namespace KingPim.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Users()
+        {
+            return View();
+        }
+
     }
 }
