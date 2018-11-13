@@ -1,30 +1,22 @@
-﻿<i>HomeController</i>
+﻿@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
 
-<h6>Have the export data view here?</h6>
-<br />
-<br />
+<div class="container mx-auto" style="width: 330px; margin-top: 50px">
+    <form asp-controller="Account" asp-action="Login" method="post" style="max-width: 330px;">
+        <h2 class="form-login-heading" style="text-align: center; margin: 10px">Please sign in</h2>
 
+        <label class="sr-only">Email address</label>
+        <input id="inputUserName" class="form-control" placeholder="Email address" required autofocus style="margin:10px" />
 
-<form asp-controller="Home" asp-action="Search" class="form-inline">
+        @*<div><span asp-validation-for="" class="text-danger"></span></div>*@
 
-    <input for="" id="" class="form-control" placeholder="Search" required />
-    &nbsp;&nbsp;
-    <button class="btn btn-success" type="submit">Get</button>
+        <label class="sr-only">Password</label>
+        <input id="inputPassword" class="form-control" placeholder="Password" required style="margin:10px" />
 
-</form>
+        @*<div><span asp-validation-for="" class="text-danger"></span></div>*@
 
-
-<br />
-<a asp-controller="Home" asp-action="GetCategoriesToJson" title="Export all categories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
-<br />
-<a asp-controller="Home" asp-action="GetCategoriesToXml" title="Export all categories to XML." class="btn btn-sm btn-outline-secondary">Export to XML</a>
-<br />
-<br />
-<a asp-controller="Home" asp-action="GetSubcategoriesToJson" class="btn btn-sm btn-primary">Get Subcategories to JSON</a>
-<br />
-<a asp-controller="Home" asp-action="GetSubcategoriesToXml" class="btn btn-sm btn-primary">Get Subcategories to XML</a>
-<br />
-<br />
-<a asp-controller="Home" asp-action="GetProductsToJson" class="btn btn-sm btn-primary">Get Products to JSON</a>
-<br />
-<a asp-controller="Home" asp-action="GetProductsToXml" class="btn btn-sm btn-primary">Get Products to XML</a>
+        <button class="btn btn-primary btn-block" type="submit" style="margin:10px">Sign in</button>
+        <a asp-controller="" asp-action="" style="float:right;"><small>Forgot Password?</small></a>
+    </form>
+</div> 

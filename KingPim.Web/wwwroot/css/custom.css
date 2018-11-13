@@ -78,7 +78,11 @@ nav ul, nav li {
     background-color: #5fa2db;
 }
 
-
 .card {
     margin-bottom: 40px;
+}
+
+/* custom table styling to have the edit modal table non striped. */
+.table-nostriped tbody tr:nth-of-type(odd) {
+    background-color: transparent;
 }
