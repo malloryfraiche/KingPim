@@ -52,11 +52,24 @@
                 </span>
             </a>
         </li>
+
+        @if (User.IsInRole("Administrator"))
+        {
+            <li>
+                <a asp-controller="Account" asp-action="Users">
+                    <i class="fa fa-user"></i>
+                    <span class="nav-text">
+                        Users
+                    </span>
+                </a>
+            </li>
+        }
+
     </ul>
 
     <ul class="logout">
         <li>
-            <a asp-controller="Home" asp-action="Index">
+            <a asp-controller="Home" asp-action="Logout">
                 <i class="fa fa-power-off"></i>
                 <span class="nav-text">
                     Logout

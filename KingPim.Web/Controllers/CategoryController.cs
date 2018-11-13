@@ -4,16 +4,23 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
+using KingPim.Infrastructure.Helpers;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KingPim.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private ICategoryRepository _categoryRepo;
@@ -74,6 +81,82 @@ namespace KingPim.Web.Controllers
         {
             _categoryRepo.PublishCategory(vm);
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        [Produces("application/json")]
+        public IActionResult GetCategoriesToJson(int categoryId)
+        {
+            var categories = _categoryRepo.GetAllCategories();
+            var getCategories = ViewModelHelper.GetCategories(categories);
+            var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
+
+            if (categoryId == 0)
+            {
+                var categoryJson = JsonConvert.SerializeObject(getCategories);
+                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                return File(bytes, "application/octet-stream", "categories.json");
+            }
+            else
+            {
+                var selectedCategoryJson = JsonConvert.SerializeObject(selectedCategory);
+                var bytes = Encoding.UTF8.GetBytes(selectedCategoryJson);
+                return File(bytes, "application/octet-stream", "category_" + categoryId + ".json");
+            }
+        }
+
+        [HttpGet]
+        [Produces("application/xml")]
+        public IActionResult GetCategoriesToXml(int categoryId)
+        {
+            //var categories = _categoryRepo.GetAllCategories();
+            var categories = _categoryRepo.Categories;
+            var getCategories = ViewModelHelper.GetCategories(categories);
+            var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
+
+            if (categoryId == 0)
+            {
+                //var categoryJson = JsonConvert.SerializeObject(getCategories);
+                //var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                string returnString = null;
+                XmlSerializer categoryXml = new XmlSerializer(typeof(CategoryViewModel));
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    NewLineOnAttributes = true,
+                    Encoding = Encoding.UTF8
+                };
+
+                using (StringWriter sw = new StringWriter())
+                {
+                    using (var textWriter = XmlWriter.Create(sw, settings))
+                    {
+                        categoryXml.Serialize(textWriter, getCategories);
+                    }
+                    sw.Flush();
+                    returnString = sw.ToString();
+                }
+
+                var bytes = Encoding.UTF8.GetBytes(returnString);
+
+                //XmlDocument doc = new XmlDocument();
+                //XmlElement root = doc.CreateElement("root");
+                //XmlElement element = doc.CreateElement("child");
+                //root.AppendChild(element);
+                //doc.AppendChild(root);
+
+                //MemoryStream ms = new MemoryStream();
+                //doc.Save(ms);
+                //byte[] bytes = ms.ToArray();
+
+                return File(bytes, "application/octet-stream", "categories.xml");
+            }
+            else
+            {
+                var categoryJson = JsonConvert.SerializeObject(selectedCategory);
+                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                return File(bytes, "application/octet-stream", "category_" + categoryId + ".xml");
+            }
         }
     }
 }

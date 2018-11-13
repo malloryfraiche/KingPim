@@ -24,15 +24,15 @@
                 @{ if (Model is IEnumerable<Category>)
                     {
                         <div style="float:right;">
-                            <a asp-controller="Home" asp-action="GetCategoriesToJson" title="Export all categories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
-                            <a asp-controller="Home" asp-action="GetCategoriesToXml" title="Export all categories to XML." class="btn btn-sm btn-outline-secondary">Export to XML</a>
+                            <a asp-controller="Category" asp-action="GetCategoriesToJson" title="Export all categories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
+                            <a asp-controller="Category" asp-action="GetCategoriesToXml" title="Export all categories to XML." class="btn btn-sm btn-outline-secondary">Export to XML</a>
                         </div>
                     }
                     else
                     {
                         <div style="float:right;">
-                            <a asp-controller="Home" asp-action="GetSubcategoriesToJson" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
-                            <a asp-controller="Home" asp-action="GetSubcategoriesToXml" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to XML</a>
+                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToJson" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
+                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToXml" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to XML</a>
                         </div>
                     }
                 }
@@ -116,8 +116,8 @@
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
 
-                            <a asp-controller="Home" asp-action="GetCategoriesToJson" asp-route-categoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
-                            <a asp-controller="Home" asp-action="GetCategoriesToXml" asp-route-categoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
+                            <a asp-controller="Category" asp-action="GetCategoriesToJson" asp-route-categoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
+                            <a asp-controller="Category" asp-action="GetCategoriesToXml" asp-route-categoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
 
                         </div>
                         <!----- The delete (category) modal ----->
@@ -164,8 +164,8 @@
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
 
-                            <a asp-controller="Home" asp-action="GetSubcategoriesToJson" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
-                            <a asp-controller="Home" asp-action="GetSubcategoriesToXml" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
+                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToJson" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
+                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToXml" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
 
                         </div>
 
