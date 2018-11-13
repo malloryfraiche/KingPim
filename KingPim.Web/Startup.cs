@@ -86,15 +86,15 @@ namespace KingPim.Web
             }
             
             app.UseStaticFiles();   // To get access to the wwwroot files.
+            app.UseAuthentication();
             app.UseMvcWithDefaultRoute();   // Enables default file mapping on the web root.
             app.UseSession();
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}");
             });
 
             var runIdentitySeed = Task.Run(async () => await identitySeed.CreateAdminAccountIfEmpty()).Result;
