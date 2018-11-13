@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KingPim.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private ICategoryRepository _categoryRepo;

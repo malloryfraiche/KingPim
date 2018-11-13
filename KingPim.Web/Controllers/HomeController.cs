@@ -21,7 +21,7 @@ using Newtonsoft.Json.Converters;
 
 namespace KingPim.Web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private IProductRepository _productRepo;
@@ -79,7 +79,13 @@ namespace KingPim.Web.Controllers
                 }
             }
             // If not correct, we are returned to the 'login page'.
-            return RedirectToAction("Index", vm);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
