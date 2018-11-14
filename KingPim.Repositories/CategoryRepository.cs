@@ -1,6 +1,7 @@
 ﻿using KingPim.Data.DataAccess;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace KingPim.Repositories
 
         public IEnumerable<Category> Categories => ctx.Categories;
 
+        //public IEnumerable<IdentityRole> Roles => ctx.Roles;
+
         public IEnumerable<Category> GetAllCategories()
         {
             return Categories;
@@ -27,6 +30,7 @@ namespace KingPim.Repositories
         // CREATE and UPDATE category.
         public void AddCategory(AddCategoryViewModel vm)
         {
+            
             if (vm.Id == 0)     // Create
             {
                 var newCat = new Category

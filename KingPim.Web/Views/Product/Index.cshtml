@@ -19,6 +19,7 @@
             <th><i style="float:right;"><small><b>Description</b></small></i></th>
             <th><i style="float:right;"><small><b>Price</b></small></i></th>
             <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
+            <th><i style="float:right;"><small><b>Modified by</b></small></i></th>
             <th>
                 <div style="float:right;">
                     <a asp-controller="Product" asp-action="GetProductsToJson" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
@@ -35,6 +36,10 @@
                 <td><i style="float:right;"><small>@p.Description</small></i></td>
                 <td><i style="float:right;"><small>@p.Price</small></i></td>
                 <td><i style="float:right;"><small>@p.Subcategory.Name</small></i></td>
+
+                <!-- TODO: have the user who modified this last here.. -->
+                <td><i style="float:right;"><small>administrator@kingpim.se</small></i></td>
+
                 <td>
                     <div style="float:right;">
                         <a class="text-muted"
@@ -105,17 +110,22 @@
                 <div class="card-header">
                     <div>
                         <b>@p.Name</b>
-                        <form asp-controller="Product" asp-action="PublishProduct" style="float:right;">
-                            <input value="@p.Id" name="id" style="display:none;" />
-                            @if (p.Published == false)
-                            {
-                                <button type="submit" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
-                            }
-                        </form>
+
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
+                        {
+                            <form asp-controller="Product" asp-action="PublishProduct" style="float:right;">
+                                <input value="@p.Id" name="id" style="display:none;" />
+                                @if (p.Published == false)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
+                                }
+                            </form>
+                        }
+
                         <div style="float:right;">
                             <a class="text-muted"
                                data-toggle="modal"

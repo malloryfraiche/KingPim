@@ -9,6 +9,13 @@
 </head>
 <body>
     @RenderBody()
-<script src="~/js/site.min.js"></script>
+    <script src="~/js/site.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#forgotPasswordModal').on('show.bs.modal', function () {
+                $('form input').val('');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -19,12 +19,17 @@
                     <th><i style="float:right;"><small><b>Category</b></small></i></th>
                 }
             }
-            <th><i style="float:right;"><small><b>Publish</b></small></i></th>
+
+            @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
+            {
+                <th><i style="float:right;"><small><b>Publish</b></small></i></th>
+            }
+
             <th>
                 @{ if (Model is IEnumerable<Category>)
                     {
                         <div style="float:right;">
-                            <a asp-controller="Category" asp-action="GetCategoriesToJson" title="Export all categories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
+                            <a asp-controller="Category" asp-action="GetCategoriesToJsonExport" title="Export all categories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
                             <a asp-controller="Category" asp-action="GetCategoriesToXml" title="Export all categories to XML." class="btn btn-sm btn-outline-secondary">Export to XML</a>
                         </div>
                     }
@@ -48,7 +53,7 @@
                 <td><i style="float:right;"><small>@c.UpdatedDate</small></i></td>
 
                 <!-- TODO: have the user who modified this last here.. -->
-                <td><i style="float:right;"><small></small></i></td>
+                <td><i style="float:right;"><small>administrator@kingpim.se</small></i></td>
 
                 <td><i style="float:right;"><small>@c.Version</small></i></td>
                 @if (Model is IEnumerable<Subcategory>)
@@ -62,36 +67,40 @@
                         <td><i style="float:right;"><small>No category connected yet. Do it.</small></i></td>
                     }
                 }
-                <td>
-                    @if (Model is IEnumerable<Category>)
-                    {
-                        <form asp-controller="Category" asp-action="PublishCategory">
-                            <input value="@c.Id" name="id" style="display:none;" />
-                            @if (c.Published == false)
-                            {
-                                <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
-                            }
-                        </form>
-                    }
-                    @if (Model is IEnumerable<Subcategory>)
-                    {
-                        <form asp-controller="Subcategory" asp-action="PublishSubcategory">
-                            <input value="@c.Id" name="id" style="display:none;" />
-                            @if (c.Published == false)
-                            {
-                                <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
-                            }
-                        </form>
-                    }
-                </td>
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
+                {
+                    <td>
+                        @if (Model is IEnumerable<Category>)
+                        {
+                            <form asp-controller="Category" asp-action="PublishCategory">
+                                <input value="@c.Id" name="id" style="display:none;" />
+                                @if (c.Published == false)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
+                                }
+                            </form>
+                        }
+                        @if (Model is IEnumerable<Subcategory>)
+                        {
+                            <form asp-controller="Subcategory" asp-action="PublishSubcategory">
+                                <input value="@c.Id" name="id" style="display:none;" />
+                                @if (c.Published == false)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
+                                }
+                            </form>
+                        }
+                    </td>
+                }
                 <td>
                     @if (Model is IEnumerable<Category>)
                     {
@@ -116,7 +125,7 @@
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
 
-                            <a asp-controller="Category" asp-action="GetCategoriesToJson" asp-route-categoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
+                            <a asp-controller="Category" asp-action="GetCategoriesToJsonExport" asp-route-categoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
                             <a asp-controller="Category" asp-action="GetCategoriesToXml" asp-route-categoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
 
                         </div>
@@ -140,7 +149,6 @@
                             </div>
                         </div>
                     }
-
                     @if (Model is IEnumerable<Subcategory>)
                     {
                         <div style="float:right;">
@@ -168,7 +176,6 @@
                             <a asp-controller="Subcategory" asp-action="GetSubcategoriesToXml" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
 
                         </div>
-
                         <!----- The delete (subcategory) modal ----->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -208,8 +215,6 @@
         }
     }
 </div>
-
-
 
 <!----- The edit (category) modal ----->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -266,9 +271,6 @@
                             </select>
                         </div>
                     </div>
-
-
-
                     <div class="row">
                         <div class="form-group col">
                             <label for="AttributeGroupId" class="control-label px-4"><strong>Attribute groups:</strong></label>
@@ -279,35 +281,16 @@
                                 </table>
                             </div>
                         </div>
-
-
-
-
                         <div class="form-group col">
                             <label class="control-label px-4"><small><i><b>Add attribute group:</b></i></small></label>
                             <div class="px-4">
-                                @*<select class="form-control attrGroupsSelect">*@
-                                <!-- dropdown with all attribute groups not already connected. -->
-                                @*</select>
-                                    <button class="btn btn-sm mt-2" type="button" id="addAttrGroupSubcatEditModalBtn" style="float:right;" disabled>Add</button>*@
-
-
                                 <!----- list of added attribute groups table ----->
                                 <table class="table table-nostriped">
                                     <tbody id="allAttrGroupsTableBody"></tbody>
                                 </table>
-
-
                             </div>
                         </div>
-
-
-
-
                     </div>
-
-
-
                     <div class="form-group">
                         <div class="px-4">
                             <button class="btn btn-sm btn-success" type="submit">Edit</button>
@@ -319,4 +302,3 @@
         </div>
     </div>
 </div>
-

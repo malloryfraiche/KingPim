@@ -63,7 +63,6 @@ namespace KingPim.Data.DataAccess
                 };
                 ctx.AttributeGroups.Add(attributeGroupDataOne);
                 ctx.AttributeGroups.Add(attributeGroupDataTwo);
-
                 ctx.SaveChanges();
             }
             
@@ -154,7 +153,6 @@ namespace KingPim.Data.DataAccess
             };
             subcatAttrGroupList2.Add(subcatAttrGroupConnection3);
             subcatAttrGroupList2.Add(subcatAttrGroupConnection4);
-
 
             // ----- Adding Seed data for Subcategory -----
             var subcatList = new List<Subcategory>();
