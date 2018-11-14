@@ -63,10 +63,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><small><i>test@test.se</i></small></td>
-                    <td><small><i>Admin</i></small></td>
-                </tr>
+                @foreach (var user in Model.Users)
+                {
+                    @foreach (var role in Model.UserRoles)
+                    {
+                        <tr>
+                            <td><small><i>@user</i></small></td>
+                            <td><small><i>@role</i></small></td>
+                        </tr>
+                    }
+
+                }
             </tbody>
         </table>
     </div>

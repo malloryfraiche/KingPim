@@ -116,40 +116,33 @@ namespace KingPim.Web.Controllers
 
             if (categoryId == 0)
             {
-                //var categoryJson = JsonConvert.SerializeObject(getCategories);
-                //var bytes = Encoding.UTF8.GetBytes(categoryJson);
-                string returnString = null;
-                XmlSerializer categoryXml = new XmlSerializer(typeof(CategoryViewModel));
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    NewLineOnAttributes = true,
-                    Encoding = Encoding.UTF8
-                };
-
-                using (StringWriter sw = new StringWriter())
-                {
-                    using (var textWriter = XmlWriter.Create(sw, settings))
-                    {
-                        categoryXml.Serialize(textWriter, getCategories);
-                    }
-                    sw.Flush();
-                    returnString = sw.ToString();
-                }
-
-                var bytes = Encoding.UTF8.GetBytes(returnString);
-
-                //XmlDocument doc = new XmlDocument();
-                //XmlElement root = doc.CreateElement("root");
-                //XmlElement element = doc.CreateElement("child");
-                //root.AppendChild(element);
-                //doc.AppendChild(root);
-
-                //MemoryStream ms = new MemoryStream();
-                //doc.Save(ms);
-                //byte[] bytes = ms.ToArray();
-
-                return File(bytes, "application/octet-stream", "categories.xml");
+                //string returnString = null;
+                //XmlSerializer categoryXml = new XmlSerializer(typeof(CategoryViewModel));
+                //var settings = new XmlWriterSettings
+                //{
+                //    Indent = true,
+                //    NewLineOnAttributes = true,
+                //    Encoding = Encoding.UTF8
+                //};
+                //using (StringWriter sw = new StringWriter())
+                //{
+                //    using (var textWriter = XmlWriter.Create(sw, settings))
+                //    {
+                //        categoryXml.Serialize(textWriter, getCategories);
+                //    }
+                //    sw.Flush();
+                //    returnString = sw.ToString();
+                //}
+                //var bytes = Encoding.UTF8.GetBytes(returnString);
+                //return File(bytes, "application/octet-stream", "categories.xml");
+                
+                var sw = new StringWriter();
+                var serializer = new XmlSerializer(getCategories.GetType());
+                serializer.Serialize(sw, getCategories);
+                var xmlString = sw.ToString();
+                var xmlBytes = Encoding.UTF8.GetBytes(xmlString);
+                return File(xmlBytes, "application/octet-stream", "categories.xml");
+                
             }
             else
             {

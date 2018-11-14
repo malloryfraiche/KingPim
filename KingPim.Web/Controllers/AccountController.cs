@@ -42,8 +42,8 @@ namespace KingPim.Web.Controllers
 
             var userRoleInfo = new AccountViewModel
             {
-                Users = _userManager.Users
-                //UserRoles = _userManager.GetRolesAsync(users)
+                Users = _userManager.Users,
+                UserRoles = _roleManager.Roles
             };
             
             return View(userRoleInfo);

@@ -25,6 +25,6 @@ namespace KingPim.Models.ViewModels
 
 
         public IEnumerable<IdentityUser> Users { get; set; }
-        public IEnumerable<string> UserRoles { get; set; }
+        public IEnumerable<IdentityRole> UserRoles { get; set; }
     }
 }
