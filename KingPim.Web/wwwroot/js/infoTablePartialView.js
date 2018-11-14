@@ -30,16 +30,13 @@
         $('#viewComponents').hide();
     });
 
-
     $('#changePasswordBtn').on('click', function () {
         $('#changePasswordDiv').show();
     });
-
     $('#closeChangePasswordBtn').on('click', function () {
         $('#changePasswordForm input').each(function () {
             $(this).val('');
         });
         $('#changePasswordDiv').hide();
     });
-
 });

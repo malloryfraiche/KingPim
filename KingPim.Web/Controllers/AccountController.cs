@@ -51,7 +51,6 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(AccountViewModel vm)
         {
-
             var user = new IdentityUser
             {
                 UserName = vm.UserName,
@@ -73,6 +72,12 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public IActionResult ChangePassword(AccountViewModel vm)
         {
+            //var username = vm.UserName;
+            //var newPassword = vm.Password;
+            //IdentityUser identityUser = await _userManager.FindByNameAsync(username);
+            //var hashedNewPassword = _userManager.PasswordHasher.HashPassword(identityUser, newPassword);
+            //var store = await _userManager.SetPasswordHashAsync(identityUser, , hashedNewPassword);
+
             return RedirectToAction(nameof(Index));
         }
     }
