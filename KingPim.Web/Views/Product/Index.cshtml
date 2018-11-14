@@ -105,17 +105,22 @@
                 <div class="card-header">
                     <div>
                         <b>@p.Name</b>
-                        <form asp-controller="Product" asp-action="PublishProduct" style="float:right;">
-                            <input value="@p.Id" name="id" style="display:none;" />
-                            @if (p.Published == false)
-                            {
-                                <button type="submit" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
-                            }
-                        </form>
+
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
+                        {
+                            <form asp-controller="Product" asp-action="PublishProduct" style="float:right;">
+                                <input value="@p.Id" name="id" style="display:none;" />
+                                @if (p.Published == false)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-warning" id="publishBtn" title="Publish product to be sold.">publish</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" id="unpublishBtn" title="Unpublish product from inventory.">unpublish</button>
+                                }
+                            </form>
+                        }
+
                         <div style="float:right;">
                             <a class="text-muted"
                                data-toggle="modal"

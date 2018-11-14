@@ -1,14 +1,29 @@
-﻿@* Account Controller Index *@
+﻿
+<div class="px-4">
+    @if (User.IsInRole("Administrator"))
+    {
+        <h2>Welcome Admin!</h2>
+    }
+    @if (User.IsInRole("Publisher"))
+    {
+        <h2>Welcome Publisher!</h2>
+    }
+    @if (User.IsInRole("Editor"))
+    {
+        <h2>Welcome Editor!</h2>
+    }
 
-@if (User.IsInRole("Administrator"))
-{
-    <h2>Welcome Admin!</h2>
-}
-@if (User.IsInRole("Publisher"))
-{
-    <h2>Welcome Publisher!</h2>
-}
-@if (User.IsInRole("Editor"))
-{
-    <h2>Welcome Editor!</h2>
-}
+    <button type="button" id="changePasswordBtn" class="btn btn-sm btn-outline-secondary">Change password</button>
+</div>
+
+<br />
+<br />
+<div id="changePasswordDiv" style="display:none;">
+    <div class="row">
+        <div class="col">
+            @await Component.InvokeAsync("ChangePasswordVC")
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+</div>

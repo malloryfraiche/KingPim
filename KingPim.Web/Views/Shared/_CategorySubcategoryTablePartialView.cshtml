@@ -19,7 +19,12 @@
                     <th><i style="float:right;"><small><b>Category</b></small></i></th>
                 }
             }
-            <th><i style="float:right;"><small><b>Publish</b></small></i></th>
+
+            @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
+            {
+                <th><i style="float:right;"><small><b>Publish</b></small></i></th>
+            }
+
             <th>
                 @{ if (Model is IEnumerable<Category>)
                     {
@@ -62,36 +67,45 @@
                         <td><i style="float:right;"><small>No category connected yet. Do it.</small></i></td>
                     }
                 }
-                <td>
-                    @if (Model is IEnumerable<Category>)
-                    {
-                        <form asp-controller="Category" asp-action="PublishCategory">
-                            <input value="@c.Id" name="id" style="display:none;" />
-                            @if (c.Published == false)
-                            {
-                                <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
-                            }
-                        </form>
-                    }
-                    @if (Model is IEnumerable<Subcategory>)
-                    {
-                        <form asp-controller="Subcategory" asp-action="PublishSubcategory">
-                            <input value="@c.Id" name="id" style="display:none;" />
-                            @if (c.Published == false)
-                            {
-                                <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
-                            }
-                        </form>
-                    }
-                </td>
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
+                {
+                    <td>
+                        @if (Model is IEnumerable<Category>)
+                        {
+                            <form asp-controller="Category" asp-action="PublishCategory">
+                                <input value="@c.Id" name="id" style="display:none;" />
+                                @if (c.Published == false)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
+                                }
+                            </form>
+                        }
+                        @if (Model is IEnumerable<Subcategory>)
+                        {
+                            <form asp-controller="Subcategory" asp-action="PublishSubcategory">
+                                <input value="@c.Id" name="id" style="display:none;" />
+                                @if (c.Published == false)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-warning" style="float:right;">publish</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" style="float:right;">unpublish</button>
+                                }
+                            </form>
+                        }
+                    </td>
+                }
+
+
+
+
+
                 <td>
                     @if (Model is IEnumerable<Category>)
                     {

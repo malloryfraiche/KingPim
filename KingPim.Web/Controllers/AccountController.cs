@@ -69,5 +69,11 @@ namespace KingPim.Web.Controllers
 
             return RedirectToAction(nameof(Users));
         }
+
+        [HttpPost]
+        public IActionResult ChangePassword(AccountViewModel vm)
+        {
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
