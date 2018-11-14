@@ -23,8 +23,7 @@ namespace KingPim.Models.ViewModels
         public string Role { get; set; }
 
 
-
         public IEnumerable<IdentityUser> Users { get; set; }
-        public IEnumerable<IdentityRole> UserRoles { get; set; }
+        public IEnumerable<IdentityRole> Roles { get; set; }
     }
 }

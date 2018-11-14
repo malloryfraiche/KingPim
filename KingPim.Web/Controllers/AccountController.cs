@@ -39,13 +39,12 @@ namespace KingPim.Web.Controllers
         {
             ViewBag.Title = "Users";
 
-
             var userRoleInfo = new AccountViewModel
             {
                 Users = _userManager.Users,
-                UserRoles = _roleManager.Roles
+                Roles = _roleManager.Roles
             };
-            
+
             return View(userRoleInfo);
         }
 
