@@ -19,6 +19,7 @@
             <th><i style="float:right;"><small><b>Description</b></small></i></th>
             <th><i style="float:right;"><small><b>Price</b></small></i></th>
             <th><i style="float:right;"><small><b>Subcategory</b></small></i></th>
+            <th><i style="float:right;"><small><b>Modified by</b></small></i></th>
             <th>
                 <div style="float:right;">
                     <a asp-controller="Product" asp-action="GetProductsToJson" title="Export all products to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
@@ -35,6 +36,10 @@
                 <td><i style="float:right;"><small>@p.Description</small></i></td>
                 <td><i style="float:right;"><small>@p.Price</small></i></td>
                 <td><i style="float:right;"><small>@p.Subcategory.Name</small></i></td>
+
+                <!-- TODO: have the user who modified this last here.. -->
+                <td><i style="float:right;"><small>administrator@kingpim.se</small></i></td>
+
                 <td>
                     <div style="float:right;">
                         <a class="text-muted"

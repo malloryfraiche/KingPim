@@ -85,7 +85,7 @@ namespace KingPim.Web.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetCategoriesToJson(int categoryId)
+        public IActionResult GetCategoriesToJsonExport(int categoryId)
         {
             var categories = _categoryRepo.GetAllCategories();
             var getCategories = ViewModelHelper.GetCategories(categories);
@@ -135,20 +135,25 @@ namespace KingPim.Web.Controllers
                 //}
                 //var bytes = Encoding.UTF8.GetBytes(returnString);
                 //return File(bytes, "application/octet-stream", "categories.xml");
-                
-                var sw = new StringWriter();
-                var serializer = new XmlSerializer(getCategories.GetType());
-                serializer.Serialize(sw, getCategories);
-                var xmlString = sw.ToString();
-                var xmlBytes = Encoding.UTF8.GetBytes(xmlString);
-                return File(xmlBytes, "application/octet-stream", "categories.xml");
+
+                return Ok(getCategories);
+
+
+                //var sw = new StringWriter();
+                //var serializer = new XmlSerializer(getCategories.GetType());
+                //serializer.Serialize(sw, getCategories);
+                //var xmlString = sw.ToString();
+                //var xmlBytes = Encoding.UTF8.GetBytes(xmlString);
+                //return File(xmlBytes, "application/octet-stream", "categories.xml");
                 
             }
             else
             {
-                var categoryJson = JsonConvert.SerializeObject(selectedCategory);
-                var bytes = Encoding.UTF8.GetBytes(categoryJson);
-                return File(bytes, "application/octet-stream", "category_" + categoryId + ".xml");
+                return Ok(selectedCategory);
+
+                //var categoryJson = JsonConvert.SerializeObject(selectedCategory);
+                //var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                //return File(bytes, "application/octet-stream", "category_" + categoryId + ".xml");
             }
         }
     }
