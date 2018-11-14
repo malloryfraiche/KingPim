@@ -35,10 +35,40 @@ namespace KingPim.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Users()
+        public IActionResult Users(AccountViewModel vm)
         {
-            return View();
+            ViewBag.Title = "Users";
+
+
+            var userRoleInfo = new AccountViewModel
+            {
+                Users = _userManager.Users
+                //UserRoles = _userManager.GetRolesAsync(users)
+            };
+            
+            return View(userRoleInfo);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddUser(AccountViewModel vm)
+        {
+
+            var user = new IdentityUser
+            {
+                UserName = vm.UserName,
+                Email = vm.UserName,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, vm.Password);
+
+            if (result.Succeeded)
+            {
+                var findByEmail = await _userManager.FindByEmailAsync(user.Email);
+                await _userManager.AddToRoleAsync(findByEmail, vm.Role);
+            }
+
+            return RedirectToAction(nameof(Users));
+        }
     }
 }
