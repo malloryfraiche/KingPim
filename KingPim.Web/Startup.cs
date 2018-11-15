@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using KingPim.Data.DataAccess;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,11 +47,9 @@ namespace KingPim.Web
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
             services.AddTransient<ISubcategoryAttributeGroupRepository, SubcategoryAttributeGroupRepository>();
-            services.AddTransient<ISearchRepository, SearchRepository>();
             // Services for Identity.
             services.AddTransient<IIdentitySeed, IdentitySeed>();
             services.AddTransient<IRoleSeed, RoleSeed>();
-            services.AddTransient<IUserRoleSeed, UserRoleSeed>();
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
@@ -99,9 +92,7 @@ namespace KingPim.Web
 
             var runIdentitySeed = Task.Run(async () => await identitySeed.CreateAdminAccountIfEmpty()).Result;
             var runRoleSeed = Task.Run(async () => await roleSeed.CreateRoleIfEmpty()).Result;
-            //var runUserRoleSeed = Task.Run(async ()=> await userRoleSeed.CreateUserRoleIfEmpty()).Result;
-
-            //Seed.FillIfEmpty(ctx);
+            Seed.FillIfEmpty(ctx);
         }
     }
 }

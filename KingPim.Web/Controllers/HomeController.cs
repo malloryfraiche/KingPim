@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
-using KingPim.Data.DataAccess;
-using KingPim.Infrastructure.Helpers;
-using KingPim.Models;
+﻿using System.Threading.Tasks;
 using KingPim.Models.ViewModels;
-using KingPim.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace KingPim.Web.Controllers
 {
@@ -44,6 +31,10 @@ namespace KingPim.Web.Controllers
             }
             else
             {
+                var successResetMsg = TempData["PasswordResetSuccess"];
+                ViewBag.SuccessResetMsg = successResetMsg;
+                var checkYourEmail = TempData["CheckYourEmail"];
+                ViewBag.CheckYourEmail = checkYourEmail;
                 return View();
             }
         }
@@ -68,11 +59,61 @@ namespace KingPim.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         [AllowAnonymous]
-        public IActionResult ForgotPassword()
+        public async Task<IActionResult> ForgotPassword(LoginViewModel vm)
         {
+            var user = await _userManager.FindByNameAsync(vm.UserName);
+            var confirmationCode = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action(
+                controller: "Home",
+                action: "ResetPassword",
+                values: new { userId = user.Id, code = confirmationCode },
+                protocol: Request.Scheme);
+            var client = new SendGridClient("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");
+            // Initiate a new send grid message.
+            var msg = new SendGridMessage
+            {
+                From = new EmailAddress(vm.UserName, "KingPim Reset Password")
+            };
+            // Add the receiver.
+            msg.AddTo("malloryfraiche@gmail.com");
+            // Add template id the email should use.
+            msg.TemplateId = "63dce31a-4040-45d9-9a2b-a63495a16c5f";
+            // Set the substitution tag value.
+            msg.AddSubstitution("substitutionLink", callbackUrl);
+            // Send the email async and get the response from API.
+            var response = client.SendEmailAsync(msg).Result;
+            TempData["CheckYourEmail"] = "Your reset password link was sent to your email.";
+            return RedirectToAction(nameof(Index));            
+        }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var usersName = user.UserName;
+            var model = new LoginViewModel
+            {
+                UserName = usersName,
+                Code = code
+            };
+            return View(model);
         }
         
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(LoginViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(vm.UserName);
+                var result = await _userManager.ResetPasswordAsync(user, vm.Code, vm.Password);
+                var success = result.Succeeded;
+                TempData["PasswordResetSuccess"] = "Your password was successfully reset!";
+                return RedirectToAction(nameof(Index));
+            }
+            return View("Index");
+        }
     }
 }
