@@ -17,10 +17,10 @@
 .main-menu {
     background: lightgrey;
     border-right: 1px solid #e5e5e5;
-    position: absolute;
+    position: fixed;
     top: 55px;
     bottom: 0;
-    height: 100%;
+    height: 100vh;
     left: 0;
     width: 80px;
     overflow: hidden;
@@ -62,9 +62,9 @@
     }
 
     .main-menu > ul.logout {
-        position: absolute;
+        position: fixed;
         left: 0;
-        bottom: 0;
+        bottom: 55px;
     }
 
 nav ul, nav li {
@@ -82,7 +82,7 @@ nav ul, nav li {
     margin-bottom: 40px;
 }
 
-/* custom table styling to have the edit modal table non striped. */
+/* table styling to have the edit modal table non striped. */
 .table-nostriped tbody tr:nth-of-type(odd) {
     background-color: transparent;
 }
