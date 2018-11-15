@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -16,28 +13,18 @@ namespace KingPim.Web.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private ICategoryRepository _cateRepo;
 
-        public AccountController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager,
-            ICategoryRepository categoryRepo)
+        public AccountController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
-            _cateRepo = categoryRepo;
         }
 
         public IActionResult Index()
         {
             var message = TempData["PasswordUpdatedMessage"];
             ViewBag.Message = message;
-
-            //var categories = _cateRepo.Categories;
-            //var vm = new AccountViewModel
-            //{
-
-            //};
-
             // Have the whole King Pim site access here...
             return View();
         }
