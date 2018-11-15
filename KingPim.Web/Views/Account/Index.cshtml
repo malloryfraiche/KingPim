@@ -1,4 +1,5 @@
-﻿
+﻿@model AccountViewModel
+
 <div class="px-4">
     @if (User.IsInRole("Administrator"))
     {
@@ -15,8 +16,9 @@
 
     <button type="button" id="changePasswordBtn" class="btn btn-sm btn-outline-secondary">Change password</button>
 </div>
-
 <br />
+<div class="px-5">@ViewBag.Message</div>
+
 <br />
 <div id="changePasswordDiv" style="display:none;">
     <div class="row">
@@ -27,3 +29,22 @@
         <div class="col"></div>
     </div>
 </div>
+<br />
+@*<div class="row">
+    <div class="col px-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><small><i>Categories</i></small></th>
+                    <th><small><i>Subcategories</i></small></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>*@

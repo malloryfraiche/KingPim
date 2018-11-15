@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KingPim.Models.ViewModels;
+using KingPim.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,16 +16,28 @@ namespace KingPim.Web.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private ICategoryRepository _cateRepo;
 
-        public AccountController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager,
+            ICategoryRepository categoryRepo)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _cateRepo = categoryRepo;
         }
 
         public IActionResult Index()
         {
+            var message = TempData["PasswordUpdatedMessage"];
+            ViewBag.Message = message;
+
+            //var categories = _cateRepo.Categories;
+            //var vm = new AccountViewModel
+            //{
+
+            //};
+
             // Have the whole King Pim site access here...
             return View();
         }
@@ -38,13 +51,11 @@ namespace KingPim.Web.Controllers
         public IActionResult Users(AccountViewModel vm)
         {
             ViewBag.Title = "Users";
-
             var userRoleInfo = new AccountViewModel
             {
                 Users = _userManager.Users,
                 Roles = _roleManager.Roles
             };
-
             return View(userRoleInfo);
         }
 
@@ -57,27 +68,29 @@ namespace KingPim.Web.Controllers
                 Email = vm.UserName,
                 EmailConfirmed = true
             };
-
             var result = await _userManager.CreateAsync(user, vm.Password);
-
             if (result.Succeeded)
             {
                 var findByEmail = await _userManager.FindByEmailAsync(user.Email);
                 await _userManager.AddToRoleAsync(findByEmail, vm.Role);
             }
-
             return RedirectToAction(nameof(Users));
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(AccountViewModel vm)
+        public async Task<IActionResult> ChangePassword(AccountViewModel vm)
         {
-            //var username = vm.UserName;
-            //var newPassword = vm.Password;
-            //IdentityUser identityUser = await _userManager.FindByNameAsync(username);
-            //var hashedNewPassword = _userManager.PasswordHasher.HashPassword(identityUser, newPassword);
-            //var store = await _userManager.SetPasswordHashAsync(identityUser, , hashedNewPassword);
-
+            if (ModelState.IsValid)
+            {
+                var username = User.Identity.Name;
+                var newPassword = vm.Password;
+                IdentityUser identityUser = await _userManager.FindByNameAsync(username);
+                var hashedNewPassword = _userManager.PasswordHasher.HashPassword(identityUser, newPassword);
+                identityUser.PasswordHash = hashedNewPassword;
+                var save = await _userManager.UpdateAsync(identityUser);
+                var succeeded = save.Succeeded;
+                TempData["PasswordUpdatedMessage"] = "Password updated!";
+            }
             return RedirectToAction(nameof(Index));
         }
     }
