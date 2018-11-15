@@ -67,6 +67,12 @@ namespace KingPim.Web.Controllers
             // If not correct, we are returned to the 'login page'.
             return RedirectToAction("Index");
         }
+
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+
+        }
         
     }
 }
