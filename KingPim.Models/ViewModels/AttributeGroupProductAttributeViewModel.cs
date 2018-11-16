@@ -9,10 +9,12 @@ namespace KingPim.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        //public int SubcategoryId { get; set; }      // AttributeGroup usage.
-        //public IEnumerable<Subcategory> Subcategory { get; set; }     // AttributeGroup usage.
-        public string Type { get; set; }            // ProductAttribute usage.
-        public int AttributeGroupId { get; set; }   // ProductAttribute usage.
-        public IEnumerable<AttributeGroup> AttributeGroup { get; set; }     // ProductAttribute usage.
+        public string Type { get; set; }            
+        public int AttributeGroupId { get; set; }   
+        public IEnumerable<AttributeGroup> AttributeGroup { get; set; }     
+
+        public string PredefinedListName { get; set; }
+        public int PredefinedListId { get; set; }
+        public List<string> PredefinedListOptionNames { get; set; }
     }
 }
