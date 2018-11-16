@@ -28,6 +28,11 @@
         attrGroupHelper.getTheAttributeGroupTableData();
         
         $('#viewComponents').hide();
+
+        $('#predefinedListOptionInputDiv').hide();
+        $('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').empty();
+        $('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody').empty();
+        $('#addNameBtn').removeAttr('disabled');
     });
 
     $('#changePasswordBtn').on('click', function () {

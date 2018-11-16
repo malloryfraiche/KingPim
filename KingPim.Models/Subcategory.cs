@@ -7,7 +7,6 @@ namespace KingPim.Models
 {
     public class Subcategory : ReadOnlyAttribute
     {
-        [Column(Order = 0)]
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual Category Category { get; set; }

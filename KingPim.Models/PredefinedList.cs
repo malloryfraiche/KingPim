@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace KingPim.Models
 {
-    public class Category : ReadOnlyAttribute
+    public class PredefinedList
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual List<Subcategory> Subcategories { get; set; }
+        public virtual List<PredefinedListOption> PredefinedListOptions { get; set; }
     }
 }

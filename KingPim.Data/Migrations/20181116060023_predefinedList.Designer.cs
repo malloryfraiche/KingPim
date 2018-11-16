@@ -4,14 +4,16 @@ using KingPim.Data.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KingPim.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181116060023_predefinedList")]
+    partial class predefinedList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +44,10 @@ namespace KingPim.Data.Migrations
 
                     b.Property<DateTime>("AddedDate");
 
+                    b.Property<int?>("IdentityUserId");
+
+                    b.Property<string>("IdentityUserId1");
+
                     b.Property<string>("Name");
 
                     b.Property<bool>("Published");
@@ -51,6 +57,8 @@ namespace KingPim.Data.Migrations
                     b.Property<double>("Version");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId1");
 
                     b.ToTable("Categories");
                 });
@@ -95,6 +103,10 @@ namespace KingPim.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int?>("IdentityUserId");
+
+                    b.Property<string>("IdentityUserId1");
+
                     b.Property<string>("Name");
 
                     b.Property<double>("Price");
@@ -108,6 +120,8 @@ namespace KingPim.Data.Migrations
                     b.Property<double>("Version");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId1");
 
                     b.HasIndex("SubcategoryId");
 
@@ -170,6 +184,10 @@ namespace KingPim.Data.Migrations
 
                     b.Property<int?>("CategoryId");
 
+                    b.Property<int?>("IdentityUserId");
+
+                    b.Property<string>("IdentityUserId1");
+
                     b.Property<string>("Name");
 
                     b.Property<bool>("Published");
@@ -181,6 +199,8 @@ namespace KingPim.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("IdentityUserId1");
 
                     b.ToTable("Subcategories");
                 });
@@ -365,6 +385,14 @@ namespace KingPim.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("KingPim.Models.Category", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId1")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
             modelBuilder.Entity("KingPim.Models.PredefinedListOption", b =>
                 {
                     b.HasOne("KingPim.Models.PredefinedList", "PredefinedList")
@@ -375,6 +403,11 @@ namespace KingPim.Data.Migrations
 
             modelBuilder.Entity("KingPim.Models.Product", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId1")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("KingPim.Models.Subcategory", "Subcategory")
                         .WithMany("Products")
                         .HasForeignKey("SubcategoryId")
@@ -412,6 +445,11 @@ namespace KingPim.Data.Migrations
                     b.HasOne("KingPim.Models.Category", "Category")
                         .WithMany("Subcategories")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId1")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
