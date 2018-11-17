@@ -1,18 +1,49 @@
 ﻿$(document).ready(function () {
+    
+    // Getting the predefined list options from the db.
+    var predefinedListOptionsJson = [];
+    $.ajax({
+        url: '/ProductAttribute/GetPredefinedListOptionsToJson',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            predefinedListOptionsJson = response;
+        },
+        error: function (response) {
+            console.log(response.responseText);
+        }
+    });
 
 
-    function fillPredefinedListOptionsFromDb(predefinedListName, predefinedListId) {
-        //console.log(predefinedListName);
-        //console.log(predefinedListId);
-    }
 
+    
+    $('#addPredefinedListNameBtn').click(function () {
+        var addPredefinedListNameInput = $('#addPredefinedListNameInput').val();
+        $('#predefinedListNameTableBody').append("<tr><td name='PredefinedListName'><small><i>" + addPredefinedListNameInput +
+            "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' type='button' style='float:right;'>Remove</button></td></tr>");
+        $('#addPredefinedListNameInput').val('');
+        $('#addPredefinedListNameBtn').attr('disabled', 'disabled');
+    });
+    $('#predefinedListNameTableBody').on('click', 'button.modalPredefinedListNameRemoveBtn', function () {
+        $(this).closest('tr').remove();
+        $('#addPredefinedListNameBtn').removeAttr('disabled');
+    });
 
+    $('#addToPredefinedListOptionsBtn').click(function () {
+        var addToPredefinedListOptionsInput = $('#addToPredefinedListOptionsInput').val();
+        $('#predefinedListOptionNamesTableBody').append("<tr><td name='PredefinedListOptionNames'><small><i>" + addToPredefinedListOptionsInput +
+            "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListOptionsRemoveBtn' type='button' style='float:right;'>Remove</button></td></tr>");
+        $('#addToPredefinedListOptionsInput').val('');
+    });
+    $('#predefinedListOptionNamesTableBody').on('click', 'button.modalPredefinedListOptionsRemoveBtn', function () {
+        $(this).closest('tr').remove();
+    });
 
 
     // To control the data that is shown in the edit modal.
     $('#editProductAttrModal').on('show.bs.modal', function (event) {
         $('#editModalPredefinedListDiv').hide();
-
+        //$('#predefinedListNameTableBody').empty();
 
         var button = $(event.relatedTarget);
         var idRecipient = button.data('id');
@@ -24,13 +55,9 @@
 
         var predefinedListName = button.data('predefinedlistname');
         var predefinedListId = button.data('predefinedlistid');
-        //console.log(predefinedListName);
-        //console.log(predefinedListId);
         
         var modal = $(this);
 
-
-        
         var typeRecipientName;
         if (typeRecipient === 'int') {
             typeRecipientName = 'Number';
@@ -47,7 +74,6 @@
         if (typeRecipient === 'predefined list') {
             typeRecipientName = 'Predefined List';
         }
-        //console.log(typeRecipientName);
 
         modal.find('.modal-body select').html('');  // Clear out the dropdown if anything is there from before.
         modal.find('.modal-body input[id="nameInputField"]').val(nameRecipient);
@@ -55,69 +81,7 @@
         modal.find('.modal-body select[name="AttributeGroupId"]').append('"<option value="' + selectValRecipient + '"selected>' + selectRecipient + '</option>"');
         modal.find('.modal-body select[name="Type"]').append('"<option value="' + typeRecipient + '"selected>' + typeRecipientName + '</option>"');
 
-
-
-
-        $('.modal-body select[name="Type"]').change(function () {
-            var str = "";
-            $('.modal-body select[name="Type"]  option:selected').each(function () {
-                str += $(this).val();
-            });
-            if (str === "predefined list") {
-                $('#editModalPredefinedListDiv').show();
-                $('#predefinedListNameTableBody').empty();
-
-                $('#predefinedListNameTableBody').append("<tr><td><small><i>" + predefinedListName +
-                    "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' style='float:right;'>Remove</button></td></tr>");
-
-                // SAME CODE HERE--- test moving everything to this function later.
-                fillPredefinedListOptionsFromDb(predefinedListName, predefinedListId);
-
-                // Getting the predefined list options from the db.
-                $.ajax({
-                    url: '/ProductAttribute/GetPredefinedListOptionsToJson',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log("The predefined list options -----------");
-                        console.log(response);
-
-                        $.each(response, function (i, option) {
-                            if (option.predefinedListId === predefinedListId) {
-                                console.log(option);
-                            }
-                            else {
-                                console.log("No match!");
-                            }
-                        });
-
-                    },
-                    error: function (response) {
-                        console.log(response.responseText);
-                    }
-                });
-
-
-
-                // --------------------------------
-
-
-
-            }
-            else {
-                //$('#predefinedListOptionInputDiv input').val('');
-                //$('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').empty();
-                //$('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody').empty();
-                //$('#addNameBtn').removeAttr('disabled');
-                $('#editModalPredefinedListDiv').hide();
-            }
-        });
-
-
-
-
-
-
+        
         var selectedOptionValue = $('.modal-body select[name="Type"] option[selected]').val();
         if (selectedOptionValue === 'int') {
             //stringValue
@@ -170,27 +134,75 @@
             $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
             $('#editModalPredefinedListDiv').show();
             $('#predefinedListNameTableBody').empty();
-            $('#predefinedListNameTableBody').append("<tr><td><small><i>" + predefinedListName +
-                "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' style='float:right;'>Remove</button></td></tr>");
-
-            // SAME CODE HERE--- test moving everything to this function later.
-            fillPredefinedListOptionsFromDb(predefinedListName, predefinedListId);
-
-
-
-
-
-
-            // -------------------------------------
-
-
+            $('#predefinedListOptionNamesTableBody').empty();
+            $('#addPredefinedListNameBtn').removeAttr('disabled');
+            $('#predefinedListNameTableBody').append("<tr><td name='PredefinedListName'><small><i>" + predefinedListName +
+                "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' type='button' style='float:right;'>Remove</button></td></tr>");
+            $.each(predefinedListOptionsJson, function (i, listOption) {
+                if (listOption.predefinedListId === predefinedListId) {
+                    //console.log(listOption);
+                    $('#predefinedListOptionNamesTableBody').append("<tr><td name='PredefinedListOptionNames'><small><i>" + listOption.name +
+                        "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListOptionsRemoveBtn' type='button' style='float:right;'>Remove</button></td></tr>");
+                }
+                else {
+                    console.log("no predefined list connected!");
+                }
+            });
         }
 
-       
+
+        $('.modal-body select[name="Type"]').change(function () {
+            $('#predefinedListNameTableBody').empty();
+            $('#predefinedListOptionNamesTableBody').empty();
+            $('#addPredefinedListNameBtn').removeAttr('disabled');
+
+            var str = "";
+            $('.modal-body select[name="Type"]  option:selected').each(function () {
+                str += $(this).val();
+            });
+            if (str === "predefined list") {
+                $('#editModalPredefinedListDiv').show();
+                //$('#predefinedListNameTableBody').empty();
+                //$('#predefinedListOptionNamesTableBody').empty();
+                if (predefinedListName) {
+                    $('#predefinedListNameTableBody').append("<tr><td name='PredefinedListName'><small><i>" + predefinedListName +
+                        "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' type='button' style='float:right;'>Remove</button></td></tr>");
+                }
+                $.each(predefinedListOptionsJson, function (i, listOption) {
+                    if (listOption.predefinedListId === predefinedListId) {
+                        $('#predefinedListOptionNamesTableBody').append("<tr><td name='PredefinedListOptionNames'><small><i>" + listOption.name +
+                            "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListOptionsRemoveBtn' type='button' style='float:right;'>Remove</button></td></tr>");
+                    }
+                    else {
+                        console.log("no predefined list connected!");
+                    }
+                });
+            }
+            else {
+                //$('#predefinedListOptionInputDiv input').val('');
+                //$('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').empty();
+                //$('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody').empty();
+                //$('#addNameBtn').removeAttr('disabled');
+                $('#editModalPredefinedListDiv').hide();
+            }
+        });
+
+
+
+
 
 
 
         
+
+        
+
+
+
+
+
+
+
         // To fill the Attribute group dropdown with data.
         $.ajax({
             url: '/AttributeGroup/GetAttributeGroupsToJson',
@@ -217,11 +229,14 @@
             }
         });
 
+
+
+
         // To POST the editProductAttrForm from the modal.
         $('#editProductAttrForm').submit(function (e) {
             e.preventDefault();
             var formData = new FormData();
-            
+
             formData.append('id', idRecipient);
             var nameInputValue = $('#editProductAttrForm input').val();
             formData.append('name', nameInputValue);
@@ -231,9 +246,16 @@
             formData.append('description', textareaValue);
             var attrGroupValue = $('#editProductAttrForm select[name="AttributeGroupId"]').val();
             formData.append('attributegroupid', attrGroupValue);
-            
+
+            var addedPredefinedListName = $('#predefinedListNameTableBody i').text();
+            formData.append('predefinedListName', addedPredefinedListName);
+
+            $('#predefinedListOptionNamesTableBody tr i').each(function () {
+                formData.append('predefinedListOptionNames', $(this).text());
+            });
+
             $.ajax({
-                url: '/ProductAttribute/EditProductAttribute',
+                url: '/ProductAttribute/AddProductAttribute',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
@@ -249,6 +271,15 @@
             });
         });
     });
+
+
+    
+
+
+
+
+
+
     
     // To control the data that is shown in the delete modal.
     $('#deleteProductAttrModal').on('show.bs.modal', function (event) {
