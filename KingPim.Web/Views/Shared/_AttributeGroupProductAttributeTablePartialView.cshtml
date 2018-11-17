@@ -90,19 +90,43 @@
                         if (Model is IEnumerable<ProductAttribute>)
                         {
                             <div style="float:right;">
-                                <a class="text-muted"
-                                   data-toggle="modal"
-                                   data-target="#editProductAttrModal"
-                                   title="Edit"
-                                   id="editItem"
-                                   data-id="@a.Id"
-                                   data-name="@a.Name"
-                                   data-type="@a.Type"
-                                   data-textarea="@a.Description"
-                                   data-attrgroupselect="@a.AttributeGroup.Name"
-                                   data-attrgroupvalue="@a.AttributeGroupId">
-                                    <span data-feather="edit-2"></span>
-                                </a>
+
+
+                                @if (a.PredefinedList != null)
+                                {
+                                    <a class="text-muted"
+                                       data-toggle="modal"
+                                       data-target="#editProductAttrModal"
+                                       title="Edit"
+                                       id="editItem"
+                                       data-id="@a.Id"
+                                       data-name="@a.Name"
+                                       data-type="@a.Type"
+                                       data-textarea="@a.Description"
+                                       data-attrgroupselect="@a.AttributeGroup.Name"
+                                       data-attrgroupvalue="@a.AttributeGroupId"
+                                       data-predefinedlistname="@a.PredefinedList.Name"
+                                       data-predefinedlistid="@a.PredefinedListId">
+                                        <span data-feather="edit-2"></span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="text-muted"
+                                       data-toggle="modal"
+                                       data-target="#editProductAttrModal"
+                                       title="Edit"
+                                       id="editItem"
+                                       data-id="@a.Id"
+                                       data-name="@a.Name"
+                                       data-type="@a.Type"
+                                       data-textarea="@a.Description"
+                                       data-attrgroupselect="@a.AttributeGroup.Name"
+                                       data-attrgroupvalue="@a.AttributeGroupId">
+                                        <span data-feather="edit-2"></span>
+                                    </a>
+                                }
+
                                 &nbsp;&nbsp;
                                 <a class="text-muted"
                                    data-toggle="modal"
@@ -193,7 +217,7 @@
 
 <!----- The edit (product attribute) modal ----->
 <div class="modal fade" id="editProductAttrModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="mx-4">Edit @ViewBag.Title</h5>
@@ -210,12 +234,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="Type" class="control-label px-4"><strong>Type:</strong></label>
-                        <div class="px-4">
-                            <select name="Type" class="form-control" required></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="Description" class="control-label px-4"><strong>Description:</strong></label>
                         <div class="px-4">
                             <textarea name="Description" class="form-control" form="editProductAttrForm"></textarea>
@@ -227,6 +245,67 @@
                             <select name="AttributeGroupId" class="form-control" required></select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="Type" class="control-label px-4"><strong>Type:</strong></label>
+                        <div class="px-4">
+                            <select name="Type" class="form-control" required></select>
+                        </div>
+                    </div>
+                    <br />
+
+
+
+
+
+
+                    <div class="row" id="editModalPredefinedListDiv" style="display:none;">
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="control-label px-5"><small><i><b>Add predefined list name:</b></i></small></label>
+                                <div class="form-inline px-5">
+                                    <input id="addPredefinedListNameInput" class="form-control form-control-sm" />&nbsp;&nbsp;
+                                    <button type="button" id="addPredefinedListNameBtn" class="btn btn-sm btn-outline-success">Add</button>
+                                </div>
+                                <label class="control-label px-5"><small><i><b>Add predefined list options:</b></i></small></label>
+                                <div class="form-inline px-5">
+                                    <input id="addToPredefinedListOptionsInput" class="form-control form-control-sm" />&nbsp;&nbsp;
+                                    <button type="button" id="addToPredefinedListOptionsBtn" class="btn btn-sm btn-outline-success">Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="PredefinedListName" class="control-label px-4"><small><i><b>Predefined list name:</b></i></small></label>
+                                <div class="px-4">
+                                    <!-- table for predefined list name. -->
+                                    <table class="table table-borderless">
+                                        <tbody id="predefinedListNameTableBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PredefinedListOptionNames" class="control-label px-4"><small><i><b>Predefined list options:</b></i></small></label>
+                                <div class="px-4">
+                                    <!-- table for predefined list options. -->
+                                    <table class="table table-borderless">
+                                        <tbody id="predefinedListOptionNamesTableBody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                    <br />
                     <div class="form-group">
                         <div class="px-4">
                             <button class="btn btn-sm btn-success" type="submit">Edit</button>

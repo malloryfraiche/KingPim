@@ -55,7 +55,7 @@
                             </form>
                         </td>
                     }
-                    else if (productAttr.Type == "string" || productAttr.Type == "int" || productAttr.Type == "byte")
+                    @if (productAttr.Type == "string" || productAttr.Type == "int" || productAttr.Type == "byte")
                     {
                         <td>
                             <form class="form-inline" asp-controller="Product" asp-action="SaveProductAttributeValue">
@@ -74,6 +74,36 @@
                             </form>
                         </td>
                     }
+
+
+
+
+
+                    @if (productAttr.Type == "predefined list")
+                    {
+                        <td>
+                            <form class="form-inline" asp-controller="Product" asp-action="SaveProductAttributeValue">
+                                <input type="hidden" value="@productAttr.Id" asp-for="ProductAttributeId" />
+                                <input type="hidden" value="@Model.ProductId" asp-for="ProductId" />
+                                <select asp-for="Value" class="form-control-sm col-8" required>
+                                    @if (productAttrValueRowValue != null)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <option value="" disabled selected>Select...</option>
+                                    }
+                                </select>&nbsp;&nbsp;
+                                <button class="btn btn-sm" type="submit"><i>Save</i></button>
+                            </form>
+                        </td>
+                    }
+
+
+
+
+
                 </tr>
             }
         }

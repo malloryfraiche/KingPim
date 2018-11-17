@@ -9,6 +9,7 @@ namespace KingPim.Repositories
     public interface IProductAttributeRepository
     {
         IEnumerable<ProductAttribute> ProductAttributes { get; }
+        IEnumerable<PredefinedListOption> PredefinedListOptions { get; }
 
         IEnumerable<ProductAttribute> GetAllProductAttributes();
 

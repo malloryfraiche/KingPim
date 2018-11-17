@@ -1,7 +1,18 @@
 ﻿$(document).ready(function () {
 
+
+    function fillPredefinedListOptionsFromDb(predefinedListName, predefinedListId) {
+        //console.log(predefinedListName);
+        //console.log(predefinedListId);
+    }
+
+
+
+
     // To control the data that is shown in the edit modal.
     $('#editProductAttrModal').on('show.bs.modal', function (event) {
+        $('#editModalPredefinedListDiv').hide();
+
 
         var button = $(event.relatedTarget);
         var idRecipient = button.data('id');
@@ -10,14 +21,16 @@
         var textareaRecipient = button.data('textarea');
         var selectRecipient = button.data('attrgroupselect');
         var selectValRecipient = button.data('attrgroupvalue');
+
+        var predefinedListName = button.data('predefinedlistname');
+        var predefinedListId = button.data('predefinedlistid');
+        //console.log(predefinedListName);
+        //console.log(predefinedListId);
+        
         var modal = $(this);
 
-        console.log("Product Attr Id: " + idRecipient);
-        console.log(typeRecipient);
-        console.log("attrgroup Name: " + selectRecipient);
-        console.log("attrgroup Id: " + selectValRecipient);
-        console.log(textareaRecipient);
 
+        
         var typeRecipientName;
         if (typeRecipient === 'int') {
             typeRecipientName = 'Number';
@@ -31,19 +44,81 @@
         if (typeRecipient === 'byte') {
             typeRecipientName = 'Bytes';
         }
-        console.log(typeRecipientName);
+        if (typeRecipient === 'predefined list') {
+            typeRecipientName = 'Predefined List';
+        }
+        //console.log(typeRecipientName);
 
         modal.find('.modal-body select').html('');  // Clear out the dropdown if anything is there from before.
-        modal.find('.modal-body input').val(nameRecipient);
-        modal.find('.modal-body select[name="Type"]').append('"<option value="' + typeRecipient + '"selected>' + typeRecipientName + '</option>"');
+        modal.find('.modal-body input[id="nameInputField"]').val(nameRecipient);
         modal.find('.modal-body textarea').val(textareaRecipient);
         modal.find('.modal-body select[name="AttributeGroupId"]').append('"<option value="' + selectValRecipient + '"selected>' + selectRecipient + '</option>"');
+        modal.find('.modal-body select[name="Type"]').append('"<option value="' + typeRecipient + '"selected>' + typeRecipientName + '</option>"');
 
 
-        // TODO: To fill the Type dropdown with data.
-        var selectedOptionValue = $('.modal-body select option[selected]').val();
-        console.log("---" + selectedOptionValue);
 
+
+        $('.modal-body select[name="Type"]').change(function () {
+            var str = "";
+            $('.modal-body select[name="Type"]  option:selected').each(function () {
+                str += $(this).val();
+            });
+            if (str === "predefined list") {
+                $('#editModalPredefinedListDiv').show();
+                $('#predefinedListNameTableBody').empty();
+
+                $('#predefinedListNameTableBody').append("<tr><td><small><i>" + predefinedListName +
+                    "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' style='float:right;'>Remove</button></td></tr>");
+
+                // SAME CODE HERE--- test moving everything to this function later.
+                fillPredefinedListOptionsFromDb(predefinedListName, predefinedListId);
+
+                // Getting the predefined list options from the db.
+                $.ajax({
+                    url: '/ProductAttribute/GetPredefinedListOptionsToJson',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log("The predefined list options -----------");
+                        console.log(response);
+
+                        $.each(response, function (i, option) {
+                            if (option.predefinedListId === predefinedListId) {
+                                console.log(option);
+                            }
+                            else {
+                                console.log("No match!");
+                            }
+                        });
+
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+
+
+
+                // --------------------------------
+
+
+
+            }
+            else {
+                //$('#predefinedListOptionInputDiv input').val('');
+                //$('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').empty();
+                //$('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody').empty();
+                //$('#addNameBtn').removeAttr('disabled');
+                $('#editModalPredefinedListDiv').hide();
+            }
+        });
+
+
+
+
+
+
+        var selectedOptionValue = $('.modal-body select[name="Type"] option[selected]').val();
         if (selectedOptionValue === 'int') {
             //stringValue
             $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
@@ -51,6 +126,8 @@
             $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
             //byteValue
             $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+            //predefinedListValue
+            $('.modal-body select[name="Type"]').append('"<option value="predefined list">Predefined List</option>"');
         }
         if (selectedOptionValue === 'string') {
             //intValue
@@ -59,6 +136,8 @@
             $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
             //byteValue
             $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+            //predefinedListValue
+            $('.modal-body select[name="Type"]').append('"<option value="predefined list">Predefined List</option>"');
         }
         if (selectedOptionValue === 'bool') {
             //intValue
@@ -67,6 +146,8 @@
             $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
             //byteValue
             $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+            //predefinedListValue
+            $('.modal-body select[name="Type"]').append('"<option value="predefined list">Predefined List</option>"');
         }
         if (selectedOptionValue === 'byte') {
             //intValue
@@ -75,7 +156,40 @@
             $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
             //boolValue
             $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
+            //predefinedListValue
+            $('.modal-body select[name="Type"]').append('"<option value="predefined list">Predefined List</option>"');
         }
+        if (selectedOptionValue === 'predefined list') {
+            //intValue
+            $('.modal-body select[name="Type"]').append('"<option value="int">Number</option>"');
+            //stringValue
+            $('.modal-body select[name="Type"]').append('"<option value="string">Text</option>"');
+            //boolValue
+            $('.modal-body select[name="Type"]').append('"<option value="bool">Yes/No or True/False</option>"');
+            //byteValue
+            $('.modal-body select[name="Type"]').append('"<option value="byte">Bytes</option>"');
+            $('#editModalPredefinedListDiv').show();
+            $('#predefinedListNameTableBody').empty();
+            $('#predefinedListNameTableBody').append("<tr><td><small><i>" + predefinedListName +
+                "</i></small><button class='btn btn-sm btn-outline-danger modalPredefinedListNameRemoveBtn' style='float:right;'>Remove</button></td></tr>");
+
+            // SAME CODE HERE--- test moving everything to this function later.
+            fillPredefinedListOptionsFromDb(predefinedListName, predefinedListId);
+
+
+
+
+
+
+            // -------------------------------------
+
+
+        }
+
+       
+
+
+
         
         // To fill the Attribute group dropdown with data.
         $.ajax({
@@ -84,7 +198,7 @@
             dataType: 'json',
             success: function (response) {
                 if (response !== null) {
-                    console.log(response);
+                    //console.log(response);
                     var length = response.length;
                     for (var i = 0; i < length; i++) {
                         var id = response[i]['id'];

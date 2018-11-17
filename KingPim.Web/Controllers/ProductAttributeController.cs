@@ -41,6 +41,13 @@ namespace KingPim.Web.Controllers
             return Json(url);
         }
 
+        [HttpGet]
+        public IActionResult GetPredefinedListOptionsToJson()
+        {
+            var allPredefinedListOptions = _productAttrRepo.PredefinedListOptions;
+            return Json(allPredefinedListOptions);
+        }
+
         [HttpPost]
         public IActionResult DeleteProductAttribute(int productAttrId)
         {

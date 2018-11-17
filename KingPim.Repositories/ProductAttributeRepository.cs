@@ -17,6 +17,7 @@ namespace KingPim.Repositories
         }
 
         public IEnumerable<ProductAttribute> ProductAttributes => ctx.ProductAttributes;
+        public IEnumerable<PredefinedListOption> PredefinedListOptions => ctx.PredefinedListOptions;
 
 
         public IEnumerable<ProductAttribute> GetAllProductAttributes()
@@ -29,14 +30,39 @@ namespace KingPim.Repositories
         {
             if (vm.Id == 0)     // Create
             {
+                // First: saving the data to the PredefinedList db table.
+                var predefinedList = new PredefinedList
+                {
+                    Name = vm.PredefinedListName
+                };
+                ctx.PredefinedLists.Add(predefinedList);
+                ctx.SaveChanges();
+
+                var recentlySavedPredefinedListName = ctx.PredefinedLists.FirstOrDefault(pl => pl.Name.Equals(vm.PredefinedListName));
+
+                // Second: saving the data to the PredefinedListOption db table.
+                foreach (var option in vm.PredefinedListOptionNames)
+                {
+                    var predefinedListOption = new PredefinedListOption
+                    {
+                        Name = option,
+                        PredefinedListId = recentlySavedPredefinedListName.Id
+                    };
+                    ctx.PredefinedListOptions.Add(predefinedListOption);
+                    ctx.SaveChanges();
+                }
+
+                // Third: saving all data to the ProductAttribute db table with the above info.
                 var productAttr = new ProductAttribute
                 {
                     Name = vm.Name,
                     Description = vm.Description,
                     Type = vm.Type,
-                    AttributeGroupId = vm.AttributeGroupId
+                    AttributeGroupId = vm.AttributeGroupId,
+                    PredefinedListId = recentlySavedPredefinedListName.Id
                 };
                 ctx.ProductAttributes.Add(productAttr);
+                
             }
             else       // Update
             {
