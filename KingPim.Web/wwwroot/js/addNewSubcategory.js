@@ -7,7 +7,7 @@
         e.preventDefault();
         var formData = new FormData();
 
-        var inputAreaData = $('#addNewSubcatForm input').val();
+        var inputAreaData = $('#addNewSubcatForm input[name="Name"]').val();
         formData.append('name', inputAreaData);
         var selectData = $('#addNewSubcatForm select').val();
         formData.append('categoryid', selectData);

@@ -14,14 +14,11 @@ namespace KingPim.Repositories
         {
             ctx = context;
         }
-
         public IEnumerable<Product> Products => ctx.Products;
-
         public IEnumerable<Product> GetAllProducts()
         {
             return Products;
         }
-
         // CREATE and UPDATE product.
         public void AddProduct(ProductViewModel vm)
         {
@@ -57,7 +54,6 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
-
         public Product DeleteProduct(int productId)
         {
             var ctxProduct = ctx.Products.FirstOrDefault(p => p.Id.Equals(productId));
@@ -68,7 +64,6 @@ namespace KingPim.Repositories
             }
             return ctxProduct;
         }
-
         public void PublishProduct(ProductViewModel vm)
         {
             var ctxProduct = ctx.Products.FirstOrDefault(p => p.Id.Equals(vm.Id));
@@ -78,7 +73,6 @@ namespace KingPim.Repositories
                 var ctxSubcategory = ctx.Subcategories.FirstOrDefault(s => s.Id.Equals(ctxProduct.SubcategoryId));
                 // The products subcategories category.
                 var ctxCategory = ctx.Categories.FirstOrDefault(c => c.Id.Equals(ctxSubcategory.CategoryId));
-
                 if (!ctxProduct.Published)
                 {
                     ctxProduct.Published = true;
@@ -88,7 +82,6 @@ namespace KingPim.Repositories
                 else
                 {
                     ctxProduct.Published = false;
-
                     // If all the subcategory products have false (unpublished) for all products, then the subcategory needs to also be false (unpublished).
                     if (ctxSubcategory.Products.Count(p => p.Published) == 0)
                     {
@@ -103,7 +96,6 @@ namespace KingPim.Repositories
                 ctx.SaveChanges();
             }
         }
-
         // ADD and UPDATE product attribute value.
         public void SaveProductAttributeValue(ProductAttributeValueViewModel vm)
         {
@@ -124,7 +116,6 @@ namespace KingPim.Repositories
                 {
                     ctx.ProductAttributeValues.Remove(row);
                     ctx.SaveChanges();
-
                     var productAttributeValue = new ProductAttributeValue
                     {
                         Value = vm.Value,
@@ -133,7 +124,6 @@ namespace KingPim.Repositories
                     };
                     ctx.ProductAttributeValues.Add(productAttributeValue);
                 }
-                
             }
             ctx.SaveChanges();
         }

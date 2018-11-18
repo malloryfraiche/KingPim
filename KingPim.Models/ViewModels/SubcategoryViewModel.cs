@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KingPim.Models.ViewModels
 {
@@ -14,7 +13,6 @@ namespace KingPim.Models.ViewModels
         public DateTime AddedDate { get; set; }
         public bool Published { get; set; }
         public double Version { get; set; }
-
-        //public virtual List<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

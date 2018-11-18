@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace KingPim.Models.ViewModels
 {
@@ -12,7 +10,6 @@ namespace KingPim.Models.ViewModels
         public int? ProductId { get; set; }     
         public IEnumerable<SubcategoryAttributeGroup> CardSubcategoryAttributeGroups { get; set; }
         public IEnumerable<ProductAttributeValue> CardProductAttributeValues { get; set; }
-
         public ProductAttributeValueViewModel()
         {
             CardProductAttributeValues = new List<ProductAttributeValue>();

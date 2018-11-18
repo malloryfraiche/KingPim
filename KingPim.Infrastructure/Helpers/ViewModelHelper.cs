@@ -1,9 +1,6 @@
 ﻿using KingPim.Models;
 using KingPim.Models.ViewModels;
-using KingPim.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KingPim.Infrastructure.Helpers
 {
@@ -23,12 +20,11 @@ namespace KingPim.Infrastructure.Helpers
                     AddedDate = cat.AddedDate,
                     UpdatedDate = cat.UpdatedDate,
                     Published = cat.Published,
-                    Version = cat.Version
-
+                    Version = cat.Version,
+                    ModifiedBy = cat.ModifiedBy
                 });
             }
             return categoriesVm;
-
         }
 
         private static List<SubcategoryViewModel> ConvertToListOfSubcatVms(List<Subcategory> subcategories)
@@ -43,8 +39,9 @@ namespace KingPim.Infrastructure.Helpers
                     AddedDate = subcat.AddedDate,
                     UpdatedDate = subcat.UpdatedDate,
                     Version = subcat.Version,
-                    Published = subcat.Published
-                    // can have a list of products here too if neccessary..
+                    Published = subcat.Published,
+                    Products = ConvertToListOfProductVms(subcat.Products),
+                    ModifiedBy = subcat.ModifiedBy
                 });
             }
             return subcatList;
@@ -64,10 +61,10 @@ namespace KingPim.Infrastructure.Helpers
                     AddedDate = subcat.AddedDate,
                     UpdatedDate = subcat.UpdatedDate,
                     Published = subcat.Published,
-                    Version = subcat.Version
+                    Version = subcat.Version,
+                    ModifiedBy = subcat.ModifiedBy
                 });
             }
-
             return subcategoriesVm;
         }
 
@@ -85,7 +82,8 @@ namespace KingPim.Infrastructure.Helpers
                     AddedDate = product.AddedDate,
                     UpdatedDate = product.UpdatedDate,
                     Version = product.Version,
-                    Published = product.Published
+                    Published = product.Published,
+                    ModifiedBy = product.ModifiedBy
                 });
             }
             return productList;
@@ -106,7 +104,8 @@ namespace KingPim.Infrastructure.Helpers
                     AddedDate = product.AddedDate,
                     UpdatedDate = product.UpdatedDate,
                     Version = product.Version,
-                    Published = product.Published
+                    Published = product.Published,
+                    ModifiedBy = product.ModifiedBy
                 });
             }
             return productVm;

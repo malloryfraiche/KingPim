@@ -80,7 +80,7 @@ namespace KingPim.Web.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult GetSubcategoriesToJson(int subcategoryId)
+        public IActionResult GetSubcategoriesToJsonExport(int subcategoryId)
         {
             var subcategories = _subcategoryRepo.Subcategories;
             var getSubcategories = ViewModelHelper.GetSubcategories(subcategories);

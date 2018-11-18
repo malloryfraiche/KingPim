@@ -36,7 +36,7 @@
                     else
                     {
                         <div style="float:right;">
-                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToJson" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
+                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToJsonExport" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to JSON</a>
                             <a asp-controller="Subcategory" asp-action="GetSubcategoriesToXml" title="Export all subcategories to JSON." class="btn btn-sm btn-outline-secondary">Export to XML</a>
                         </div>
                     }
@@ -170,7 +170,7 @@
                                 <span data-feather="trash-2"></span>
                             </a>&nbsp;&nbsp;
 
-                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToJson" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
+                            <a asp-controller="Subcategory" asp-action="GetSubcategoriesToJsonExport" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Json" class="btn btn-sm">JSON</a>
                             <a asp-controller="Subcategory" asp-action="GetSubcategoriesToXml" asp-route-subcategoryId="@c.Id" title="Export @c.Name to Xml" class="btn btn-sm">XML</a>
 
                         </div>

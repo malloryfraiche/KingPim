@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace KingPim.Models.ViewModels
 {
@@ -12,7 +10,6 @@ namespace KingPim.Models.ViewModels
         public string Type { get; set; }            
         public int AttributeGroupId { get; set; }   
         public IEnumerable<AttributeGroup> AttributeGroup { get; set; }     
-
         public string PredefinedListName { get; set; }
         public int PredefinedListId { get; set; }
         public List<string> PredefinedListOptionNames { get; set; }

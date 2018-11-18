@@ -1,11 +1,9 @@
 ﻿using KingPim.Data.DataAccess;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace KingPim.Repositories
 {
@@ -81,7 +79,6 @@ namespace KingPim.Repositories
                     ctxCategory.Published = false;
                 }
                 ctx.SaveChanges();
-
                 
                 var ctxSubcats = ctx.Subcategories.Where(x => x.CategoryId.Equals(vm.Id));
                 foreach (var subcat in ctxSubcats)
@@ -101,14 +98,5 @@ namespace KingPim.Repositories
                 ctx.SaveChanges();
             }
         }
-
-        //public IEnumerable<Category> Search(string searchString)
-        //{
-        //    IEnumerable<Category> categories;
-
-        //    // search logic here.
-
-        //    return categories;
-        //}
     }
 }
