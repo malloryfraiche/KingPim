@@ -30,7 +30,8 @@ namespace KingPim.Web.Controllers
         public IActionResult AddProductAttribute(AttributeGroupProductAttributeViewModel vm)
         {
             _productAttrRepo.AddProductAttribute(vm);
-            return RedirectToAction(nameof(Index));
+            var url = Url.Action("Index", "ProductAttribute");
+            return Json(url);
         }
         
         [HttpGet]
