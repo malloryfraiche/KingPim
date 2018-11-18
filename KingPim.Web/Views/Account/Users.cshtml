@@ -1,14 +1,11 @@
 ﻿@model AccountViewModel
 
 <div class="row">
-
     <div class="col">
         <h3 class="px-4">Add User</h3>
         <br />
         <br />
-
         <form asp-controller="Account" asp-action="AddUser" method="post">
-
             <div class="form-group">
                 <label asp-for="UserName" class="control-label px-4"><strong>Username:</strong></label>
                 <div class="px-4">
@@ -43,39 +40,25 @@
                     <button class="btn btn-sm btn-outline-success" type="submit">Add User</button>
                 </div>
             </div>
-
         </form>
-
     </div>
-
-
     <div class="col">
         <h3 class="px-4">@ViewBag.Title</h3>
         <br />
         <br />
         <br />
-
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th><i>Username</i></th>
-                    @*<th><i>Role</i></th>*@
                 </tr>
             </thead>
             <tbody>
                 @foreach (var user in Model.Users)
                 {
                     <tr><td><small><i>@user</i></small></td></tr>
-                    @*@foreach (var role in Model.Roles)
-                    {
-                        <tr>
-                            <td><small><i>@user</i></small></td>
-                            <td><small><i>@role</i></small></td>
-                        </tr>
-                    }*@
                 }
             </tbody>
         </table>
     </div>
-
 </div>

@@ -20,24 +20,19 @@ namespace KingPim.Web
         {
             _configuration = conf;
         }
-       
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
                 // To return data in XML.
                 .AddXmlSerializerFormatters()
                 .AddXmlDataContractSerializerFormatters();
-            
             // So the Json() in the controller will return correctly..
             services.AddMvc().AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             // Configuration for DB connection.
             var conn = _configuration.GetConnectionString("KingPim");
-
             // Register all services here:
             services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conn));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -64,11 +59,9 @@ namespace KingPim.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 3;
             });
-
             services.AddMemoryCache();
             services.AddSession();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx, IIdentitySeed identitySeed, IRoleSeed roleSeed)
         {
@@ -77,19 +70,16 @@ namespace KingPim.Web
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
             }
-            
             app.UseStaticFiles();   // To get access to the wwwroot files.
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();   // Enables default file mapping on the web root.
             app.UseSession();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
             });
-
             var runIdentitySeed = Task.Run(async () => await identitySeed.CreateAdminAccountIfEmpty()).Result;
             var runRoleSeed = Task.Run(async () => await roleSeed.CreateRoleIfEmpty()).Result;
             Seed.FillIfEmpty(ctx);

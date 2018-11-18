@@ -2,10 +2,8 @@
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace KingPim.Web.Components
 {
@@ -20,7 +18,6 @@ namespace KingPim.Web.Components
             _productAttrValRepo = productAttrValRepo;
             _subcategoryAttributeGroupRepo = subcategoryAttributeGroupRepo;
         }
-
         public IViewComponentResult Invoke(int productId)
         {
             // To get the product (from the product id the card passed in).

@@ -4,7 +4,6 @@
 </div>
 <br />
 <br />
-
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -38,7 +37,6 @@
                         {
                             <td><i style="float:right;"><small>No attribute group connected. Do it.</small></i></td>
                         }
-
                     }
                 }
                 <td>
@@ -90,8 +88,6 @@
                         if (Model is IEnumerable<ProductAttribute>)
                         {
                             <div style="float:right;">
-
-
                                 @if (a.PredefinedList != null)
                                 {
                                     <a class="text-muted"
@@ -126,7 +122,6 @@
                                         <span data-feather="edit-2"></span>
                                     </a>
                                 }
-
                                 &nbsp;&nbsp;
                                 <a class="text-muted"
                                    data-toggle="modal"
@@ -164,7 +159,6 @@
         }
     </tbody>
 </table>
-
 <br />
 <div id="viewComponents" style="display:none;">
     @{
@@ -178,7 +172,6 @@
         }
     }
 </div>
-
 <!----- The edit (attribute group) modal ----->
 <div class="modal fade" id="editAttrGroupModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -214,7 +207,6 @@
         </div>
     </div>
 </div>
-
 <!----- The edit (product attribute) modal ----->
 <div class="modal fade" id="editProductAttrModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -252,9 +244,7 @@
                         </div>
                     </div>
                     <br />
-
                     <div class="row" id="editModalPredefinedListDiv" style="display:none;">
-
                         <div class="col">
                             <div class="form-group">
                                 <label class="control-label px-5"><small><i><b>Add predefined list name:</b></i></small></label>
@@ -269,7 +259,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="form-group">
                                 <label for="PredefinedListName" class="control-label px-4"><small><i><b>Predefined list name:</b></i></small></label>
@@ -290,9 +279,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                     <br />
                     <div class="form-group">
                         <div class="px-4">

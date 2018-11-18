@@ -19,7 +19,6 @@
                     <td title="@subcatAttrGroup.AttributeGroup.Name"><i><small>@subcatAttrGroup.AttributeGroup.Id</small></i></td>
                     <td value="@productAttr.Id"><i><small>@productAttr.Name</small></i></td>
                     <td><i><small>@productAttr.Description</small></i></td>
-
                     @{
                         var productAttrValueRow = Model.CardProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id == productAttr.Id);
                         var productAttrValueRowValue = productAttrValueRow?.Value;

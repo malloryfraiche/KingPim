@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using KingPim.Models.ViewModels;
-using KingPim.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +12,12 @@ namespace KingPim.Web.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-
         public AccountController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
         }
-
         public IActionResult Index()
         {
             var message = TempData["PasswordUpdatedMessage"];
@@ -28,13 +25,11 @@ namespace KingPim.Web.Controllers
             // Have the whole King Pim site access here...
             return View();
         }
-
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
         public IActionResult Users(AccountViewModel vm)
         {
             ViewBag.Title = "Users";
@@ -45,7 +40,6 @@ namespace KingPim.Web.Controllers
             };
             return View(userRoleInfo);
         }
-
         [HttpPost]
         public async Task<IActionResult> AddUser(AccountViewModel vm)
         {
@@ -63,7 +57,6 @@ namespace KingPim.Web.Controllers
             }
             return RedirectToAction(nameof(Users));
         }
-
         [HttpPost]
         public async Task<IActionResult> ChangePassword(AccountViewModel vm)
         {

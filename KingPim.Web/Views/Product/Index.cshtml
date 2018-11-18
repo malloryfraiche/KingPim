@@ -3,14 +3,12 @@
 @{
     ViewData["Title"] = "Product";
 }
-
 <div>
     <h1>@ViewBag.Title</h1>
     <button class="btn btn-success" id="addNewBtn" type="button" title="Add new" style="float:right;"><span data-feather="plus"></span> Add New</button>
 </div>
 <br />
 <br />
-
 @* --- Product Table --- *@
 <table class="table table-bordered table-striped">
     <thead>
@@ -62,10 +60,8 @@
                            data-name="@p.Name">
                             <span data-feather="trash-2"></span>
                         </a>&nbsp;&nbsp;
-
                         <a asp-controller="Product" asp-action="GetProductsToJson" asp-route-productId="@p.Id" title="Export '@p.Name' to Json" class="btn btn-sm">JSON</a>
                         <a asp-controller="Product" asp-action="GetProductsToXml" asp-route-productId="@p.Id" title="Export '@p.Name' to Xml" class="btn btn-sm">XML</a>
-
                     </div>
                     <!----- The delete (product) modal ----->
                     <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -91,13 +87,11 @@
         }
     </tbody>
 </table>
-
 <br />
 <div id="viewComponents" style="display:none;">
     @await Component.InvokeAsync("AddNewProductVC")
 </div>
 <br />
-
 @* --- Product Cards --- *@
 <div class="row">
     @foreach (var p in Model.Products)
@@ -108,7 +102,6 @@
                 <div class="card-header">
                     <div>
                         <b>@p.Name</b>
-
                         @if (User.IsInRole("Administrator") || User.IsInRole("Publisher"))
                         {
                             <form asp-controller="Product" asp-action="PublishProduct" style="float:right;">
@@ -123,7 +116,6 @@
                                 }
                             </form>
                         }
-
                         <div style="float:right;">
                             <a class="text-muted"
                                data-toggle="modal"
@@ -170,10 +162,8 @@
                             <i>@p.Subcategory.Name</i>
                         </small>
                     </p><br />
-
                     @* --- card body table view component --- *@
                     @await Component.InvokeAsync("ProductCardBodyTableVC", p.Id)
-
                 </div>
                 @* --- card footer --- *@
                 <div class="card-footer text-muted text-center">
@@ -195,7 +185,6 @@
     }
 </div>
 <br />
-
 <!----- The edit (product) modal ----->
 <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -1,10 +1,6 @@
 ﻿using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KingPim.Web.Components
 {
@@ -15,7 +11,6 @@ namespace KingPim.Web.Components
         {
             _subcatRepo = subcategoryRepo;
         }
-
         public IViewComponentResult Invoke()
         {
             var subcategories = _subcatRepo.Subcategories;

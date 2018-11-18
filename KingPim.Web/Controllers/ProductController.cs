@@ -19,7 +19,6 @@ namespace KingPim.Web.Controllers
             _productRepo = productRepository;
             _subcatRepo = subcategoryRepo;
         }
-
         [HttpGet]
         public IActionResult Index()
         {
@@ -34,7 +33,6 @@ namespace KingPim.Web.Controllers
             };
             return View(vm);
         }
-
         [HttpPost]
         public IActionResult AddProduct(ProductViewModel vm)
         {
@@ -42,28 +40,24 @@ namespace KingPim.Web.Controllers
             _productRepo.AddProduct(vm);
             return RedirectToAction(nameof(Index));
         }
-
         [HttpPost]
         public IActionResult DeleteProduct(int productId)
         {
             _productRepo.DeleteProduct(productId);
             return RedirectToAction(nameof(Index));
         }
-
         [HttpPost]
         public IActionResult PublishProduct(ProductViewModel vm)
         {
             _productRepo.PublishProduct(vm);
             return RedirectToAction(nameof(Index));
         }
-
         [HttpPost]
         public IActionResult SaveProductAttributeValue(ProductAttributeValueViewModel vm)
         {
             _productRepo.SaveProductAttributeValue(vm);
             return RedirectToAction(nameof(Index));
         }
-
         [HttpGet]
         [Produces("application/json")]
         public IActionResult GetProductsToJson(int productId)
@@ -85,7 +79,6 @@ namespace KingPim.Web.Controllers
                 return File(bytes, "application/octet-stream", "product_" + productId + ".json");
             }
         }
-
         [HttpGet]
         [Produces("application/xml")]
         public IActionResult GetProductsToXml(int productId)
