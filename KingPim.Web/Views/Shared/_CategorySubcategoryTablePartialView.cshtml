@@ -51,9 +51,7 @@
                 <td>@c.Name</td>
                 <td><i style="float:right;"><small>@c.AddedDate</small></i></td>
                 <td><i style="float:right;"><small>@c.UpdatedDate</small></i></td>
-
-                <!-- TODO: have the user who modified this last here.. -->
-                <td><i style="float:right;"><small>administrator@kingpim.se</small></i></td>
+                <td><i style="float:right;"><small>@c.ModifiedBy</small></i></td>
 
                 <td><i style="float:right;"><small>@c.Version</small></i></td>
                 @if (Model is IEnumerable<Subcategory>)

@@ -52,7 +52,8 @@ namespace KingPim.Repositories
                         AddedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
                         Published = false,
-                        Version = 1
+                        Version = 1,
+                        ModifiedBy = vm.ModifiedBy
                     };
                     ctx.Subcategories.Add(newSubcat);
                 }
@@ -68,7 +69,8 @@ namespace KingPim.Repositories
                         AddedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
                         Published = false,
-                        Version = 1
+                        Version = 1,
+                        ModifiedBy = vm.ModifiedBy
                     };
                     ctx.Subcategories.Add(newSubcat);
                 }
@@ -99,6 +101,7 @@ namespace KingPim.Repositories
                     ctxSubcategory.SubcategoryAttributeGroups = subcatAttrGroupList;
                     ctxSubcategory.UpdatedDate = DateTime.Now;
                     ctxSubcategory.Version = ctxSubcategory.Version + 1;
+                    ctxSubcategory.ModifiedBy = vm.ModifiedBy;
                 }
             }
             ctx.SaveChanges();

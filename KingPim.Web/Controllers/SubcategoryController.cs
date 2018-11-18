@@ -50,6 +50,7 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public IActionResult AddSubcategory(AddSubcategoryViewModel vm)
         {
+            vm.ModifiedBy = User.Identity.Name;
             _subcategoryRepo.AddSubcategory(vm);
             var url = Url.Action("Index", "Subcategory");
             return Json(url);

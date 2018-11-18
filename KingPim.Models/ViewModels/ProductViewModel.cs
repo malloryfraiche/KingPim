@@ -16,6 +16,7 @@ namespace KingPim.Models.ViewModels
         public DateTime AddedDate { get; set; }
         public bool Published { get; set; }
         public double Version { get; set; }
+        public string ModifiedBy { get; set; }
 
         public int SubcategoryId { get; set; }  // For 'add new product' - to save a product under a subcategory.
         public IEnumerable<Subcategory> Subcategory { get; set; }   // For 'add new product' - to get a dropdown list of the subcats for the user to choose from.

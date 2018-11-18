@@ -12,5 +12,6 @@ namespace KingPim.Models
         public DateTime AddedDate { get; set; }
         public bool Published { get; set; }
         public double Version { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }
