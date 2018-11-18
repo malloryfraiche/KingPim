@@ -74,11 +74,6 @@
                             </form>
                         </td>
                     }
-
-
-
-
-
                     @if (productAttr.Type == "predefined list")
                     {
                         <td>
@@ -88,22 +83,28 @@
                                 <select asp-for="Value" class="form-control-sm col-8" required>
                                     @if (productAttrValueRowValue != null)
                                     {
-
+                                        <option value="@productAttrValueRowValue" selected>@productAttrValueRowValue</option>
+                                        foreach (var option in productAttr.PredefinedList.PredefinedListOptions)
+                                        {
+                                            if (productAttrValueRowValue != option.Name)
+                                            {
+                                                <option value="@option.Name">@option.Name</option>
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         <option value="" disabled selected>Select...</option>
+                                        foreach (var option in productAttr.PredefinedList.PredefinedListOptions)
+                                        {
+                                            <option value="@option.Name">@option.Name</option>
+                                        }
                                     }
                                 </select>&nbsp;&nbsp;
                                 <button class="btn btn-sm" type="submit"><i>Save</i></button>
                             </form>
                         </td>
                     }
-
-
-
-
-
                 </tr>
             }
         }

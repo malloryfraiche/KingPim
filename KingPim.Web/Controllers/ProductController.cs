@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using KingPim.Infrastructure.Helpers;
 using KingPim.Models.ViewModels;
 using KingPim.Repositories;

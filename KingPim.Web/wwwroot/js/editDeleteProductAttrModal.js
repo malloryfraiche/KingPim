@@ -187,22 +187,7 @@
             }
         });
 
-
-
-
-
-
-
         
-
-        
-
-
-
-
-
-
-
         // To fill the Attribute group dropdown with data.
         $.ajax({
             url: '/AttributeGroup/GetAttributeGroupsToJson',
@@ -228,10 +213,7 @@
                 console.log(response.responseText);
             }
         });
-
-
-
-
+        
         // To POST the editProductAttrForm from the modal.
         $('#editProductAttrForm').submit(function (e) {
             e.preventDefault();
@@ -271,15 +253,6 @@
             });
         });
     });
-
-
-    
-
-
-
-
-
-
     
     // To control the data that is shown in the delete modal.
     $('#deleteProductAttrModal').on('show.bs.modal', function (event) {
@@ -291,5 +264,4 @@
         modal.find('.modal-body input').val(idRecipient);
         console.log(idRecipient);
     });
-
 });
