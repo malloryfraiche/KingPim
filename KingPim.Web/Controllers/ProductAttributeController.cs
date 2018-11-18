@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using KingPim.Models.ViewModels;
+﻿using KingPim.Models.ViewModels;
 using KingPim.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +13,6 @@ namespace KingPim.Web.Controllers
         {
             _productAttrRepo = productAttributeRepository;
         }
-
         public IActionResult Index()
         {
             var productAttributes = _productAttrRepo.GetAllProductAttributes();
@@ -25,7 +20,6 @@ namespace KingPim.Web.Controllers
             ViewBag.Title = "Product Attribute";
             return View(productAttributes);
         }
-
         [HttpPost]
         public IActionResult AddProductAttribute(AttributeGroupProductAttributeViewModel vm)
         {
@@ -33,26 +27,16 @@ namespace KingPim.Web.Controllers
             var url = Url.Action("Index", "ProductAttribute");
             return Json(url);
         }
-        
         [HttpGet]
         public IActionResult GetPredefinedListOptionsToJson()
         {
             var allPredefinedListOptions = _productAttrRepo.PredefinedListOptions;
             return Json(allPredefinedListOptions);
         }
-
         [HttpPost]
         public IActionResult DeleteProductAttribute(int productAttrId)
         {
             var deletedProductAttr = _productAttrRepo.DeleteProductAttribute(productAttrId);
-            if (deletedProductAttr != null)
-            {
-                // error - product attribute was found and not deleted for some reason.
-            }
-            else
-            {
-                // error - product attribute was not found in DB.
-            }
             return RedirectToAction(nameof(Index));
         }
     }

@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     $('select[id="typeSelectValue"]').change(function () {
         var str = "";
         $('select[id="typeSelectValue"] option:selected').each(function () {
@@ -16,7 +15,6 @@
             $('#predefinedListOptionInputDiv').hide();
         }
     });
-
     $('#addNameBtn').click(function () {
         var nameInputValue = $('#addNameInput').val();
         $('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').append("<tr><td name='PredefinedListName'><i>" + nameInputValue +
@@ -28,7 +26,6 @@
         $(this).closest('tr').remove();
         $('#addNameBtn').removeAttr('disabled');
     });
-
     $('#addToListBtn').click(function () {
         var optionsInputValue = $('#addToListInput').val();
         $('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody').append("<tr><td><i>" + optionsInputValue +
@@ -38,13 +35,10 @@
     $('#usersAddedInputOptionDiv tbody').on('click', 'button.optionsRemoveBtn', function () {
         $(this).closest('tr').remove();
     });
-
-    
     // To POST the addNewProductAttrForm.
     $('#addNewProductAttrForm').submit(function (e) {
         e.preventDefault();
         var formData = new FormData();
-
         var nameInputValue = $('#addNewProductAttrForm input[id="nameInputValue"]').val();
         formData.append('name', nameInputValue);
         var attrGroupSelectValue = $('#addNewProductAttrForm select[id="attrGroupSelectValue"]').val();
@@ -53,14 +47,11 @@
         formData.append('description', textareaValue);
         var typeSelectValue = $('#addNewProductAttrForm select[id="typeSelectValue"]').val();
         formData.append('type', typeSelectValue);
-
         var addedPredefinedListNameValue = $('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody i').text();
         formData.append('predefinedListName', addedPredefinedListNameValue);
-
         $('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody tr i').each(function () {
             formData.append('predefinedListOptionNames', $(this).text());
         });
-
         $.ajax({
             url: '/ProductAttribute/AddProductAttribute',
             type: 'POST',
@@ -77,5 +68,4 @@
             }
         });
     });
-
 });

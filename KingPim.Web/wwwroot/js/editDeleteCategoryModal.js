@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     // To control the data that is shown in the edit modal.
     $('#editModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -32,7 +31,6 @@
         });
         console.log(idRecipient);
     });
-
     // To control the data that is shown in the delete modal.
     $('#deleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);

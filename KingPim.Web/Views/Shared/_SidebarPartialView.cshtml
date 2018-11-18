@@ -7,7 +7,6 @@
                     Dashboard
                 </span>
             </a>
-
         </li>
         <li class="has-subnav">
             <a asp-controller="Category" asp-action="Index">
@@ -16,7 +15,6 @@
                     Categories
                 </span>
             </a>
-
         </li>
         <li class="has-subnav">
             <a asp-controller="Subcategory" asp-action="Index">
@@ -25,7 +23,6 @@
                     Subcategories
                 </span>
             </a>
-
         </li>
         <li class="has-subnav">
             <a asp-controller="Product" asp-action="Index">
@@ -34,7 +31,6 @@
                     Products
                 </span>
             </a>
-
         </li>
         <li>
             <a asp-controller="AttributeGroup" asp-action="Index">
@@ -52,7 +48,6 @@
                 </span>
             </a>
         </li>
-
         @if (User.IsInRole("Administrator"))
         {
             <li>
@@ -66,7 +61,6 @@
         }
 
     </ul>
-
     <ul class="logout">
         <li>
             <a asp-controller="Account" asp-action="Logout">

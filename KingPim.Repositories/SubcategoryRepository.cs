@@ -4,7 +4,6 @@ using KingPim.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace KingPim.Repositories
 {
@@ -16,15 +15,11 @@ namespace KingPim.Repositories
         {
             ctx = context;
         }
-
         public IEnumerable<Subcategory> Subcategories => ctx.Subcategories;
-
-
         public IEnumerable<Subcategory> GetAllSubcategories()
         {
             return Subcategories;
         }
-
         // CREATE and UPDATE subcategory.
         public void AddSubcategory(AddSubcategoryViewModel vm)
         {
@@ -79,10 +74,8 @@ namespace KingPim.Repositories
             {
                 var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.Id));
                 var ctxSubcatAttrGroups = ctx.SubcategoryAttributeGroups.Where(x => x.SubcategoryId == vm.Id);
-
                 // Remove the subcat attribute group connection from DB first.
                 ctx.SubcategoryAttributeGroups.RemoveRange(ctxSubcatAttrGroups);
-
                 var subcatAttrGroupList = new List<SubcategoryAttributeGroup>();
                 foreach (var attrGroupId in vm.AttributeGroupId)
                 {
@@ -93,7 +86,6 @@ namespace KingPim.Repositories
                     };
                     subcatAttrGroupList.Add(vmSubcatAttrGroup);
                 }
-                
                 if (ctxSubcategory != null)
                 {
                     ctxSubcategory.Name = vm.Name;
@@ -106,7 +98,6 @@ namespace KingPim.Repositories
             }
             ctx.SaveChanges();
         }
-
         public Subcategory DeleteSubcategory(int subcategoryId)
         {
             var ctxSubcategory = ctx.Subcategories.FirstOrDefault(s => s.Id.Equals(subcategoryId));
@@ -123,7 +114,6 @@ namespace KingPim.Repositories
             }
             return ctxSubcategory;
         }
-
         public void PublishSubcategory(AddSubcategoryViewModel vm)
         {
             var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.Id));
@@ -139,7 +129,6 @@ namespace KingPim.Repositories
                 else
                 {
                     ctxSubcategory.Published = false;
-
                     // If all the category subcategories have false (unpublished) for all subcats, then the category needs to also be false (unpublished).
                     if (ctxCategory.Subcategories.Count(x => x.Published) == 0)
                     {
@@ -147,7 +136,6 @@ namespace KingPim.Repositories
                     }
                 }
                 ctx.SaveChanges();
-
                 // The products in the subcategory.
                 var ctxProducts = ctx.Products.Where(p => p.SubcategoryId.Equals(vm.Id));
                 foreach (var prod in ctxProducts)
@@ -165,16 +153,6 @@ namespace KingPim.Repositories
                 }
                 ctx.SaveChanges();
             }
-            
         }
-
-        //public IEnumerable<Subcategory> Search(string searchString)
-        //{
-        //    IEnumerable<Subcategory> subcategories;
-
-        //    // search logic here.
-
-        //    return subcategories;
-        //}
     }
 }

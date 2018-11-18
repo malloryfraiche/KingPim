@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     var attrGroups = [];
     function fillAttrGroupDropdown(idRecipient) {
         // To fill the attrGroup dropdown with data from the AttributeGroup DB.
@@ -8,20 +7,8 @@
             type: 'GET',
             dataType: 'json',
             success: function (response) {
-
-                //$('#allAttrGroupsTableBody').show();
-
                 attrGroups = response;
-
                 if (response !== null) {
-
-                    console.log('subcat attrGroups: ');
-                    console.log(subcatAttrGroups);  // data in the table (this has all subcatAttrGroups from DB).
-                    console.log('attrGroups: ');
-                    console.log(attrGroups);    // all data from attrGroup DB.
-
-                    //$('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>Please select...</option>");
-
                     $.each(attrGroups, function (i, attrGroup) {
                         var added = false;
                         $.each(subcatAttrGroups, function (j, subcatAttrGroup) {
@@ -32,7 +19,6 @@
                             }
                         });
                         if (!added) {
-                            //$('#editSubcatForm select.attrGroupsSelect').append("<option value='" + attrGroup.id + "' data-name='" + attrGroup.name + "'>" + attrGroup.name + "</option>");
                             var tr = [
                                 "<tr data-subcategoryattributegroupattributegroupid='" + attrGroup.id +
                                 "'data-subcategoryattributegroupsubcategoryid='" + idRecipient +
@@ -43,15 +29,9 @@
                             $('#allAttrGroupsTableBody').append(tr.join(''));
                         }
                     });
-                    
-
-
-
-
                 }
                 else {
                     console.log('In the success function but there is no data to present');
-                    //$('#editSubcatForm select.attrGroupsSelect').append("<option value='' selected>There are no attribute groups to select from.</option>");
                 }
             },
             error: function (response) {
@@ -59,7 +39,6 @@
             }
         });
     }
-
     var subcatAttrGroups = [];
     function fillSubcatAttrGroupTable(idRecipient) {
         // To fill the subcategories attribute groups table with data from the SubcategoryAttributeGroup DB.
@@ -72,7 +51,6 @@
                 if (response !== null) {
                     $.each(response, function (r, subcatAttrGroup) {
                         if (idRecipient === subcatAttrGroup.subcategoryId) {
-                            //console.log(subcatAttrGroup);
                             // Add the connected rows to the subcatAttrGroup table.
                             var tr = [
                                 "<tr data-subcategoryattributegroupattributegroupid='" + subcatAttrGroup.attributeGroupId +
@@ -88,32 +66,19 @@
                 else {
                     console.log('In the success function but there is no data to present');
                 }
-
-
                 // To fill the dropdown list after the table loaded..
-                //// Testing a table instead of a dropdown....can rename this later if works...
                 fillAttrGroupDropdown(idRecipient);
-
             },
             error: function (response) {
                 console.log(response.responseText);
             }
         });
     }
-
-
-
-
-
-
-
     // To add the desired AttrGroup to the list to left.
     $('#allAttrGroupsTableBody').on('click', 'button.editModalAddAttrGroupBtn', function () {
         var id = $(this).closest('tr').data('subcategoryattributegroupattributegroupid');
         var name = $(this).closest('tr').data('subcategoryattributegroupattributegroupname');
-
         var subCatId = $(this).closest('tr').data('subcategoryattributegroupsubcategoryid');
-
         $($(this).closest('tr')).remove();
         var addedTr = [
             "<tr data-subcategoryattributegroupattributegroupid='" + id +
@@ -122,17 +87,13 @@
             "'><td><small><i>" + name +
             "</i></small><button type='button' class='close editModalRemoveAttrGroupBtn' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
         ];
-        //console.log('******************************* Added: ' + name);
         $('#subcategoriesAttrGroupsTableBody').append(addedTr.join(''));
     });
-
     // To remove the added AttrGroup off of the list.
     $('#subcategoriesAttrGroupsTableBody').on('click', 'button.editModalRemoveAttrGroupBtn', function () {
         var addedOrAlreadyThereId = $(this).closest('tr').data('subcategoryattributegroupattributegroupid');
         var addedOrAlreadyThereName = $(this).closest('tr').data('subcategoryattributegroupattributegroupname');
-
         var subCatId = $(this).closest('tr').data('subcategoryattributegroupsubcategoryid');
-
         $($(this).closest('tr')).remove();
         $('#allAttrGroupsTableBody').append(
             "<tr data-subcategoryattributegroupattributegroupid='" + addedOrAlreadyThereId +
@@ -141,30 +102,16 @@
             "'><td><small><i>" + addedOrAlreadyThereName +
             "</i></small><button type='button' class='btn btn-sm btn-outline-success editModalAddAttrGroupBtn' style='float:right;'>Add</button></td></tr>");
     });
-
-
-
-
-
-
     // To control the data that is shown in the edit modal.
     $('#editSubcategoryModal').on('show.bs.modal', function (event) {
-
-        /////// empty table and dropdown
         $('#subcategoriesAttrGroupsTableBody').empty();
-        //$('select.attrGroupsSelect').empty();
         $('#allAttrGroupsTableBody').empty();
-
-
         var button = $(event.relatedTarget);
         var idRecipient = button.data('id');
         var nameRecipient = button.data('name');
         var modal = $(this);
         modal.find('.modal-body input').val(nameRecipient);
-
         $('#subcategoriesAttrGroupsTableBody').empty();
-        //$('#editSubcatForm select.attrGroupsSelect').empty();
-
         // To fill the category dropdown with data from the Category DB.
         $.ajax({
             url: '/Category/GetCategoriesToJson',
@@ -172,7 +119,6 @@
             dataType: 'json',
             success: function (response) {
                 if (response !== null) {
-                    //console.log(response);
                     var length = response.length;
                     $('#editSubcatForm select.categorySelect').empty();
                     $('#editSubcatForm select.categorySelect').append("<option value='' selected>Please select...</option>");
@@ -190,34 +136,7 @@
                 console.log(response.responseText);
             }
         });
-
         fillSubcatAttrGroupTable(idRecipient);
-        
-
-        
-        //$('#addAttrGroupSubcatEditModalBtn').click(function () {
-        //    $('#addAttrGroupSubcatEditModalBtn').attr('disabled', true);
-        //    var selectedValId = $('#editSubcatForm select.attrGroupsSelect').val();
-        //    var selectedValName = $('#editSubcatForm select.attrGroupsSelect option:selected').text();
-        //    var tr = [
-        //        "<tr data-subcategoryattributegroupattributegroupid='" + selectedValId +
-        //        "'data-subcategoryattributegroupsubcategoryid=" + idRecipient +
-        //        "><td><small><i>" + selectedValName +
-        //        "</i></small><button type='button' class='close' style='float:right;'><span aria-hidden='true'>&times;</span></button></td></tr>"
-        //    ];
-        //    $('#subcategoriesAttrGroupsTableBody').append(tr);
-        //    $('#editSubcatForm select.attrGroupsSelect option:selected').remove();
-        //});
-
-        //$('#editSubcatForm select.attrGroupsSelect').change(function () {
-        //    var value = $(this).val();
-        //    if (value > 0) {
-        //        $('#addAttrGroupSubcatEditModalBtn').attr('disabled', false);
-        //    } else {
-        //        $('#addAttrGroupSubcatEditModalBtn').attr('disabled', true);
-        //    }
-        //});
-
         // To POST the editSubcatForm from the modal.
         $('#editSubcatForm').submit(function (e) {
             e.preventDefault();
@@ -247,12 +166,6 @@
             });
         });
     });
-
-
-
-
-
-
     // To control the data that is shown in the delete modal.
     $('#deleteModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);

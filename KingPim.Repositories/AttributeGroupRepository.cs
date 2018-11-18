@@ -1,10 +1,8 @@
 ﻿using KingPim.Data.DataAccess;
 using KingPim.Models;
 using KingPim.Models.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace KingPim.Repositories
 {
@@ -35,23 +33,6 @@ namespace KingPim.Repositories
                     ProductAttributes = null
                 };
                 ctx.AttributeGroups.Add(attrGroup);
-
-                //var matchingAttributeGroupName = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Contains(vm.Name));
-                //if (matchingAttributeGroupName != null)
-                //{
-                //    var attrGroup = new AttributeGroup
-                //    {
-                //        Name = vm.Name,
-                //        Description = vm.Description,
-                //        ProductAttributes = null
-                //    };
-                //    ctx.AttributeGroups.Add(attrGroup);
-                //}
-                //else
-                //{
-                //    // TODO: error message because you are trying to add an Attribute Group with same name that already exsists. 
-                //}
-                
             }
             else       // Update
             {
@@ -59,7 +40,6 @@ namespace KingPim.Repositories
                 if (ctxAttributeGroup != null)
                 {
                     ctxAttributeGroup.Name = vm.Name;
-                    //ctxAttributeGroup.SubcategoryId = vm.SubcategoryId;
                     ctxAttributeGroup.Description = vm.Description;
                 }
             }

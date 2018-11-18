@@ -1,12 +1,8 @@
-﻿@* AddNewCategoryVC *@
-
-@model AddCategoryViewModel
-
+﻿@model AddCategoryViewModel
 <div class="form-group px-5">
     <h4><i>Add new category</i></h4>
 </div>
 <br />
-
 <form asp-controller="Category" asp-action="AddCategory" class="form-horizontal" id="addNewCatForm">
     <input type="hidden" asp-for="ModifiedBy" />
     <div class="form-group">

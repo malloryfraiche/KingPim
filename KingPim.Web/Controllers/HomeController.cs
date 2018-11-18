@@ -20,7 +20,6 @@ namespace KingPim.Web.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -38,7 +37,6 @@ namespace KingPim.Web.Controllers
                 return View();
             }
         }
-        
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
@@ -58,7 +56,6 @@ namespace KingPim.Web.Controllers
             // If not correct, we are returned to the 'login page'.
             return RedirectToAction("Index");
         }
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(LoginViewModel vm)
@@ -87,7 +84,6 @@ namespace KingPim.Web.Controllers
             TempData["CheckYourEmail"] = "Your reset password link was sent to your email.";
             return RedirectToAction(nameof(Index));            
         }
-
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(string userId, string code)
         {
@@ -100,7 +96,6 @@ namespace KingPim.Web.Controllers
             };
             return View(model);
         }
-        
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(LoginViewModel vm)
