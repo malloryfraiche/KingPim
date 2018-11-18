@@ -17,10 +17,9 @@
         }
     });
 
-
     $('#addNameBtn').click(function () {
         var nameInputValue = $('#addNameInput').val();
-        $('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').append("<tr><td><i>" + nameInputValue +
+        $('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody').append("<tr><td name='PredefinedListName'><i>" + nameInputValue +
             "</i><button type='button' class='btn btn-sm btn-outline-danger nameRemoveBtn' style='float:right;'>Remove</button></td></tr>");
         $('#addNameInput').val('');
         $('#addNameBtn').attr('disabled', 'disabled');
@@ -40,12 +39,7 @@
         $(this).closest('tr').remove();
     });
 
-
-
-
-
-
-
+    
     // To POST the addNewProductAttrForm.
     $('#addNewProductAttrForm').submit(function (e) {
         e.preventDefault();
@@ -57,11 +51,15 @@
         formData.append('attributeGroupId', attrGroupSelectValue);
         var textareaValue = $('#addNewProductAttrForm textarea').val();
         formData.append('description', textareaValue);
+        var typeSelectValue = $('#addNewProductAttrForm select[id="typeSelectValue"]').val();
+        formData.append('type', typeSelectValue);
 
+        var addedPredefinedListNameValue = $('#usersAddedInputOptionDiv table[id="addedNameTable"] tbody i').text();
+        formData.append('predefinedListName', addedPredefinedListNameValue);
 
-        //$('#addNewSubcatForm table[id="addedAttrGroupsTableId"] tr').each(function () {
-        //    formData.append('attributegroupid', $(this).data('attributegroupid'));
-        //});
+        $('#usersAddedInputOptionDiv table[id="addedOptionsTable"] tbody tr i').each(function () {
+            formData.append('predefinedListOptionNames', $(this).text());
+        });
 
         $.ajax({
             url: '/ProductAttribute/AddProductAttribute',

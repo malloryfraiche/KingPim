@@ -45,7 +45,7 @@ namespace KingPim.Web.Components
             foreach (var subcatAttrGroup in subcategoryAttributeGroups)
             {
                 // if the subcatId matches the products subcategory id, push the subcategory attribute group row to the list...
-                if (subcatAttrGroup.SubcategoryId== productsSubcategoryId)
+                if (subcatAttrGroup.SubcategoryId == productsSubcategoryId)
                 {
                     theCardsSubcategoryAttributeGroups.Add(subcatAttrGroup);
                 }
