@@ -49,6 +49,7 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public IActionResult AddCategory(AddCategoryViewModel vm)
         {
+            vm.ModifiedBy = User.Identity.Name;
             _categoryRepo.AddCategory(vm);
             return RedirectToAction(nameof(Index));
         }
@@ -56,6 +57,7 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public IActionResult EditCategory(AddCategoryViewModel vm)
         {
+            vm.ModifiedBy = User.Identity.Name;
             _categoryRepo.AddCategory(vm);
             var url = Url.Action("Index", "Category");
             return Json(url);

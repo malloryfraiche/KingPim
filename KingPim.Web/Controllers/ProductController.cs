@@ -38,6 +38,7 @@ namespace KingPim.Web.Controllers
         [HttpPost]
         public IActionResult AddProduct(ProductViewModel vm)
         {
+            vm.ModifiedBy = User.Identity.Name;
             _productRepo.AddProduct(vm);
             return RedirectToAction(nameof(Index));
         }

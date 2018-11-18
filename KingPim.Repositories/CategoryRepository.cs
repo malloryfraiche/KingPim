@@ -20,8 +20,6 @@ namespace KingPim.Repositories
 
         public IEnumerable<Category> Categories => ctx.Categories;
 
-        //public IEnumerable<IdentityRole> Roles => ctx.Roles;
-
         public IEnumerable<Category> GetAllCategories()
         {
             return Categories;
@@ -30,7 +28,6 @@ namespace KingPim.Repositories
         // CREATE and UPDATE category.
         public void AddCategory(AddCategoryViewModel vm)
         {
-            
             if (vm.Id == 0)     // Create
             {
                 var newCat = new Category
@@ -40,7 +37,8 @@ namespace KingPim.Repositories
                     AddedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Published = false,
-                    Version = 1
+                    Version = 1,
+                    ModifiedBy = vm.ModifiedBy
                 };
                 ctx.Categories.Add(newCat);
             }
@@ -52,6 +50,7 @@ namespace KingPim.Repositories
                     ctxCategory.Name = vm.Name;
                     ctxCategory.UpdatedDate = DateTime.Now;
                     ctxCategory.Version = ctxCategory.Version + 1;
+                    ctxCategory.ModifiedBy = vm.ModifiedBy;
                 }
             }
             ctx.SaveChanges();
