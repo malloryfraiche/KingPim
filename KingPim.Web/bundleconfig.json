@@ -1,5 +1,5 @@
+// All the JS files used under 'inputFiles', bundled to the one 'outputFileName'.
 [
-  // All the JS files used under 'inputFiles', bundled to the one 'outputFileName'.
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
@@ -7,14 +7,19 @@
       "node_modules/popper.js/dist/umd/popper.min.js",
       "node_modules/bootstrap/dist/js/bootstrap.min.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/customBundle.js",
+    "inputFiles": [
+      "wwwroot/js/addNewSubcategory.js",
+      "wwwroot/js/addProductAttribute.js",
+      "wwwroot/js/attrGroupHelper.js",
+      "wwwroot/js/editDeleteAttrGroupModal.js",
+      "wwwroot/js/editDeleteCategoryModal.js",
+      "wwwroot/js/editDeleteProductAttrModal.js",
+      "wwwroot/js/editDeleteProductModal.js",
+      "wwwroot/js/editDeleteSubcategoryModal.js",
+      "wwwroot/js/infoTablePartialView.js"
+    ]
   }
-
-  //// Add all css files here to bundle at the end..
-
-  //{
-  //  "outputFileName": "",
-  //  "inputFiles": [
-  //    ""
-  //  ]
-  //}
 ]
