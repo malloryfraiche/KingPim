@@ -122,13 +122,28 @@ namespace KingPim.Repositories
         public ProductAttribute DeleteProductAttribute(int productAttrId)
         {
             var ctxProductAttr = ctx.ProductAttributes.FirstOrDefault(pa => pa.Id.Equals(productAttrId));
+            var ctxPredefinedList = ctx.PredefinedLists.FirstOrDefault(pl => pl.Id.Equals(ctxProductAttr.PredefinedListId));
+            var ctxPredefinedListOptions = ctx.PredefinedListOptions;
+            // Delete the ProductAttributes connection to PredefinedListOptions.
+            foreach (var option in ctxPredefinedListOptions)
+            {
+                if (ctxPredefinedList.Id == option.PredefinedListId)
+                {
+                    ctx.PredefinedListOptions.Remove(option);
+                }
+            }
+            // Delete the ProductAttributes connection to PredefinedList.
+            if (ctxPredefinedList != null)
+            {
+                ctx.PredefinedLists.Remove(ctxPredefinedList);
+            }
+            // Delete the ProductAttribute.
             if (ctxProductAttr != null)
             {
                 ctx.ProductAttributes.Remove(ctxProductAttr);
-                ctx.SaveChanges();
             }
+            ctx.SaveChanges();
             return ctxProductAttr;
         }
-
     }
 }
